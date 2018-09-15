@@ -26,7 +26,7 @@ Meeting times: Fridays @ Disco, 2:30 until whatever time <br />
   - [Codecademy HTML/CSS](https://www.codecademy.com/catalog/language/html-css) also probably has JS/Angular but I haven't checked
     
 ##### Programming reference materials: 
-  - [Animate.css](https://daneden.github.io/animate.css/mate.css/): visualizer for all animation effects
+  - [Animate.css](https://daneden.github.io/animate.css/): visualizer for all animation effects
   - [FontAwesome](https://fontawesome.com/): lots of free, sleek icons
   - [Bootstrap 4.0 Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/): detailed explanations of bootstrap
   - [Bootstrap 4.0 Cheat Sheet](https://hackerthemes.com/bootstrap-cheatsheet/): Has all Bootstrap components, simple as copy/pasting
