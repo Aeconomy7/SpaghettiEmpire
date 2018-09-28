@@ -38,7 +38,8 @@ body, html {
 
 .spaghettiempire {
   padding-top:10rem;
-  font-size: 14rem;
+  /*font-size: 14rem;*/
+  font-size: calc(8vw + 8vh);
   font-family: New Century Schoolbook, serif;
   font-weight: 100;
   -webkit-text-stroke: 3px black;
@@ -61,5 +62,5 @@ body, html {
     text-align: center;
     text-decoration: none;
     display: inline;
-    font-size: 6rem;
+    font-size: calc(4vw + 4vh + 2vmin);
 }
