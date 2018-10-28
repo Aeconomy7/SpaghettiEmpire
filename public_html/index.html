@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html>
-        <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-        </head>
-        <body>
-               <div class="card">
-                <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">
-                              Testing testing making sure stuff works whoop
-                        </p>
-                <a href="#!" class="btn btn-primary">I do nothing whoop</a>
-                </div>
-               </div>
-                
-        </body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="/custom_src/js/routing.js"></script>
+  </head>
+  <!-- ng-app class = angular will use this -->
+  <body ng-app="switchApp" style="background-color:#52688c;">
+    <!-- Sample Navbar for switching pages -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="margin-bottom:1em">
+       <ul class="navbar-nav">
+         <li class="nav-item">
+           <a class="nav-link" href="/public_html/">
+             <button type="button" class="btn navbutton" style="margin:.25em">RESET</button>
+           </a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/public_html/#menu">
+             <button type="button" class="btn navbutton" style="margin:.25em">Menu</button>
+           </a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/public_html/#games">
+             <button type="button" class="btn navbutton" style="margin:.25em">Games</button>
+           </a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link" href="/public_html/#loyalty">
+             <button type="button" class="btn navbutton" style="margin:.25em">Loyalty</button>
+           </a>
+         </li>
+       </ul>
+    </nav>
+
+   <!-- Inject pages here -->
+   <div class="container mt-2 text-center">
+     <h4>Injected Content</h4>
+     <div class="card bg-secondary" style="border:solid">
+       <div class="card-body">
+         <div ng-view>
+         </div>
+       </div>
+     </div>
+   </div>
+   
+  </body>
 </html>
