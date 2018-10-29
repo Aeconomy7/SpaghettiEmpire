@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="/spaghetti/custom_src/js/routing.js"></script>
+  </head>
+  <!-- ng-app class = angular will use this -->
+  <body ng-app="switchApp">
+    <!-- top navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #fff;">
+        <a class="navbar-brand" href="public_html\dashboard.html">Spaghetti Empire</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="#">Staff Login</a>
+            <a class="nav-item nav-link" href="#">Refill</a>
+            <a class="nav-item nav-link" href="#">Call Server</a>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="/spaghetti/public_html/#menu">Menu</a><br>
+                <a href="/spaghetti/public_html/#games">Games</a><br>
+                <a href="/spaghetti/public_html/#loyalty">Loyalty</a>
+            </div>
+            <div class="col-md-9">
+              <!-- Inject pages here -->
+              <div class="container mt-2 text-center">
+                <h4>Injected Content</h4>
+                <div class="card bg-secondary" style="border:solid">
+                  <div class="card-body">
+                    <div ng-view>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  </body>
+</html>
