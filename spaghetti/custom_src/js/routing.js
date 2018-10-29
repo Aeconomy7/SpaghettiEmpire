@@ -72,6 +72,10 @@ app.controller('gamesController', function($scope) {
   $scope.pageName = "Games Page";
 });
 
+app.controller('gamesConnectFourController', function($scope) {
+  $scope.pageName = "Connect Four Page";
+});
+
 app.controller('loyaltyController', function($scope) {
   $scope.pageName = "Loyalty Page";
 });
