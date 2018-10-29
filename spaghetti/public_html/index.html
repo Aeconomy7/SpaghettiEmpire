@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/spaghetti/custom_src/css/custom.css">
+    <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -15,43 +17,47 @@
     <script src="/spaghetti/custom_src/js/routing.js"></script>
   </head>
   <!-- ng-app class = angular will use this -->
-  <body ng-app="switchApp" style="background-color:#52688c;">
-    <!-- Sample Navbar for switching pages -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="margin-bottom:1em">
-       <ul class="navbar-nav">
-         <li class="nav-item">
-           <a class="nav-link" href="/spaghetti/public_html/">
-             <button type="button" class="btn navbutton" style="margin:.25em">RESET</button>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="/spaghetti/public_html/#menu">
-             <button type="button" class="btn navbutton" style="margin:.25em">Menu</button>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="/spaghetti/public_html/#games">
-             <button type="button" class="btn navbutton" style="margin:.25em">Games</button>
-           </a>
-         </li>
-         <li class="nav-item">
-           <a class="nav-link" href="/spaghetti/public_html/#loyalty">
-             <button type="button" class="btn navbutton" style="margin:.25em">Loyalty</button>
-           </a>
-         </li>
-       </ul>
-    </nav>
+  <body ng-app="switchApp">
+    <!-- top navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #fff;">
+        <a class="navbar-brand" href="public_html\dashboard.html"><img src="spaghetti\custom_src\img\Logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Spaghetti Empire</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="/spaghetti/public_html/#staff">Staff Login</a>
+            <a class="nav-item nav-link" href="#">Refill</a>
+            <a class="nav-item nav-link" href="#">Call Server</a>
+          </div>
+        </div>
+      </nav>
 
-   <!-- Inject pages here -->
-   <div class="container mt-2 text-center">
-     <h4>Injected Content</h4>
-     <div class="card bg-secondary" style="border:solid">
-       <div class="card-body">
-         <div ng-view>
-         </div>
-       </div>
-     </div>
-   </div>
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3" aria-label="side menu">
+              <nav class="nav flex-column">
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#menu">Menu</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#games">Games</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#loyalty">Loyalty</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#your_order">Your Order</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#your_bill">Your Bill</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#template">Template</a>
+              </nav>
+            </div>
+            <div class="col-md-9">
+              <!-- Inject pages here -->
+              <div class="container mt-2 text-center">
+                <h4>Injected Content</h4>
+                <div class="card bg-secondary" style="border:solid">
+                  <div class="card-body">
+                    <div ng-view>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
   </body>
 </html>
