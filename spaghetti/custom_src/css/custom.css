@@ -1,0 +1,6 @@
+/*left side menu buttons (i.e. menu, games, loyalty, your order, your bill)*/
+.btn .btn-menu {
+  color: white;
+  background-color: #B01E16;
+  border-color: #B01E16;
+}
