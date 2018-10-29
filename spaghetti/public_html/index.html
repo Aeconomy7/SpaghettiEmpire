@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/spaghetti/custom_src/css/custom.css">
     <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -19,7 +20,7 @@
   <body ng-app="switchApp">
     <!-- top navbar -->
     <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #fff;">
-        <a class="navbar-brand" href="public_html\dashboard.html">Spaghetti Empire</a>
+        <a class="navbar-brand" href="public_html\dashboard.html"><img src="spaghetti\custom_src\img\Logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Spaghetti Empire</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,13 +35,15 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
-                <a href="/spaghetti/public_html/#menu">Menu</a><br>
-                <a href="/spaghetti/public_html/#games">Games</a><br>
-                <a href="/spaghetti/public_html/#loyalty">Loyalty</a><br>
-                <a href="/spaghetti/public_html/#your_order">Your Order</a><br>
-                <a href="/spaghetti/public_html/#your_bill">Your Bill</a><br>
-                <a href="/spaghetti/public_html/#template">Template Test</a>
+            <div class="col-md-3" aria-label="side menu">
+              <nav class="nav flex-column">
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#menu">Menu</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#games">Games</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#loyalty">Loyalty</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#your_order">Your Order</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#your_bill">Your Bill</a>
+                <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#template">Template</a>
+              </nav>
             </div>
             <div class="col-md-9">
               <!-- Inject pages here -->
