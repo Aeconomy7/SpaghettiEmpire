@@ -24,8 +24,8 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'gamesController'
       })
 
-              .when('/games/connect_four',{
-                templateURL: '/spaghetti/public_html/injected_pages/games/connect_four.html',
+              .when('/games/connect_four', {
+                templateUrl: '/spaghetti/public_html/injected_pages/games/connect_four.html',
                 controller: 'gamesConnectFourController'
               })
 
