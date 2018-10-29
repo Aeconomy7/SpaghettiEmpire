@@ -24,6 +24,11 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'gamesController'
       })
 
+              .when('/games/connect_four',{
+                templateURL: '/spaghetti/public_html/injected_pages/games/connect_four.html',
+                controller: 'gamesConnectFourController'
+              })
+
       // Loyalty routing and its subpages
       .when('/loyalty', {
         templateUrl: '/spaghetti/public_html/injected_pages/loyalty/loyalty.html',
