@@ -1,3 +1,10 @@
+body{
+  background-image: url("../img/textures/dark_red_silk.JPG");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+}
+
 /*left side menu buttons (i.e. menu, games, loyalty, your order, your bill)*/
 .menu {
   color: #B01E16;
