@@ -1,3 +1,12 @@
+<?php
+  $username = "sc00by",
+  $password = "",
+  $host = "localhost",
+  $connector = mysql_connect($host, $username, $password)
+    or die("Unable to connect to MySQL...");
+  $selected = mysql_select_db("spaghetti", $connector)
+    or die("Unable to connect to DB...");
+?>
 <!DOCTYPE html>
 <html>
   <head>
