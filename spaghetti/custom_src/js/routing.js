@@ -64,28 +64,28 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'menuController'
       })
               .when('/menu/appetizers', {
-                templateUrl: '/spaghetti/public_html/injected_pages/menu/appetizers.html',
+                templateUrl: '/spaghetti/public_html/injected_pages/menu/menu_section.html',
                 controller: 'menuAppetizersController'
               })
 
               .when('/menu/drinks', {
-                templateUrl: '/spaghetti/public_html/injected_pages/menu/drinks.html',
-                controller: 'menuAppetizersController'
+                templateUrl: '/spaghetti/public_html/injected_pages/menu/menu_section.html',
+                controller: 'menuDrinksController'
               })
 
               .when('/menu/entrees', {
-                templateUrl: '/spaghetti/public_html/injected_pages/menu/entrees.html',
-                controller: 'menuAppetizersController'
+                templateUrl: '/spaghetti/public_html/injected_pages/menu/menu_section.html',
+                controller: 'menuEntreesController'
               })
 
               .when('/menu/desserts', {
-                templateUrl: '/spaghetti/public_html/injected_pages/menu/desserts.html',
-                controller: 'menuAppetizersController'
+                templateUrl: '/spaghetti/public_html/injected_pages/menu/menu_section.html',
+                controller: 'menuDessertsController'
               })
 
               .when('/menu/kids_menu', {
-                templateUrl: '/spaghetti/public_html/injected_pages/menu/kids_menu.html',
-                controller: 'menuAppetizersController'
+                templateUrl: '/spaghetti/public_html/injected_pages/menu/menu_section.html',
+                controller: 'menuKidsController'
               })
 
       // Games routing and its subpages
@@ -171,11 +171,50 @@ app.controller('staffController', function($scope) {
 });
 
 app.controller('menuController', function($scope) {
-  $scope.pageName = "Menu Page";
+  $scope.pageName = "Menu";
 });
 
+// Will load array from DB eventually
 app.controller('menuAppetizersController', function($scope) {
-  $scope.pageName = "Appetizers Page";
+  $scope.pageName = "Appetizers";
+  $scope.items = [
+    {name: 'Fried Meatballs', description: 'Meaty bally bois', price: 5.00, image: '/path/to/image.jpg', info: 'Contains meatballz'},
+    {name: 'Tomato Soup', description: 'delicious soup', price: 7.50, image: '/path/to/image2.jpg', info: 'Contains tomatoz'},
+    {name: 'Bruschetta', description: 'vegetable kind of topping stuff', price: 6.25, image: '/path/to/image3.jpg', info: 'Contains vegetalz'},
+  ]
+});
+
+app.controller('menuDrinksController', function($scope) {
+  $scope.pageName = "Drinks";
+  $scope.items = [
+    {name: 'Water', description: 'yum yum h20', price: 0.00, image: '/path/to/image.jpg', info: 'Contains water'},
+    {name: 'Soda', description: 'one carbonated lad', price: 2.50, image: '/path/to/image2.jpg', info: 'Contains carbonation'},
+    {name: 'Tea', description: 'leaf water wow', price: 6.25, image: '/path/to/image3.jpg', info: 'Contains leafy lads'},
+  ]
+});
+
+app.controller('menuEntreesController', function($scope) {
+  $scope.pageName = "Entrees";
+  $scope.items = [
+    {name: 'Spaghetti', description: 'noodle and sauce woot', price: 10.00, image: '/path/to/image.jpg', info: 'Contains spaghetti'},
+    {name: 'Big Spaghetti', description: 'i am in awe at the size of it', price: 12.50, image: '/path/to/image2.jpg', info: 'Contains an absolute unit'}
+  ]
+});
+
+app.controller('menuDessertsController', function($scope) {
+  $scope.pageName = "Desserts";
+  $scope.items = [
+    {name: 'Spaghetti Ice Cream', description: 'lmao wtf', price: 5.00, image: '/path/to/image.jpg', info: 'Contains spaghetti ice cream'},
+    {name: 'Meatball Pie', description: 'nasty af', price: 7.50, image: '/path/to/image2.jpg', info: 'Contains meatballz'},
+
+  ]
+});
+
+app.controller('menuKidsController', function($scope) {
+  $scope.pageName = "Kid's Menu";
+  $scope.items = [
+    {name: 'Tendies', description: 'reeeeeeee', price: 7.00, image: '/path/to/image.jpg', info: 'Contains reeeeeeee'},
+  ]
 });
 
 app.controller('gamesController', function($scope) {
