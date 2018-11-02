@@ -1,31 +1,7 @@
 <html lang="en-US">
-  <head>
-    <style>
-    .block {
-    text-align: center;
-    vertical-align: middle;
-}
-.circle {
-    background: white;
-    border-radius: 100px;
-    color: black;
-    height: 100px;
-    font-weight: bold;
-    width: 100px;
-    display: table;
-    margin: 20px auto;
-}
-.circle p {
-    vertical-align: middle;
-    display: table-cell;
-}
-  </style>
-
-  </head>
-<!-- test -->
- <body style="background-color:#52688c">
+ <body>
    <h1 class="text-center">Waitstaff Dashboard</h1>
-   <div style="border: solid" class="container mt-2">
+   <div class="container mt-2">
      <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
 
        <!--This container is going to fit our refill and help request stuff
@@ -43,123 +19,155 @@
        <!-- This container holds all 16 tables and whatnot -->
        <div class="container">
           <div class="row">
-              <div class="col-md-3 block">
-                <button type="button" class="btn btn-outline-dark">
+              <div class="col-md-3 block-align">
+                <button type="button" class="btn btn-outline-dark" id="myBtn">
                   <div class="circle">
                       <p>Table 1</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 2</p>
                   </div>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 3</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 4</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 5</p>
                   </div>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 6</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 7</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 8</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 9</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 10</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 11</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 12</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 13</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 14</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 15</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block">
+              <div class="col-md-3 block-align" id="myBtn">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 16</p>
                   </div>
                   </button>
               </div>
-
           </div>
         </div>
 
-
+        <!-- The Modal -->
+        <div id="myModal" class="modal row">
+            <!-- Modal content -->
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <p>Hi folks, we have a modal.</p>
+            </div>
+        </div>
 
      </div>
    </div>
+   <script >// Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+                modal.style.display = "none";
+        }
+    }
+</script>
  </body>
 </html>
