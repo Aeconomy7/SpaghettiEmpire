@@ -31,8 +31,8 @@
   <!-- ng-app class = angular will use this -->
   <body ng-app="switchApp">
     <!-- top navbar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #fff;">
-        <a class="navbar-brand" href="index.html"><img src="/spaghetti/custom_src/img/content/SpaghetLogo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Spaghetti Empire</a>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light fixed-menu">
+        <a class="navbar-brand" href="index.html"><img src="/spaghetti/custom_src/img/content/SpaghetLogo.jpg" width="30" height="30" class="d-inline-block align-top" alt=""> Spaghetti Empire<br><i class="tag-line">Imagine the Pastabilities</i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,10 +44,9 @@
           </div>
         </div>
     </nav>
-    <hr style="height:1px; background-color: #CE9E39; color: ##CE9E39">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3" aria-label="side menu">
+            <div class="col-md-3 fixed-menu" aria-label="side menu">
               <nav class="navbar-nav flex-column full-height">
                 <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#menu">Menu</a>
                 <a class="nav-link btn menu" role="button" href="/spaghetti/public_html/#games">Games</a>
@@ -60,8 +59,7 @@
             <div class="col-md-9">
               <!-- Inject pages here -->
               <div class="container mt-2 text-center">
-                <h4>Injected Content</h4>
-                <div class="card bg-secondary" style="border:solid">
+                <div class="card">
                   <div class="card-body">
                     <div ng-view>
                     </div>
