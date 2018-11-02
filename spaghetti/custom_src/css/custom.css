@@ -5,21 +5,37 @@ body{
   background-size: cover;
 }
 
+.tag-line {
+  font-size: 14px;
+}
+/*top menu and side menu*/
+.fixed-menu {
+  background-color: #7b7b7b;
+  color: #f0ebd7;
+}
+
 /*left side menu buttons (i.e. menu, games, loyalty, your order, your bill)*/
 .menu {
   color: #B01E16;
-  background-color: white;
+  background-color: #f0ebd7;
   border-color: #B01E16;
+  font-size: 20px;
+  font-weight: bold;
   margin-top: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .navbar-light .navbar-nav .nav-link{
-  color: #B01E16;
-  font-weight: bold;
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
 }
 
+.card {
+  background-color: #f0ebd7;
+  border-color: #B01E16;
+}
 a {
   font-size: 1 rem;
 }
@@ -28,6 +44,16 @@ a:hover {
   color: #b01e16;
 }
 
-.full-height {
-  height: 100%;
+.btn-page {
+  border-color: #7b7b7b;
+  color: #b01e16;
+  margin: 5px;
+}
+
+.btn-page h3{
+    font-size: 16px;
+}
+
+.btn-page:hover {
+  border-color:#b01e16;
 }
