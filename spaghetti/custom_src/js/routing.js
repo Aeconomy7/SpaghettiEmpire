@@ -10,51 +10,51 @@ app.config(function($routeProvider, $locationProvider) {
 
               .when('/staff/manager', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/manager.html',
-                controller: 'staffController'
+                controller: 'managerController'
               })
                     .when('/staff/manager/modify_menu', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/modify_menu.html',
-                      controller: 'staffController'
+                      controller: 'managerMenuController'
                     })
 
                     .when('/staff/manager/modify_loyalty', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/modify_loyalty.html',
-                      controller: 'staffController'
+                      controller: 'managerLoyaltyController'
                     })
 
                     .when('/staff/manager/comp', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/comp.html',
-                      controller: 'staffController'
+                      controller: 'managerCompController'
                     })
 
                     .when('/staff/manager/financial', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/financial.html',
-                      controller: 'staffController'
+                      controller: 'managerFinancialController'
                     })
 
                     .when('/staff/manager/feedback', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/feedback.html',
-                      controller: 'staffController'
+                      controller: 'managerFeedController'
                     })
 
               .when('/staff/kitchen', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/kitchen.html',
-                controller: 'staffController'
+                controller: 'kitchenStaffController'
               })
 
                     .when('/staff/kitchen/feedback', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/feedback.html',
-                      controller: 'staffController'
+                      controller: 'kitchenStaffFeedController'
                     })
 
               .when('/staff/waitstaff', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/waitstaff/waitstaff.html',
-                controller: 'staffController'
+                controller: 'waitStaffController'
               })
 
                     .when('/staff/waitstaff/refills', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/waitstaff/refills.html',
-                      controller: 'staffController'
+                      controller: 'waitStaffRefillController'
                     })
 
 
@@ -101,12 +101,12 @@ app.config(function($routeProvider, $locationProvider) {
 
               .when('/games/pong', {
                 templateUrl: '/spaghetti/public_html/injected_pages/games/pong.html',
-                controller: 'gamesConnectFourController'
+                controller: 'gamesPongController'
               })
 
               .when('/games/tictactoe', {
                 templateUrl: '/spaghetti/public_html/injected_pages/games/tictactoe.html',
-                controller: 'gamesConnectFourController'
+                controller: 'gamesTTTController'
               })
 
       // Loyalty routing and its subpages
@@ -117,17 +117,17 @@ app.config(function($routeProvider, $locationProvider) {
 
             .when('/loyalty/profile', {
               templateUrl: '/spaghetti/public_html/injected_pages/loyalty/profile.html',
-              controller: 'loyaltyController'
+              controller: 'loyaltyProfileController'
             })
 
             .when('/loyalty/redeem', {
               templateUrl: '/spaghetti/public_html/injected_pages/loyalty/redeem.html',
-              controller: 'loyaltyController'
+              controller: 'loyaltyRedeemController'
             })
 
             .when('/loyalty/orderhistory', {
               templateUrl: '/spaghetti/public_html/injected_pages/loyalty/orderhistory.html',
-              controller: 'loyaltyController'
+              controller: 'loyaltyHistoryController'
             })
 
       // Your Order routing and its subpages
@@ -138,7 +138,7 @@ app.config(function($routeProvider, $locationProvider) {
 
             .when('/your_order/success', {
               templateUrl: '/spaghetti/public_html/injected_pages/your_order/success.html',
-              controller: 'your_orderController'
+              controller: 'your_orderSuccessController'
             })
 
       // Your Bill routing and its subpages
@@ -149,12 +149,12 @@ app.config(function($routeProvider, $locationProvider) {
 
             .when('/your_bill/pay', {
               templateUrl: '/spaghetti/public_html/injected_pages/your_bill/pay.html',
-              controller: 'your_billController'
+              controller: 'your_billPayController'
             })
 
             .when('/your_bill/split_bill', {
               templateUrl: '/spaghetti/public_html/injected_pages/your_bill/split_bill.html',
-              controller: 'your_billController'
+              controller: 'your_billSplitController'
             })
 
       // Template routing
@@ -166,15 +166,60 @@ app.config(function($routeProvider, $locationProvider) {
 });
 
 // Controllers for all pages
+
+/* General Staff */
 app.controller('staffController', function($scope) {
-  $scope.pageName = "Staff Login Page";
+  $scope.pageName = "Staff Login";
 });
 
+/* Manager */
+app.controller('managerController', function($scope) {
+  $scope.pageName = "Manager";
+});
+
+app.controller('managerMenuController', function($scope) {
+  $scope.pageName = "Modify Menu";
+});
+
+app.controller('managerCompController', function($scope) {
+  $scope.pageName = "Comp Order";
+});
+
+app.controller('managerLoyaltyController', function($scope) {
+  $scope.pageName = "Modify Loyalty";
+});
+
+app.controller('managerFeedController', function($scope) {
+  $scope.pageName = "Customer Feedback";
+});
+
+app.controller('managerFinancialController', function($scope) {
+  $scope.pageName = "Financial Data";
+});
+
+/* Kitchen */
+app.controller('kitchenStaffController', function($scope) {
+  $scope.pageName = "Kitchen Staff";
+});
+
+app.controller('kitchenStaffFeedController', function($scope) {
+  $scope.pageName = "Customer Kitchen Feedback";
+});
+
+/* Waitstaff */
+app.controller('waitStaffController', function($scope) {
+  $scope.pageName = "Wait Staff";
+});
+
+app.controller('waitStaffRefillController', function($scope) {
+  $scope.pageName = "Refill Requests";
+});
+
+/* Menu */
 app.controller('menuController', function($scope) {
   $scope.pageName = "Menu";
 });
 
-// Will load array from DB eventually
 app.controller('menuAppetizersController', function($scope) {
   $scope.pageName = "Appetizers";
   $scope.items = [
@@ -217,26 +262,63 @@ app.controller('menuKidsController', function($scope) {
   ]
 });
 
+/* Games */
 app.controller('gamesController', function($scope) {
-  $scope.pageName = "Games Page";
+  $scope.pageName = "Games";
 });
 
 app.controller('gamesConnectFourController', function($scope) {
-  $scope.pageName = "Connect Four Page";
+  $scope.pageName = "Connect Four";
 });
 
+app.controller('gamesPongController', function($scope) {
+  $scope.pageName = "Pong";
+});
+
+app.controller('gamesTTTController', function($scope) {
+  $scope.pageName = "Tic-Tac-Toe";
+});
+
+/* Loyalty */
 app.controller('loyaltyController', function($scope) {
-  $scope.pageName = "Loyalty Page";
+  $scope.pageName = "Loyalty Login";
 });
 
+app.controller('loyaltyProfileController', function($scope) {
+  $scope.pageName = "Loyalty Profile";
+});
+
+app.controller('loyaltyRedeemController', function($scope) {
+  $scope.pageName = "Redeem Loyalty Points";
+});
+
+app.controller('loyaltyHistoryController', function($scope) {
+  $scope.pageName = "Order History";
+});
+
+/* Your Order */
 app.controller('your_orderController', function($scope) {
-  $scope.pageName = "Your Order Page";
+  $scope.pageName = "Your Order";
 });
 
+app.controller('your_orderSuccessController', function($scope) {
+  $scope.pageName = "Order Successfully Placed";
+});
+
+/* Your Bill */
 app.controller('your_billController', function($scope) {
-  $scope.pageName = "Your Bill Page";
+  $scope.pageName = "Your Bill";
 });
 
+app.controller('your_billPayController', function($scope) {
+  $scope.pageName = "Pay";
+});
+
+app.controller('your_billSplitController', function($scope) {
+  $scope.pageName = "Split Bill";
+});
+
+////////////
 app.controller('templateController', function($scope) {
   $scope.pageName = "Template Page";
 });
