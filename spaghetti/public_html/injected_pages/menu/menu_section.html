@@ -1,0 +1,34 @@
+<html lang="en-US">
+  <body>
+    <h1 class="text-center">{{pageName}}</h1>
+    <div class="container mt-2 overflow-scroll">
+      <div>
+        <div class="card m-2 animated fadeIn" ng-repeat="x in items">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="col-md-6 text-left menuItem">{{x.name}}</div>
+              <div class="col-md-6 menuPrice">${{x.price}}</div>
+            </div>
+            <div class="d-flex">
+              <div class="col-md-6 text-left">{{x.image}}</div>
+              <div class="col-md-6">{{x.description}}</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex">
+              <div class="col-md-6 text-left">
+                <button class="btn btn-page" data-toggle="collapse" data-target="#{{x.name}}" aria-expanded="false" aria-controls="{{x.name}}">
+                    Nutritional Info
+                </button>
+                <div class="collapse" id="{{x.name}}">
+                    {{x.info}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-block btn-select">Add to Order</button>
+              </div>
+            </div>
+        </div>
+       </div>
+  </body>
+</html>

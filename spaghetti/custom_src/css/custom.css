@@ -115,3 +115,30 @@ display: table-cell;
     color: #000;
     cursor: pointer;
 }
+
+.overflow-scroll {
+  overflow-y: scroll;
+  height: 445px;
+}
+
+.menuItem {
+  font-size: 20px;
+  font-weight: bold;
+  color: #B01E16;
+}
+
+.menuPrice {
+  font-size: 16px;
+  font-style: italic;
+  color: #B01E16;
+}
+
+.btn-select {
+  border-color: #7b7b7b;
+  background-color: #b26662;
+  margin: 5px;
+}
+
+.btn-select:hover {
+  border-color:#b01e16;
+}
