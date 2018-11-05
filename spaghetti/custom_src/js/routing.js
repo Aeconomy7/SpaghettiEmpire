@@ -209,6 +209,19 @@ app.controller('kitchenStaffFeedController', function($scope) {
 /* Waitstaff */
 app.controller('waitStaffController', function($scope) {
   $scope.pageName = "Wait Staff";
+  $scope.drinks = [{
+                  table: '7',
+                  drink: [
+                        {type:'rootbeer'},
+                        {type: 'sprite'},
+                        {type: 'water'}
+                        ]
+    },
+    {table: '9', drink: [
+                      {type:'sprite'}
+                    ]
+    }
+  ]
 });
 
 app.controller('waitStaffRefillController', function($scope) {
