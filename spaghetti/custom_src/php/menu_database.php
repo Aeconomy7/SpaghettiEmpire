@@ -8,9 +8,7 @@
     echo 'Failed to connect to MySQL: (' . $conn->connect_errno . ') ' . $conn->connect_error;
   }
   echo $conn->host_info . "\n";
-
-  function select_menu_item($type)
-  {
+  
     $result = $conn->query('SELECT * FROM menu_items WHERE type = \'' . $type . '\'');
 
     $outp = '';
@@ -26,5 +24,4 @@
     $outp = '{"records":['.$outp.']}';
 
     echo($outp);
-  }
 ?>
