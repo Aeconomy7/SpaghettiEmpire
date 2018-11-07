@@ -120,7 +120,7 @@ display: table-cell;
 
 .overflow-scroll {
   overflow-y: scroll;
-  height: 445px;
+  height: 400px;
 }
 
 .overflow-scroll-order {
