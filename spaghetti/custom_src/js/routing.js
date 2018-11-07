@@ -1,4 +1,4 @@
-var app = angular.module('switchApp', ['ngRoute', 'customerModule']);
+var app = angular.module('switchApp', ['ngRoute', 'customerModule', 'dbApp']);
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
     $routeProvider
@@ -229,7 +229,7 @@ app.controller('menuController', function($scope) {
   $scope.pageName = "Menu";
 });
 
-app.controller('menuAppetizersController', function($scope, customerData) {
+app.controller('menuAppetizersController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Appetizers";
   $scope.items = [
     {name: 'Fried Meatballs', description: 'Meaty bally bois', price: 5.00, image: '/path/to/image.jpg', info: 'Contains meatballz'},
@@ -240,6 +240,7 @@ app.controller('menuAppetizersController', function($scope, customerData) {
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
+  menuDatabase.pullDb();
 });
 
 app.controller('menuDrinksController', function($scope, customerData) {
