@@ -1,9 +1,9 @@
 var app = angular.module('dbApp', []);
 
-app.service('menuDatabase', function($scope, $http) {
-  $http.get("custom_src/php/menu_database.php")
-  .then(function(response) {
+app.controller('menuDatabase', function($scope, $http) {
+$http.get("../php/menu_database.php")
+  .success(function(response) {
     //$scope.names = response.data.records;
-    console.log("fuck");
+    console.log("in function");
   });
 });
