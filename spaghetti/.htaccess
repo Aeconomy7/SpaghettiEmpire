@@ -4,5 +4,5 @@ AuthUserFile /etc/.htpasswd
 Require user spaghetti
 
 <FilesMatch "\.html$">
-  ForceType application/x-httpd-php
+  ForceType application/x-httpd-php7
 </FilesMatch>
