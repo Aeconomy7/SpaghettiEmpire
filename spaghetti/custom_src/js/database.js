@@ -1,9 +1,14 @@
 var app = angular.module('dbApp', []);
 
-app.controller('menuDatabase', function($scope, $http) {
-  console.log("before function");
-  $http.get("../php/menu_database.php").success(function(response) {
-    //$scope.names = response.data.records;
-    console.log("in function");
-  });
-});
+app.service('menuDatabase', ['$http', function($http) {
+    return {
+      pullDb: pullDb
+    };
+    function pullDb() {
+      console.log("before function");
+      $http.get("/spaghetti/custom_src/php/menu_database.php")
+        .then(function (response) {
+            console.log(response.data.records);
+        });
+      }
+}]);

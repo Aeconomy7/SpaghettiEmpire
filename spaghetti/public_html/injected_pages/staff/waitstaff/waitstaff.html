@@ -13,7 +13,7 @@
          </div>
        </div>-->
 
-    <a class="btn btn-page" href="/spaghetti/public_html/#/staff/waitstaff/refills"><h3>Refill Requests</h3></a>
+    <button class="btn btn-page" id="myBtn">Refill Request</button>
      <a class="btn btn-page" href="/spaghetti/public_html/#/staff/waitstaff/refills"><h3>Help Requests</h3></a>
 
        <!-- This container holds all 16 tables and whatnot -->
@@ -26,103 +26,103 @@
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 2</p>
                   </div>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 3</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 4</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 5</p>
                   </div>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 6</p>
                   </div>
                 </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 7</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 8</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 9</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 10</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 11</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 12</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 13</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 14</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 15</p>
                   </div>
                   </button>
               </div>
-              <div class="col-md-3 block-align" id="myBtn">
+              <div class="col-md-3 block-align">
                 <button type="button" class="btn btn-outline-dark">
                   <div class="circle">
                       <p>Table 16</p>
@@ -136,8 +136,21 @@
         <div id="myModal" class="modal row">
             <!-- Modal content -->
             <span class="close">&times;</span>
-            <div class="modal-content">
-                <p>Hi folks, we have a modal.</p>
+            <div class="modal-content card" ng-repeat="x in drinks">
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="font-weight-bold">Table: {{x.table}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                      <div  ng-repeat="y in x.drink">
+                          <p class="float-left">{{y.type}}</p>
+                          <input class="float-right" type="checkbox" name="valuey" value={{y.type}}></input><br>
+                          <div style="clear: both;"></div>
+                      </div>
+                    </div>
+                </div>
+              </div>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-var app = angular.module('switchApp', ['ngRoute', 'customerModule']);
+var app = angular.module('switchApp', ['ngRoute', 'customerModule', 'dbApp']);
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
     $routeProvider
@@ -160,6 +160,20 @@ app.config(function($routeProvider, $locationProvider) {
 
 });
 
+// Back button directive
+app.directive('back', function() {
+    return {
+        restrict: 'A',
+        link: function( scope, element, attrs ) {
+            element.on( 'click', function () {
+                history.back();
+                scope.$apply();
+            } );
+        }
+    };
+});
+
+
 // Controllers for all pages
 
 /* General Staff */
@@ -204,6 +218,19 @@ app.controller('kitchenStaffFeedController', function($scope) {
 /* Waitstaff */
 app.controller('waitStaffController', function($scope) {
   $scope.pageName = "Wait Staff";
+  $scope.drinks = [{
+                  table: '7',
+                  drink: [
+                        {type:'rootbeer'},
+                        {type: 'sprite'},
+                        {type: 'water'}
+                        ]
+    },
+    {table: '9', drink: [
+                      {type:'sprite'}
+                    ]
+    }
+  ]
 });
 
 app.controller('waitStaffRefillController', function($scope) {
@@ -215,7 +242,7 @@ app.controller('menuController', function($scope) {
   $scope.pageName = "Menu";
 });
 
-app.controller('menuAppetizersController', function($scope, customerData) {
+app.controller('menuAppetizersController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Appetizers";
   $scope.items = [
     {name: 'Fried Meatballs', description: 'Meaty bally bois', price: 5.00, image: '/path/to/image.jpg', info: 'Contains meatballz'},
@@ -226,6 +253,7 @@ app.controller('menuAppetizersController', function($scope, customerData) {
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
+  menuDatabase.pullDb();
 });
 
 app.controller('menuDrinksController', function($scope, customerData) {
@@ -300,10 +328,16 @@ app.controller('loyaltyController', function($scope) {
 
 app.controller('loyaltyProfileController', function($scope) {
   $scope.pageName = "Loyalty Profile";
+  $scope.pointsEarned = 0;
+  $scope.phoneNumber = "111-111-1111";
 });
 
 app.controller('loyaltyRedeemController', function($scope) {
   $scope.pageName = "Redeem Loyalty Points";
+  $scope.items = [
+    {name: 'Free Drink', description: 'One free drink to enjoy, on us. Discount will be applied to the lowest priced drink on your bill.', cost: 5},
+    {name: 'Free Appetizer', description: 'One free appetizer to enjoy, on us. Discount will be applied to the lowest priced appetizer on your bill.', cost: 10}
+  ]
 });
 
 app.controller('loyaltyHistoryController', function($scope) {

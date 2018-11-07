@@ -52,7 +52,7 @@ a:hover {
 
 .btn-page h3{
     font-size: 26px;
-    margin: 12px;
+    margin: 8px;
 }
 
 .btn-page:hover {
@@ -80,6 +80,9 @@ vertical-align: middle;
 display: table-cell;
 }
 /* The Modal (background) */
+#myBtn {
+  background: none;
+}
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -108,7 +111,7 @@ display: table-cell;
     display: relative;
     color: white;
     float: right;
-    margin-right: 5px;
+    margin-right: 20px;
     font-size: 28px;
     font-weight: bold;
 }
@@ -120,12 +123,12 @@ display: table-cell;
 
 .overflow-scroll {
   overflow-y: scroll;
-  height: 445px;
+  height: 400px;
 }
 
 .overflow-scroll-order {
   overflow-y: scroll;
-  height: 350px;
+  height: 300px;
 }
 
 .pageTitle {
@@ -176,4 +179,16 @@ display: table-cell;
 
 .btn-select:hover {
   border-color:#b01e16;
+}
+
+.loyalty-pts {
+  font-size: 32px;
+  font-weight: bold;
+  color: #155b1d;
+}
+
+.btn-back {
+  font-size: 20px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  background-color: #7b7b7b;
 }
