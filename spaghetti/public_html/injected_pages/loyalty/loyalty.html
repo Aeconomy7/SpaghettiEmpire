@@ -2,39 +2,75 @@
   <body>
     <h1 class="text-center">{{pageName}}</h1>
     <div style="border-top: solid" class="container mt-2">
-      <div class="col-md-12">
-        <input class="form-control form-control-lg mt-2" type="text" placeholder="Phone Number">
+      <div class="col-md-8">
+        <input class="form-control form-control-lg mt-2" type="text" placeholder="Phone Number" id="mySearch">
+        <!--Search: <input type="search" id="mySearch" value="Food"> -->
       </div>
-      <a class="btn btn-page" href="/spaghetti/public_html/#/loyalty/profile"><h3>Sample Profile</h3></a>
 
       <!-- Numeric keypad -->
       <div class="btn-group-vertical justify-content-center col-md-4 mt-2 animated fadeIn">
         <div class="btn-group btn-group-lg">
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">1</button>
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">2</button>
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">3</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('1')">1</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('2')">2</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('3')">3</button>
         </div>
         <div class="btn-group btn-group-lg">
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">4</button>
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">5</button>
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">6</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('4')">4</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('5')">5</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('6')">6</button>
         </div>
         <div class="btn-group btn-group-lg">
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">7</button>
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">8</button>
-          <button type="button" class="btn btn-success border-1 m-1 rounded-0">9</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('7')">7</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('8')">8</button>
+          <button type="button" class="btn btn-success border-1 m-1 rounded-0" onclick="myFunction('9')">9</button>
         </div>
         <div class="btn-group btn-group-lg">
-          <button type="button" class="btn btn-success border-bottom-1 m-1">0</button>
+          <button type="button" class="btn btn-success border-bottom-1 m-1" onclick="myFunction('0')">0</button>
         </div>
+        <div class="btn-group btn-group-lg">
+          <button type="button" class="btn btn-success border-bottom-1 m-1" onclick="myBackspace()">Backspace</button>
+        </div>
+
        </div>
 
        <!-- Log In / Sign Up -->
-      <div class="container btn-group btn-group-lg" style="border-top: solid">
-        <button type="button" class="btn btn-primary col-md-6 border-1 mt-3 m-1 rounded">Log In</button>
-        <button type="button" class="btn btn-primary col-md-6 border-1 mt-3 m-1 rounded">Sign Up</button>
+      <div class="container btn-group btn-group-md" style="border-top: solid">
+        <button type="button" class="btn btn-primary col-md-3 border-1 mt-3 m-1 rounded">Log In</button>
+        <button type="button" class="btn btn-primary col-md-3 border-1 mt-3 m-1 rounded">Sign Up</button>
       </div>
 
+      <a class="btn btn-page" href="/spaghetti/public_html/#/loyalty/profile"><h3>Sample Profile</h3></a>
+
+
     </div>
+
+    <script>
+
+    var counter = 0;
+
+    function myFunction(temp) {
+
+      if(counter < 10)
+      {
+        document.getElementById("mySearch").value += temp;
+        counter++;
+      }
+      else
+      {
+        alert("No more numbers allowed")
+      }
+
+    }
+    function myBackspace() {
+
+        document.getElementById("mySearch").value = document.getElementById("mySearch").value.substring(0, document.getElementById("mySearch").value.length - 1);
+        counter--;
+
+      }
+
+
+    </script>
+
+
   </body>
 </html>
