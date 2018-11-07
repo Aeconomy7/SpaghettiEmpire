@@ -51,9 +51,129 @@ a:hover {
 }
 
 .btn-page h3{
-    font-size: 16px;
+    font-size: 26px;
+    margin: 12px;
 }
 
 .btn-page:hover {
+  border-color:#b01e16;
+}
+
+/*WAIT STAFF PAGE */
+.block-align {
+text-align: center;
+vertical-align: middle;
+}
+
+.circle {
+background: white;
+border-radius: 100px;
+color: black;
+height: 100px;
+font-weight: bold;
+width: 100px;
+display: table;
+margin: 20px auto;
+}
+.circle p {
+vertical-align: middle;
+display: table-cell;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 130px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin-left: 20%;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+/* The Close Button */
+.close {
+    display: relative;
+    color: white;
+    float: right;
+    margin-right: 5px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #000;
+    cursor: pointer;
+}
+
+.overflow-scroll {
+  overflow-y: scroll;
+  height: 445px;
+}
+
+.overflow-scroll-order {
+  overflow-y: scroll;
+  height: 350px;
+}
+
+.pageTitle {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #4c1412;
+  margin-bottom:5px;
+  -webkit-box-shadow: 0 4px 6px -6px #222;
+  -moz-box-shadow: 0 4px 6px -6px #222;
+  box-shadow: 0 4px 6px -6px #222;
+}
+
+.menuItem {
+  font-size: 20px;
+  font-weight: bold;
+  color: #B01E16;
+}
+
+.menuPrice {
+  font-size: 16px;
+  font-style: italic;
+  color: #B01E16;
+}
+
+.order-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #B01E16;
+}
+
+.order-price {
+  font-size: 14px;
+  font-style: italic;
+  color: #B01E16;
+}
+
+
+.btn-select {
+  border-color: #7b7b7b;
+  background-color: #b26662;
+  margin: 5px;
+}
+
+.btn-added {
+  background-color: #3c8926;
+}
+
+.btn-select:hover {
   border-color:#b01e16;
 }

@@ -1,0 +1,50 @@
+<html lang="en-US">
+  <body>
+    <h1 class="text-center pageTitle">{{pageName}}</h1>
+    <div class="container overflow-scroll">
+      <div>
+        <!-- Draw a section for all items in this menu category with unique identifiers to this item -->
+        <div class="card m-2 animated fadeIn" ng-repeat="x in items">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="col-md-6 text-left menuItem">{{x.name}}</div>
+              <div class="col-md-6 menuPrice">{{x.price | currency:"$"}}</div>
+            </div>
+            <div class="d-flex">
+              <div class="col-md-6 text-left">{{x.image}}</div>
+              <div class="col-md-6">{{x.description}}</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex">
+              <div class="col-md-6 text-left">
+                <button class="btn btn-page" data-toggle="collapse" data-target="#{{x.name}}" aria-expanded="false" aria-controls="{{x.name}}">
+                    Nutritional Info
+                </button>
+                <div class="collapse" id="{{x.name}}">
+                    {{x.info}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <!-- Add to order button unique to this item, ng-click adds it to the customer's cart on click.
+                     Also have a separate onClick event to indicate the item was added. -->
+                <button id='{{$index}}'class="btn btn-block btn-select" onClick="addedItem(this.id);" ng-click="add(x.name, x.price, type)">
+                  Add to Order
+                </button>
+              </div>
+            </div>
+        </div>
+       </div>
+
+       <!-- JQuery script that indicates some success when item is added to order -->
+       <script>
+        function addedItem(id) {
+          $('#' + id).toggleClass("btn-added");
+          setTimeout(function() {
+            $('#' + id).toggleClass("btn-added");
+          }, 300);
+        }
+       </script>
+
+  </body>
+</html>

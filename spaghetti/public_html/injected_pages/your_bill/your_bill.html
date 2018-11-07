@@ -1,2 +1,62 @@
-<a class="btn btn-page" href="/spaghetti/public_html/#/your_bill/pay"><h3>Pay Bill</h3></a>
-<a class="btn btn-page" href="/spaghetti/public_html/#/your_bill/split_bill"><h3>Split Bill</h3></a>
+<html lang="en-US">
+  <body>
+    <h1 class="text-center pageTitle">{{pageName}}</h1>
+    <div class="container overflow-scroll-order">
+      <div ng-show="hasSectionBill('appetizer')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Appetizers</h3>
+        <div ng-repeat="x in bill_info | filter:{type:'appetizer'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSectionBill('drink')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Drinks</h3>
+        <div ng-repeat="x in bill_info | filter:{type:'drink'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSectionBill('entree')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Entrees</h3>
+        <div ng-repeat="x in bill_info | filter:{type:'entree'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSectionBill('dessert')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Desserts</h3>
+        <div ng-repeat="x in bill_info | filter:{type:'dessert'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSectionBill('kids')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Kid's Menu</h3>
+        <div ng-repeat="x in bill_info | filter:{type:'kids'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <h3 class="text-center">Total: {{bill | currency:"$"}}</h3>
+      <a class="btn btn-page" href="/spaghetti/public_html/#/your_bill/pay"><h3>Pay Bill</h3></a>
+      <a class="btn btn-page" href="/spaghetti/public_html/#/your_bill/split_bill"><h3>Split Bill</h3></a>
+    </div>
+  </body>
+</html>

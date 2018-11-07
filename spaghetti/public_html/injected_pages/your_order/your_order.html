@@ -1,1 +1,77 @@
-<a class="btn btn-page" href="/spaghetti/public_html/#/your_order/success"><h3>Place Order</h3></a>
+<html lang="en-US">
+  <body>
+    <h1 class="text-center pageTitle">{{pageName}}</h1>
+    <div class="container overflow-scroll-order">
+      <!-- Only show each section if they have an item from the section in their order -->
+      <div ng-show="hasSection('appetizer')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Appetizers</h3>
+        <div ng-repeat="x in cart | filter:{type:'appetizer'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+            <div class="col-md-2">
+              <button class="btn btn-sm btn-page" ng-click='removeItem(x.name)'>Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSection('drink')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Drinks</h3>
+        <div ng-repeat="x in cart | filter:{type:'drink'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+            <div class="col-md-2">
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSection('entree')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Entrees</h3>
+        <div ng-repeat="x in cart | filter:{type:'entree'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+            <div class="col-md-2">
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSection('dessert')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Desserts</h3>
+        <div ng-repeat="x in cart | filter:{type:'dessert'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+            <div class="col-md-2">
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="hasSection('kids')" class="card m-2 animated fadeIn">
+        <h3 class="card-title">Kid's Menu</h3>
+        <div ng-repeat="x in cart | filter:{type:'kids'}">
+          <div class="d-flex card-body">
+            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+            <div class="col-md-2">
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <h3 class="text-center">Total: {{cost | currency:"$"}}</h3>
+      <a class="btn btn-page" ng-click='orderPlaced()'><h3>Place Order</h3></a>
+    </div>
+
+  </body>
+</html>
