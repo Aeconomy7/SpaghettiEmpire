@@ -2,3 +2,7 @@ AuthType Basic
 AuthName "Spaghetti Empire - Under *HEAVY* Development!"
 AuthUserFile /etc/.htpasswd
 Require user spaghetti
+
+<FilesMatch "\.html$">
+  ForceType application/x-httpd-php
+</FilesMatch>
