@@ -80,6 +80,9 @@ vertical-align: middle;
 display: table-cell;
 }
 /* The Modal (background) */
+#myBtn {
+  background: none;
+}
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -108,7 +111,7 @@ display: table-cell;
     display: relative;
     color: white;
     float: right;
-    margin-right: 5px;
+    margin-right: 20px;
     font-size: 28px;
     font-weight: bold;
 }
