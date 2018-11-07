@@ -160,6 +160,20 @@ app.config(function($routeProvider, $locationProvider) {
 
 });
 
+// Back button directive
+app.directive('back', function() {
+    return {
+        restrict: 'A',
+        link: function( scope, element, attrs ) {
+            element.on( 'click', function () {
+                history.back();
+                scope.$apply();
+            } );
+        }
+    };
+});
+
+
 // Controllers for all pages
 
 /* General Staff */
@@ -300,10 +314,16 @@ app.controller('loyaltyController', function($scope) {
 
 app.controller('loyaltyProfileController', function($scope) {
   $scope.pageName = "Loyalty Profile";
+  $scope.pointsEarned = 0;
+  $scope.phoneNumber = "111-111-1111";
 });
 
 app.controller('loyaltyRedeemController', function($scope) {
   $scope.pageName = "Redeem Loyalty Points";
+  $scope.items = [
+    {name: 'Free Drink', description: 'One free drink to enjoy, on us. Discount will be applied to the lowest priced drink on your bill.', cost: 5},
+    {name: 'Free Appetizer', description: 'One free appetizer to enjoy, on us. Discount will be applied to the lowest priced appetizer on your bill.', cost: 10}
+  ]
 });
 
 app.controller('loyaltyHistoryController', function($scope) {

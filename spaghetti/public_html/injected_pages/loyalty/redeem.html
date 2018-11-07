@@ -1,1 +1,20 @@
-empty
+<html lang="en-US">
+  <body>
+    <h1 class="text-center pageTitle">{{pageName}}</h1>
+    <div class="container overflow-scroll">
+      <div class="card m-2 animated fadeIn" ng-repeat="x in items">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="col-md-6 text-left menuItem">{{x.name}}</div>
+            <div class="col-md-6 menuPrice">{{x.cost}} Points</div>
+          </div>
+          <div class="d-flex">
+            <div class="col-md-6 text-left">{{x.description}}</div>
+            <div class="col-md-6">
+              <button id='{{$index}}'class="btn btn-block btn-select">Redeem Reward</button>
+            </div>
+          </div>
+        </div>
+     </div>
+  </body>
+</html>
