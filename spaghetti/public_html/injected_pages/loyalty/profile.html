@@ -1,2 +1,13 @@
-<a class="btn btn-page" href="/spaghetti/public_html/#/loyalty/redeem"><h3>Redeem Points</h3></a>
-<a class="btn btn-page" href="/spaghetti/public_html/#/loyalty/orderhistory"><h3>Order History</h3></a>
+<html lang="en">
+  <body>
+    <h1 class="text-center pageTitle">{{pageName}}</h1>
+    <div class="card">
+      <div class="card-title"><h3>Account for: {{ phoneNumber }}</h3></div>
+      <div class="card-subtitle"><h4>Points Earned</h4></div>
+      <div class="card-body loyalty-pts">{{ pointsEarned }}</div>
+      <div class="card-footer">
+        <a class="btn btn-page btn-block" href="/spaghetti/public_html/#/loyalty/redeem"><h3>Redeem Points</h3></a>
+        <a class="btn btn-page btn-block" href="/spaghetti/public_html/#/loyalty/orderhistory"><h3>Order History</h3></a>
+      </div>
+  </body>
+</html>
