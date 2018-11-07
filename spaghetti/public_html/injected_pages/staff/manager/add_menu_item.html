@@ -1,0 +1,35 @@
+<html lang="en-US">
+
+<!-- Add menu item page alpha? -->
+ <body style="background-color:#52688c">
+   <!-- <h1 class="text-center">{{pageName}}</h1> -->
+   <h1 class="text-center">Add Menu Item</h1>
+   <div style="border: solid" class="container mt-2">
+     <div class="justify-content-center text-center col-md-12 mt-3 animated fadeIn">
+
+       <input class="form-control m-2" type="text" placeholder="Name">
+
+       <select class="custom-select m-2">
+         <option selected="">Select Menu Category</option>
+         <option value="1">Appetizer</option>
+         <option value="2">Drink</option>
+         <option value="3">Entree</option>
+         <option value="4">Dessert</option>
+         <option value="5">Kids Meal</option>
+       </select>
+
+       <input class="form-control m-2" type="text" placeholder="Price ($)">
+       <textarea class="form-control m-2" rows="5" placeholder="Description"></textarea>
+       <textarea class="form-control m-2" rows="3" placeholder="Ingredients"></textarea>
+
+       <div class="custom-file col-md-12 m-2">
+        <input type="file" class="custom-file-input" id="customFile">
+        <label class="custom-file-label text-left" for="customFile">Choose Image</label>
+      </div>
+
+        <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2">Submit</button>
+       <button type="button" class="btn btn-danger border border-dark col-md-12 m-2">Back</button>
+     </div>
+   </div>
+ </body>
+</html>
