@@ -68,10 +68,9 @@
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <h3 class="text-center">Total: {{cost | currency:"$"}}</h3>
-      <a class="btn btn-page" ng-click='orderPlaced()'><h3>Place Order</h3></a>
+    <div class="card-footer d-flex">
+      <h3 class="text-center col-md-4">Total: {{cost | currency:"$"}}</h3>
+      <a class="btn btn-page col-md-4" ng-click='orderPlaced()'><h3>Place Order</h3></a>
     </div>
-
   </body>
 </html>
