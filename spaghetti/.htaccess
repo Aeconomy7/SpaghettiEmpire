@@ -2,5 +2,3 @@ AuthType Basic
 AuthName "Spaghetti Empire - Under *HEAVY* Development!"
 AuthUserFile /etc/.htpasswd
 Require user spaghetti
-
-AddType application/x-httpd-php .html
