@@ -51,7 +51,8 @@ a:hover {
 }
 
 .btn-page h3{
-    font-size: 16px;
+    font-size: 26px;
+    margin: 12px;
 }
 
 .btn-page:hover {
@@ -63,6 +64,7 @@ a:hover {
 text-align: center;
 vertical-align: middle;
 }
+
 .circle {
 background: white;
 border-radius: 100px;
@@ -121,6 +123,22 @@ display: table-cell;
   height: 445px;
 }
 
+.overflow-scroll-order {
+  overflow-y: scroll;
+  height: 350px;
+}
+
+.pageTitle {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #4c1412;
+  margin-bottom:5px;
+  -webkit-box-shadow: 0 4px 6px -6px #222;
+  -moz-box-shadow: 0 4px 6px -6px #222;
+  box-shadow: 0 4px 6px -6px #222;
+}
+
 .menuItem {
   font-size: 20px;
   font-weight: bold;
@@ -133,10 +151,27 @@ display: table-cell;
   color: #B01E16;
 }
 
+.order-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #B01E16;
+}
+
+.order-price {
+  font-size: 14px;
+  font-style: italic;
+  color: #B01E16;
+}
+
+
 .btn-select {
   border-color: #7b7b7b;
   background-color: #b26662;
   margin: 5px;
+}
+
+.btn-added {
+  background-color: #3c8926;
 }
 
 .btn-select:hover {
