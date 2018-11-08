@@ -180,7 +180,11 @@ app.directive('back', function() {
 
 
 // Controllers for all pages
+app.controller('your_refills', function(customerData) {
+  var pageName = "Refills";
+  var refills = customerData.getRefills();
 
+});
 /* General Staff */
 app.controller('staffController', function($scope) {
   $scope.pageName = "Staff Login";
@@ -249,61 +253,56 @@ app.controller('menuController', function($scope) {
 
 app.controller('menuAppetizersController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Appetizers";
-  $scope.items = [
-    {name: 'Fried Meatballs', description: 'Meaty bally bois', price: 5.00, image: '/path/to/image.jpg', info: 'Contains meatballz'},
-    {name: 'Tomato Soup', description: 'delicious soup', price: 7.50, image: '/path/to/image2.jpg', info: 'Contains tomatoz'},
-    {name: 'Bruschetta', description: 'vegetable kind of topping stuff', price: 6.25, image: '/path/to/image3.jpg', info: 'Contains vegetalz'},
-  ]
   $scope.type = "appetizer";
+  // Pull from DB, wait for it to finish
+  var pullItems = menuDatabase.pullDb("appetizer");
+  pullItems.then(function(result) {
+      $scope.items = result;
+      console.log($scope.items);
+  });
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
-  menuDatabase.pullDb();
 });
 
-app.controller('menuDrinksController', function($scope, customerData) {
+app.controller('menuDrinksController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Drinks";
-  $scope.items = [
-    {name: 'Water', description: 'yum yum h20', price: 0.00, image: '/path/to/image.jpg', info: 'Contains water'},
-    {name: 'Soda', description: 'one carbonated lad', price: 2.50, image: '/path/to/image2.jpg', info: 'Contains carbonation'},
-    {name: 'Tea', description: 'leaf water wow', price: 6.25, image: '/path/to/image3.jpg', info: 'Contains leafy lads'},
-  ]
   $scope.type = "drink";
+  $scope.items = menuDatabase.pullDb("drink");
+  console.log($scope.items);
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuEntreesController', function($scope, customerData) {
+app.controller('menuEntreesController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Entrees";
-  $scope.items = [
-    {name: 'Spaghetti', description: 'noodle and sauce woot', price: 10.00, image: '/path/to/image.jpg', info: 'Contains spaghetti'},
-    {name: 'Big Spaghetti', description: 'i am in awe at the size of it', price: 12.50, image: '/path/to/image2.jpg', info: 'Contains an absolute unit'}
-  ]
   $scope.type = "entree";
+  $scope.items = menuDatabase.pullDb("entree");
+  console.log($scope.items);
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuDessertsController', function($scope, customerData) {
+app.controller('menuDessertsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Desserts";
-  $scope.items = [
-    {name: 'Spaghetti Ice Cream', description: 'lmao wtf', price: 5.00, image: '/path/to/image.jpg', info: 'Contains spaghetti ice cream'},
-    {name: 'Meatball Pie', description: 'nasty af', price: 7.50, image: '/path/to/image2.jpg', info: 'Contains meatballz'}
-  ]
   $scope.type = "dessert";
+  $scope.items = menuDatabase.pullDb("dessert");
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuKidsController', function($scope, customerData) {
+app.controller('menuKidsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Kid's Menu";
-  $scope.items = [
-    {name: 'Tendies', description: 'reeeeeeee', price: 7.00, image: '/path/to/image.jpg', info: 'Contains reeeeeeee'}
-  ]
-  $scope.type = "kids";
+  $scope.type = "kidsmenu";
+  $scope.items = menuDatabase.pullDb("kidsmenu");
+  console.log($scope.items);
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
