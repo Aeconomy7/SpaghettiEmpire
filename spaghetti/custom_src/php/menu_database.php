@@ -13,7 +13,8 @@
   $outp = '';
   while($rs = $result->fetch_array()){
     if($outp != ""){ $outp .= ","; }
-    $outp .= '{"item_name":"' . $rs["item_name"] . '",';
+    $outp .= '{"type":"' . $rs["type"] . '",';
+    $outp .= '"item_name":"' . $rs["item_name"] . '",';
     $outp .= '"price":"' . $rs["price"] . '",';
     $outp .= '"description":"' . $rs["description"] . '",';
     $outp .= '"ingredients":"' . $rs["ingredients"] . '",';

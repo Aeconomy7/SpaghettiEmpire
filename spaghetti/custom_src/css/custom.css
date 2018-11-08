@@ -32,6 +32,14 @@ body{
   font-weight: 500;
 }
 
+.btn-top {
+  background-color: #7b7b7b;
+  border: none;
+}
+
+.help.clicked {
+  background: white;
+}
 .card {
   background-color: #f0ebd7;
   border-color: #B01E16;
@@ -80,7 +88,7 @@ vertical-align: middle;
 display: table-cell;
 }
 /* The Modal (background) */
-#myBtn {
+#myBtn, #refillBtn {
   background: none;
 }
 .modal {
@@ -107,7 +115,7 @@ display: table-cell;
 }
 
 /* The Close Button */
-.close {
+.close, .exit {
     display: relative;
     color: white;
     float: right;
@@ -116,7 +124,7 @@ display: table-cell;
     font-weight: bold;
 }
 
-.close:hover, .close:focus {
+.close:hover, .close:focus, .exit:hover, .exit:focus {
     color: #000;
     cursor: pointer;
 }
