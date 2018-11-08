@@ -25,9 +25,13 @@ app.service('customerData', function() {
   }, */
 
   // Adding an item to their order cart, not yet placed
-  function addToCart(name, price, type) {
-    order_cart.push({'item_name': name, 'price': price, 'type': type});
-    order_cost += price;
+  function addToCart(name, floatPrice, type) {
+    order_cart.push({'item_name': name, 'price': floatPrice, 'type': type});
+    console.log("order cost curr:");
+    console.log(order_cost);
+    console.log(floatPrice);
+    order_cost += floatPrice;
+    console.log(order_cost);
   }
 
   // Returns items added to order

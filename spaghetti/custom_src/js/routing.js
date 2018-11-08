@@ -360,6 +360,8 @@ app.controller('your_orderController', function($scope, $route, $window, custome
   $scope.pageName = "Your Order";
   $scope.cart = customerData.getCart();
   $scope.cost = customerData.getCost();
+  console.log("order cost: ");
+  console.log($scope.cost);
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSection = function(section) {
