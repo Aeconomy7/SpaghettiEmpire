@@ -5,15 +5,15 @@ app.service('menuDatabase', ['$http', function($http) {
       pullDb: pullDb
     };
     function pullDb(typeFind) {
-      console.log("before function");
+      console.log("looking for: " + typeFind);
       $http.get("/spaghetti/custom_src/php/menu_database.php")
         .then(function (response) {
           var records = response.data;
           var items;
           for(var i = 0; i < records.length; i++) {
+            console.log("item:" + records[i]);
             if(records[i].type == typeFind) {
               items.push(records[i]);
-              console.log(records);
             }
           }
           return items;
