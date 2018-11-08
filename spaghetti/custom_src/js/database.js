@@ -11,8 +11,10 @@ app.service('menuDatabase', ['$http', function($http) {
           var records = response.data;
           var items;
           for(var i = 0; i < records.length; i++) {
-            if(records[i].type == typeFind)
+            if(records[i].type == typeFind) {
               items.push(records[i]);
+              console.log(records);
+            }
           }
           return items;
         });

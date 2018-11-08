@@ -255,42 +255,51 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
   $scope.pageName = "Appetizers";
   $scope.type = "appetizer";
   $scope.items = menuDatabase.pullDb("appetizer");
+  console.log($scope.items);
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuDrinksController', function($scope, customerData) {
+app.controller('menuDrinksController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Drinks";
   $scope.type = "drink";
   $scope.items = menuDatabase.pullDb("drink");
+  console.log($scope.items);
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuEntreesController', function($scope, customerData) {
+app.controller('menuEntreesController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Entrees";
   $scope.type = "entree";
   $scope.items = menuDatabase.pullDb("entree");
+  console.log($scope.items);
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuDessertsController', function($scope, customerData) {
+app.controller('menuDessertsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Desserts";
   $scope.type = "dessert";
   $scope.items = menuDatabase.pullDb("dessert");
+  console.log($scope.items);
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
 });
 
-app.controller('menuKidsController', function($scope, customerData) {
+app.controller('menuKidsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Kid's Menu";
   $scope.type = "kidsmenu";
   $scope.items = menuDatabase.pullDb("kidsmenu");
+  console.log($scope.items);
+  
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
