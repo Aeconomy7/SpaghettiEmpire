@@ -1,12 +1,60 @@
 <html lang="en-US">
+
+<!-- sorry incomplete fellas but heres my idea for the template -->
  <body style="background-color:#52688c">
-   <h1 class="text-center">{{pageName}}</h1>
+   <!-- <h1 class="text-center">{{pageName}}</h1> -->
+   <h1 class="text-center">Customer Feedback</h1>
+
    <div style="border: solid" class="container mt-2">
-     <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
+     <div class="justify-content-center text-left col-md-12 mt-2 animated fadeIn">
 
-       insert stuff here
 
+     <div class="accordion" id="accordionExample">
+       <div class="card">
+         <div class="card-header" id="headingOne">
+           <h2 class="mb-0">
+             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+               1 Day Ago
+             </button>
+           </h2>
+         </div>
+
+         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+           <div class="card-body">
+             BEST SPAGHETTI POG
+           </div>
+         </div>
+       </div>
+       <div class="card">
+         <div class="card-header" id="headingTwo">
+           <h2 class="mb-0">
+             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+               2 Day Ago
+             </button>
+           </h2>
+         </div>
+         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+           <div class="card-body">
+             ravioli ravioli give me the formuoli
+           </div>
+         </div>
+       </div>
+       <div class="card">
+         <div class="card-header" id="headingThree">
+           <h5 class="mb-0">
+             <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+               3 Days Ago
+             </button>
+           </h2>
+         </div>
+         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+           <div class="card-body">
+             fe1480ff8b6ed22e7723cda0145ef23d
+           </div>
+         </div>
+       </div>
      </div>
+    </div>
    </div>
  </body>
 </html>
