@@ -9,22 +9,19 @@
   }
   echo $conn->host_info . "\n";
 
-  function select_menu_items($type)
-  {
-    $result = $conn->query('SELECT * FROM menu_items WHERE type = \'' . $type . '\'');
+  $result = $conn->query('SELECT * FROM menu_items');
 
-    $outp = '';
-    while($rs = $result->fetch_array(MYSQL_ASSOC)){
-      if($outp != ""){ $outp .= ","; }
-      $outp .= '{"item_name":"' . $rs["item_name"] . '",';
-      $outp .= '"price":"' . $rs["price"] . '",';
-      $outp .= '"description":"' . $rs["description"] . '",';
-      $outp .= '"ingredients":"' . $rs["ingredients"] . '",';
-      $outp .= '"img_path":"' . $rs["img_path"] . '"}';
-    }
-
-    $outp = '{"records":['.$outp.']}';
-
-    echo($outp);
+  $outp = '';
+  while($rs = $result->fetch_array()){
+    if($outp != ""){ $outp .= ","; }
+    $outp .= '{"item_name":"' . $rs["item_name"] . '",';
+    $outp .= '"price":"' . $rs["price"] . '",';
+    $outp .= '"description":"' . $rs["description"] . '",';
+    $outp .= '"ingredients":"' . $rs["ingredients"] . '",';
+    $outp .= '"img_path":"' . $rs["img_path"] . '"}';
   }
+
+  $outp = '{"records":['.$outp.']}';
+
+  echo($outp);
 ?>
