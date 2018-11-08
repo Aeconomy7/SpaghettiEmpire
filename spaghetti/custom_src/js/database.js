@@ -5,7 +5,7 @@ app.service('menuDatabase', ['$http', function($http) {
     var items = [];
 
     var pullDb = function(typeFind) {
-      var $promise = $http.get("/spaghetti/custom_src/php/menu_database_select.php")
+      var $promise = $http.get("/spaghetti/custom_src/php/menu_item_select.php")
         .then(function (response) {
           result = response.data;
           items = [];
