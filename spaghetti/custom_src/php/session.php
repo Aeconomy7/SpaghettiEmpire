@@ -1,15 +1,12 @@
 <?php
+session_start();
 
-session_start(); //start the PHP_session function
-
-if(isset($_SESSION['page_count']))
-{
-     $_SESSION['page_count'] += 1;
+function regenerate() {
+    $_SESSION['code'] = uniqid();
+    $_SESSION['code_time'] = time();
 }
-else
-{
-     $_SESSION['page_count'] = 1;
-}
- echo 'You are visitor number ' . $_SESSION['page_count'];
-
+if (empty($_SESSION['code']) || time() - $_SESSION['code_time'] > 3600)
+    //if there's no code, or the code has expired
+    regenerate();
+echo "Your code is " . $_SESSION['code'] . " it was generated on " . date('m/d/Y h:i:s a', $_SESSION['code_time']);
 ?>
