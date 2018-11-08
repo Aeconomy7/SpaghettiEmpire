@@ -175,7 +175,11 @@ app.directive('back', function() {
 
 
 // Controllers for all pages
+app.controller('your_refills', function(customerData) {
+  var pageName = "Refills";
+  var refills = customerData.getRefills();
 
+});
 /* General Staff */
 app.controller('staffController', function($scope) {
   $scope.pageName = "Staff Login";

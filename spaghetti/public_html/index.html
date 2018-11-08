@@ -24,8 +24,8 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link" href="/spaghetti/public_html/#staff">Staff Login</a>
-            <a class="nav-item nav-link" href="#">Refill</a>
-            <a class="nav-item nav-link" href="#">Call Server</a>
+            <button class="btn-top nav-item nav-link" id="refillBtn" >Refill</button>
+            <button class="btn-top nav-item nav-link help" href="#">Call Server</button>
           </div>
         </div>
     </nav>
@@ -55,6 +55,24 @@
         </div>
     </div>
 
+    <!-- The Modal -->
+    <div id="refillModal" class="modal row">
+        <!-- Modal content -->
+        <span class="exit">&times;</span>
+        <div class="modal-content card">
+          <div class="card-body">
+            <div class="row">
+              <h3 class="card-title text-center">Refill</h3>
+              <div class="card-body" ng-repeat-"x in refills">
+                <p class="float-left">{{x.name}}</p>
+                <input class="float-right" type="checkbox" name="valuey" value={{y.type}}></input><br>
+                <div style="clear: both;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -64,6 +82,7 @@
     <script src="/spaghetti/custom_src/js/database.js"></script>
     <script src="/spaghetti/custom_src/js/customer_data.js"></script>
     <script src="/spaghetti/custom_src/js/routing.js"></script>
+    <script src="/spaghetti/custom_src/js/customer_refills.js"></script>
     <!---------------->
 
   </body>

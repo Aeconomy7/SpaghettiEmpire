@@ -7,7 +7,7 @@ app.service('customerData', function() {
   var order_cost = 0.0; // Stores hypothetical cost if they placed the order so they can see how much its at
   var order_overall = []; // Stores the items of all orders placed
   var final_bill = 0.0; // Stores the final bill of all orders placed
-
+  var refills = [];//stores refills needed by customer
   return {
   //  clearCart: clearCart,
     addToCart: addToCart,
@@ -15,7 +15,8 @@ app.service('customerData', function() {
     getCost: getCost,
     addToBill: addToBill,
     getOrderOverall: getOrderOverall,
-    getBill: getBill
+    getBill: getBill,
+    getRefills: getRefills
   };
 
   /* eventually use session
@@ -57,4 +58,12 @@ app.service('customerData', function() {
     return final_bill;
   }
 
+  function getRefills() {
+    for(var i = 0; i < order_overall.length; i++){
+      if(order_overall[i].type == drink){
+        refill.concat(order_overall[i]);
+      }
+    }
+    return refill;
+  }
 });
