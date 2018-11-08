@@ -360,6 +360,7 @@ app.controller('your_orderController', function($scope, $route, $window, custome
     return false;
   }
 
+
   // Submits their order to their bill and clears their order
   $scope.orderPlaced = function() {
     customerData.addToBill();

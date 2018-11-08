@@ -57,4 +57,4 @@ app.service('customerData', function() {
     return final_bill;
   }
 
-});
+})
