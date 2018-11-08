@@ -17,7 +17,7 @@ app.service('menuDatabase', ['$http', function($http) {
               items.push(result.records[i]);
             }
           }
-          return items; */
+          return items;
         });
       }
 }]);
