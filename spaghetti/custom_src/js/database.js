@@ -3,10 +3,8 @@ var app = angular.module('dbApp', []);
 app.service('menuDatabase', ['$http', function($http) {
     var result;
     var items = [];
-    return {
-      pullDb: pullDb
-    };
-    function pullDb(typeFind) {
+
+    var pullDb = function(typeFind) {
       console.log("looking for: " + typeFind);
       $http.get("/spaghetti/custom_src/php/menu_database.php")
         .then(function (response) {
@@ -23,4 +21,8 @@ app.service('menuDatabase', ['$http', function($http) {
           return items;
         });
       }
+
+    return {
+      pullDb: pullDb
+    };
 }]);
