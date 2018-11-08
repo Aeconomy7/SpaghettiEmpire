@@ -217,7 +217,7 @@ app.controller('kitchenStaffController', function($scope) {
 });
 
 app.controller('kitchenStaffFeedController', function($scope) {
-  $scope.pageName = "Customer Kitchen Feedback";
+  $scope.pageName = "Open Orders";
 });
 
 /* Waitstaff */
