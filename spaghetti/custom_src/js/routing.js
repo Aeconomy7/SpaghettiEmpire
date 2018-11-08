@@ -255,9 +255,8 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
   $scope.pageName = "Appetizers";
   $scope.type = "appetizer";
   // Pull from DB, wait for it to finish
-  var pullItems = menuDatabase.pullDb("appetizer");
-  pullItems.then(function(result) {
-      $scope.items = result;
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.items = response;
       console.log($scope.items);
   });
 
