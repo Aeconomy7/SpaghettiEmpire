@@ -42,10 +42,15 @@ app.config(function($routeProvider, $locationProvider) {
                 controller: 'kitchenStaffController'
               })
 
-                    .when('/staff/kitchen/feedback', {
-                      templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/feedback.html',
-                      controller: 'kitchenStaffFeedController'
-                    })
+              .when('/staff/kitchen/feedback', {
+                templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/feedback.html',
+                controller: 'kitchenStaffFeedController'
+              })
+
+              .when('/staff/kitchen/open_orders', {
+                templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/open_orders.html',
+                controller: 'kitchenStaffFeedController'
+              })
 
               .when('/staff/waitstaff', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/waitstaff/waitstaff.html',
@@ -363,6 +368,7 @@ app.controller('your_orderController', function($scope, $route, $window, custome
     }
     return false;
   }
+
 
   // Submits their order to their bill and clears their order
   $scope.orderPlaced = function() {

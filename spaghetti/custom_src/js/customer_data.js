@@ -66,4 +66,4 @@ app.service('customerData', function() {
     }
     return refill;
   }
-});
+})
