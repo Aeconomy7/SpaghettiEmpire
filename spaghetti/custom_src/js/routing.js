@@ -255,6 +255,7 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
   $scope.pageName = "Appetizers";
   $scope.type = "appetizer";
   $scope.items = menuDatabase.pullDb("appetizer");
+  while($scope.items.length == 0) {}
   console.log($scope.items);
 
   $scope.add = function(name, price, type) {
@@ -287,7 +288,7 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
   $scope.pageName = "Desserts";
   $scope.type = "dessert";
   $scope.items = menuDatabase.pullDb("dessert");
-  console.log($scope.items);
+  while($scope.items.length == 0) {}
 
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
@@ -299,7 +300,7 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
   $scope.type = "kidsmenu";
   $scope.items = menuDatabase.pullDb("kidsmenu");
   console.log($scope.items);
-  
+
   $scope.add = function(name, price, type) {
     customerData.addToCart(name, price, type);
   }
