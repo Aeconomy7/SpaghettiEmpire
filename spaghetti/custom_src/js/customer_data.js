@@ -31,7 +31,7 @@ app.service('customerData', function() {
     console.log("order cost curr:");
     console.log(order_cost);
     console.log(floatPrice);
-    order_cost += floatPrice;
+    order_cost = order_cost + parseFloat(floatPrice);
     console.log(order_cost);
   }
 
