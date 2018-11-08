@@ -28,7 +28,7 @@
               <div class="col-md-6">
                 <!-- Add to order button unique to this item, ng-click adds it to the customer's cart on click.
                      Also have a separate onClick event to indicate the item was added. -->
-                <button id='{{$index}}'class="btn btn-block btn-select" onClick="addedItem(this.id);" ng-click="add(x.item_name, x.price, type)">
+                <button id='{{$index}}'class="btn btn-block btn-select" onClick="addedItem(this.id);" ng-click="add(x.item_name, parseFloat(x.price), type)">
                   Add to Order
                 </button>
               </div>
