@@ -7,28 +7,28 @@
         <div class="card m-2 animated fadeIn" ng-repeat="x in items">
           <div class="card-body">
             <div class="d-flex">
-              <div class="col-md-6 text-left menuItem">{{x.name}}</div>
+              <div class="col-md-6 text-left menuItem">{{x.item_name}}</div>
               <div class="col-md-6 menuPrice">{{x.price | currency:"$"}}</div>
             </div>
             <div class="d-flex">
-              <div class="col-md-6 text-left">{{x.image}}</div>
+              <div class="col-md-6 text-left">{{x.img_path}}</div>
               <div class="col-md-6">{{x.description}}</div>
             </div>
           </div>
           <div class="card-footer">
             <div class="d-flex">
               <div class="col-md-6 text-left">
-                <button class="btn btn-page" data-toggle="collapse" data-target="#{{x.name}}" aria-expanded="false" aria-controls="{{x.name}}">
+                <button class="btn btn-page" data-toggle="collapse" data-target="#{{x.item_name}}" aria-expanded="false" aria-controls="{{x.item_name}}">
                     Nutritional Info
                 </button>
-                <div class="collapse" id="{{x.name}}">
-                    {{x.info}}
+                <div class="collapse" id="{{x.item_name}}">
+                    {{x.ingredients}}
                 </div>
               </div>
               <div class="col-md-6">
                 <!-- Add to order button unique to this item, ng-click adds it to the customer's cart on click.
                      Also have a separate onClick event to indicate the item was added. -->
-                <button id='{{$index}}'class="btn btn-block btn-select" onClick="addedItem(this.id);" ng-click="add(x.name, x.price, type)">
+                <button id='{{$index}}'class="btn btn-block btn-select" onClick="addedItem(this.id);" ng-click="add(x.item_name, x.price, type)">
                   Add to Order
                 </button>
               </div>
