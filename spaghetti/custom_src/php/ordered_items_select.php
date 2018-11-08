@@ -8,7 +8,7 @@
     echo 'Failed to connect to MySQL: (' . $conn->connect_errno . ') ' . $conn->connect_error;
   }
 
-  $result = $conn->query('SELECT * FROM menu_items');
+  $result = $conn->query('SELECT * FROM ordered_items');
 
   $outp = '';
   while($rs = $result->fetch_array()){
