@@ -272,7 +272,8 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
   });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart(name, floatPrice, type);
   }
 });
 
@@ -283,7 +284,8 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
       $scope.items = response;
   });
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart(name, floatPrice, type);
   }
 });
 
@@ -295,7 +297,8 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
   });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart(name, floatPrice, type);
   }
 });
 
@@ -307,7 +310,8 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
   });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart(name, floatPrice, type);
   }
 });
 
