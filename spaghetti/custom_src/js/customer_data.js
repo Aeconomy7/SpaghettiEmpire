@@ -26,7 +26,7 @@ app.service('customerData', function() {
 
   // Adding an item to their order cart, not yet placed
   function addToCart(name, price, type) {
-    order_cart.push({'name': name, 'price': price, 'type': type});
+    order_cart.push({'item_name': name, 'price': price, 'type': type});
     order_cost += price;
   }
 

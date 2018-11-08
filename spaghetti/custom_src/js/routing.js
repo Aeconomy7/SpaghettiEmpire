@@ -356,7 +356,6 @@ app.controller('your_orderController', function($scope, $route, $window, custome
   $scope.pageName = "Your Order";
   $scope.cart = customerData.getCart();
   $scope.cost = customerData.getCost();
-  $scope.sectionBool = false;
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSection = function(section) {
@@ -366,7 +365,6 @@ app.controller('your_orderController', function($scope, $route, $window, custome
     }
     return false;
   }
-
 
   // Submits their order to their bill and clears their order
   $scope.orderPlaced = function() {
