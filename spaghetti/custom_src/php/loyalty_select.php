@@ -14,7 +14,7 @@
   while($rs = $result->fetch_array()){
     if($outp != ""){ $outp .= ","; }
     $outp .= '{"phone_no":"' . $rs["phone_no"] . '",';
-    $outp .= '"pts":' . $rs["pts"] . '}';
+    $outp .= '"pts":"' . $rs["pts"] . '"}';
   }
 
   $outp = '{"records":['.$outp.']}';
