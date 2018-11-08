@@ -1,32 +1,33 @@
 <html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  </head>
-
+<!-- Add menu item page alpha? -->
  <body style="background-color:#52688c">
-   <h1 class="text-center">{{pageName}}</h1>
+   <!-- <h1 class="text-center">{{pageName}}</h1> -->
+   <h1 class="text-center">Add Menu Item</h1>
    <div style="border: solid" class="container mt-2">
-     <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
-       <div class="input-group">
-         <div class="input-group-prepend">
-           
-           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Comp Drinks</a>
-              <a class="dropdown-item" href="#">Comp Food</a>
-              <a class="dropdown-item" href="#">Other Reason</a>
-            </div>
-          </div>
-            <input type="text" class="form-control" aria-label="Text input with dropdown button">
-       </div>
+     <div class="justify-content-center text-center col-md-12 mt-3 animated fadeIn">
+
+       <input class="form-control m-2" type="text" placeholder="Name">
+
+       <select class="custom-select m-2">
+         <option selected="">Select Menu Category</option>
+         <option value="1">Appetizer</option>
+         <option value="2">Drink</option>
+         <option value="3">Entree</option>
+         <option value="4">Dessert</option>
+         <option value="5">Kids Meal</option>
+       </select>
+
+       <input class="form-control m-2" type="text" placeholder="Price ($)">
+       <textarea class="form-control m-2" rows="5" placeholder="Description"></textarea>
+       <textarea class="form-control m-2" rows="3" placeholder="Ingredients"></textarea>
+
+       <div class="custom-file col-md-12 m-2">
+        <input type="file" class="custom-file-input" id="customFile">
+        <label class="custom-file-label text-left" for="customFile">Choose Image</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2">Submit</button>
      </div>
    </div>
  </body>
