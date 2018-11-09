@@ -29,9 +29,26 @@ app.service('orderDatabase', ['$http', function($http) {
   var get_order;
 
   var push_order = function(cart) {
-    // phone_no, sid, item_name, price, active
+    // (phone_no, sid, item_name, price, active)
     console.log("orderdb");
     console.log(cart);
+
+    var request;
+    for(var i = 0; i < cart.length; i++) {
+      request = $http({
+        method: "post",
+        url: "/spaghetti/custom_src/php/menu_item_select.php",
+        data: {
+          phone_no: cart[i].phone_no,
+          sid: cart[i].sid,
+          item_name: cart[i].item_name,
+          price: cart[i].price,
+          active: cart[i].active
+        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      console.log(request.data);
+    }
   }
 
   return {
