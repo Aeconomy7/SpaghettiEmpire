@@ -70,11 +70,8 @@ app.service('customerData', function(orderDatabase) {
   function getRefills() {
     for(var i = 0; i < order_overall.length; i++){
       if(order_overall[i].type == 'drink'){
-        refills.concat(order_overall[i]);
+        refills.push(order_overall[i]);
       }
-    }
-    if(order_overall.length == 0) {
-      refills.concat({name: "test1", price: 1});
     }
     return refills;
   }
