@@ -12,6 +12,6 @@
   $phone_no = $data->phone_no;
   $pts = $data->pts;
 
-  $result = $conn->query('INSERT INTO ordered_items (phone_no, pts) VALUES (\'' . $phone_no . '\',\'' . $sid . '\')');
+  $result = $conn->query('INSERT INTO ordered_items (phone_no, pts) VALUES (\'' . $phone_no . '\',\'' . $pts . '\')');
 
 ?>
