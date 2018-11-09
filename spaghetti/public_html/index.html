@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link" href="/spaghetti/public_html/#staff">Staff Login</a>
-            <button class="btn-top nav-item nav-link" id="refillBtn" >Refill</button>
+            <button class="btn-top nav-item nav-link" id="refillBtn" your_refills>Refill</button>
             <button class="btn-top nav-item nav-link help" href="#">Call Server</button>
           </div>
         </div>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- The Modal -->
-    <div id="refillModal" class="modal row">
+    <div id="refillModal" class="modal row" ng-controller="your_refills">
         <!-- Modal content -->
         <span class="exit">&times;</span>
         <div class="modal-content card">

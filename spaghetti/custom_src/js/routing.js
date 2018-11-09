@@ -187,10 +187,9 @@ app.controller('tableForm', function($scope, customerData) {
   }
 });
 
-app.d('your_refills', function(customerData) {
-  var pageName = "Refills";
-  var refills = customerData.getRefills();
-
+app.controller('your_refills', function($scope, customerData) {
+  $scope.pageName = "Refills";
+  $scope.refills = customerData.getRefills();
 });
 
 // Controllers for all pages
