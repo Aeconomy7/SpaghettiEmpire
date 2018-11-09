@@ -10,11 +10,11 @@
 
   $postdata = file_get_contents("php://input");
   $request = json_decode($postdata);
-  @$phone_no = $request->phone_no;
-  @$sid = $request->sid;
-  @$item_name = $request->item_name;
-  @$price = $request->price;
-  @$active = $request->active;
+  $phone_no = $request->phone_no;
+  $sid = $request->sid;
+  $item_name = $request->item_name;
+  $price = $request->price;
+  $active = $request->active;
 
   $result = $conn->query('INSERT INTO ordered_items (phone_no, sid, item_name, price, active) VALUES (\'' . $phone_no . '\',\'' . $sid . '\',\'' . $item_name . '\',\'' . $price . '\',\'' . $active . '\')');
 

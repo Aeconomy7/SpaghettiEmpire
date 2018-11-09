@@ -34,19 +34,19 @@ app.service('orderDatabase', ['$http', function($http) {
     console.log(cart);
 
     var request;
+    
     for(var i = 0; i < cart.length; i++) {
-      request = $http({
-        method: "post",
-        url: "/spaghetti/custom_src/php/menu_item_select.php",
-        data: {
+      request = $http.post("/spaghetti/custom_src/php/ordered_items_select.php",
+        {
           phone_no: cart[i].phone_no,
           sid: cart[i].sid,
           item_name: cart[i].item_name,
           price: cart[i].price,
           active: cart[i].active
-        },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      })
+        })
+        .then(function(response) {
+            console.log(response.data);
+        });
       console.log(request.data);
     }
   }
@@ -54,4 +54,5 @@ app.service('orderDatabase', ['$http', function($http) {
   return {
     push_order: push_order
   };
+
 }]);
