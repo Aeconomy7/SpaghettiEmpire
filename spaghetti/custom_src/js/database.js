@@ -38,11 +38,11 @@ app.service('orderDatabase', ['$http', function($http) {
     for(var i = 0; i < cart.length; i++) {
       request = $http.post("/spaghetti/custom_src/php/ordered_items_insert.php",
         {
-          phone_no: cart[i].phone_no,
-          sid: cart[i].sid,
-          item_name: cart[i].item_name,
-          price: cart[i].price,
-          active: cart[i].active
+          'phone_no': cart[i].phone_no,
+          'sid': cart[i].sid,
+          'item_name': cart[i].item_name,
+          'price': cart[i].price,
+          'active': cart[i].active
         })
         .then(function(response) {
             console.log(response.data);

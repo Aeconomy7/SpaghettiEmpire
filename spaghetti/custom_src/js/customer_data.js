@@ -30,7 +30,7 @@ app.service('customerData', function(orderDatabase) {
 
   // Adding an item to their order cart, not yet placed
   function addToCart(phone, id, name, floatPrice, type) {
-    order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': 1});
+    order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
     console.log("order cost curr:");
     console.log(order_cost);
     console.log(floatPrice);
