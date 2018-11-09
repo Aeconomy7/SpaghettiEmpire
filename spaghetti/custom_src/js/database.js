@@ -23,3 +23,18 @@ app.service('menuDatabase', ['$http', function($http) {
       pullDb: pullDb
     };
 }]);
+
+app.service('orderDatabase', ['$http', function($http) {
+  var add_order;
+  var get_order;
+
+  var push_order = function(cart) {
+    // phone_no, sid, item_name, price, active
+    console.log("orderdb");
+    console.log(cart);
+  }
+
+  return {
+    push_order: push_order
+  };
+}]);

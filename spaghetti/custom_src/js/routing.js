@@ -178,6 +178,14 @@ app.directive('back', function() {
     };
 });
 
+// Table ID form
+app.controller('tableForm', function($scope, customerData) {
+  $scope.t_id = '';
+  $scope.updateId = function(id) {
+    customerData.setTableId(id);
+    console.log(customerData.getTableId());
+  }
+});
 
 // Controllers for all pages
 app.controller('your_refills', function(customerData) {
@@ -261,7 +269,7 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart(name, floatPrice, type);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -274,7 +282,7 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart(name, floatPrice, type);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -286,7 +294,7 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
   });
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart(name, floatPrice, type);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -299,7 +307,7 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart(name, floatPrice, type);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -312,7 +320,7 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart(name, floatPrice, type);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
