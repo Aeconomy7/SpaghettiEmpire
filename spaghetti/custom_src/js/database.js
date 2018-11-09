@@ -47,7 +47,6 @@ app.service('orderDatabase', ['$http', function($http) {
         .then(function(response) {
             console.log(response.data);
         });
-      console.log(request.data);
     }
   }
 
