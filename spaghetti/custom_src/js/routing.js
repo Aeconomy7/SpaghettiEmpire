@@ -178,6 +178,14 @@ app.directive('back', function() {
     };
 });
 
+// Table ID form
+app.controller('tableForm', function($scope, customerData) {
+  $scope.t_id = '';
+  $scope.updateId = function(id) {
+    customerData.setTableId(id);
+    console.log(customerData.getTableId());
+  }
+});
 
 // Controllers for all pages
 app.controller('your_refills', function(customerData) {
@@ -221,7 +229,7 @@ app.controller('kitchenStaffController', function($scope) {
 });
 
 app.controller('kitchenStaffFeedController', function($scope) {
-  $scope.pageName = "Customer Kitchen Feedback";
+  $scope.pageName = "Open Orders";
 });
 
 /* Waitstaff */
@@ -253,63 +261,66 @@ app.controller('menuController', function($scope) {
 
 app.controller('menuAppetizersController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Appetizers";
-  $scope.items = [
-    {name: 'Fried Meatballs', description: 'Meaty bally bois', price: 5.00, image: '/path/to/image.jpg', info: 'Contains meatballz'},
-    {name: 'Tomato Soup', description: 'delicious soup', price: 7.50, image: '/path/to/image2.jpg', info: 'Contains tomatoz'},
-    {name: 'Bruschetta', description: 'vegetable kind of topping stuff', price: 6.25, image: '/path/to/image3.jpg', info: 'Contains vegetalz'},
-  ]
   $scope.type = "appetizer";
+  // Pull from DB, wait for it to finish
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.items = response;
+  });
+
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
-  menuDatabase.pullDb();
 });
 
-app.controller('menuDrinksController', function($scope, customerData) {
+app.controller('menuDrinksController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Drinks";
-  $scope.items = [
-    {name: 'Water', description: 'yum yum h20', price: 0.00, image: '/path/to/image.jpg', info: 'Contains water'},
-    {name: 'Soda', description: 'one carbonated lad', price: 2.50, image: '/path/to/image2.jpg', info: 'Contains carbonation'},
-    {name: 'Tea', description: 'leaf water wow', price: 6.25, image: '/path/to/image3.jpg', info: 'Contains leafy lads'},
-  ]
   $scope.type = "drink";
+  menuDatabase.pullDb("drink").then(function(response) {
+      $scope.items = response;
+  });
+
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
-app.controller('menuEntreesController', function($scope, customerData) {
+app.controller('menuEntreesController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Entrees";
-  $scope.items = [
-    {name: 'Spaghetti', description: 'noodle and sauce woot', price: 10.00, image: '/path/to/image.jpg', info: 'Contains spaghetti'},
-    {name: 'Big Spaghetti', description: 'i am in awe at the size of it', price: 12.50, image: '/path/to/image2.jpg', info: 'Contains an absolute unit'}
-  ]
   $scope.type = "entree";
+  menuDatabase.pullDb("entree").then(function(response) {
+      $scope.items = response;
+  });
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
-app.controller('menuDessertsController', function($scope, customerData) {
+app.controller('menuDessertsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Desserts";
-  $scope.items = [
-    {name: 'Spaghetti Ice Cream', description: 'lmao wtf', price: 5.00, image: '/path/to/image.jpg', info: 'Contains spaghetti ice cream'},
-    {name: 'Meatball Pie', description: 'nasty af', price: 7.50, image: '/path/to/image2.jpg', info: 'Contains meatballz'}
-  ]
   $scope.type = "dessert";
+  menuDatabase.pullDb("dessert").then(function(response) {
+      $scope.items = response;
+  });
+
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
-app.controller('menuKidsController', function($scope, customerData) {
+app.controller('menuKidsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Kid's Menu";
-  $scope.items = [
-    {name: 'Tendies', description: 'reeeeeeee', price: 7.00, image: '/path/to/image.jpg', info: 'Contains reeeeeeee'}
-  ]
-  $scope.type = "kids";
+  $scope.type = "kidsmenu";
+  menuDatabase.pullDb("kidsmenu").then(function(response) {
+      $scope.items = response;
+  });
+
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -358,7 +369,8 @@ app.controller('your_orderController', function($scope, $route, $window, custome
   $scope.pageName = "Your Order";
   $scope.cart = customerData.getCart();
   $scope.cost = customerData.getCost();
-  $scope.sectionBool = false;
+  console.log("order cost: ");
+  console.log($scope.cost);
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSection = function(section) {
@@ -368,7 +380,6 @@ app.controller('your_orderController', function($scope, $route, $window, custome
     }
     return false;
   }
-
 
   // Submits their order to their bill and clears their order
   $scope.orderPlaced = function() {

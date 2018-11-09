@@ -1,7 +1,7 @@
-var app = angular.module('customerModule', []);
+var app = angular.module('customerModule', ['dbApp']);
 
 // Stores all data about a customer
-app.service('customerData', function() {
+app.service('customerData', function(orderDatabase) {
   var tableId = 0;  // Eventually will be linked with session
   var order_cart = []; // Stores items added but not placed yet
   var order_cost = 0.0; // Stores hypothetical cost if they placed the order so they can see how much its at
@@ -9,8 +9,9 @@ app.service('customerData', function() {
   var final_bill = 0.0; // Stores the final bill of all orders placed
   var refills = [];//stores refills needed by customer
   return {
-  //  clearCart: clearCart,
+    setTableId: setTableId,
     addToCart: addToCart,
+    getTableId: getTableId,
     getCart: getCart,
     getCost: getCost,
     addToBill: addToBill,
@@ -19,15 +20,22 @@ app.service('customerData', function() {
     getRefills: getRefills
   };
 
-  /* eventually use session
-  save: function(session) {
-    this.customer = session.customer;
-  }, */
+  function setTableId(id) {
+    tableId = id;
+  }
+
+  function getTableId() {
+    return tableId;
+  }
 
   // Adding an item to their order cart, not yet placed
-  function addToCart(name, price, type) {
-    order_cart.push({'name': name, 'price': price, 'type': type});
-    order_cost += price;
+  function addToCart(phone, id, name, floatPrice, type) {
+    order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
+    console.log("order cost curr:");
+    console.log(order_cost);
+    console.log(floatPrice);
+    order_cost += floatPrice;
+    console.log(order_cost);
   }
 
   // Returns items added to order
@@ -42,6 +50,7 @@ app.service('customerData', function() {
 
   // Submits items from cart to their total bill and clears cart
   function addToBill() {
+    orderDatabase.push_order(order_cart);
     order_overall = order_overall.concat(order_cart);
     final_bill += order_cost;
     order_cart = [];
