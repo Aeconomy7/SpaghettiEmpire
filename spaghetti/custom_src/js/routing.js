@@ -187,12 +187,13 @@ app.controller('tableForm', function($scope, customerData) {
   }
 });
 
-// Controllers for all pages
-app.controller('your_refills', function(customerData) {
+app.d('your_refills', function(customerData) {
   var pageName = "Refills";
   var refills = customerData.getRefills();
 
 });
+
+// Controllers for all pages
 /* General Staff */
 app.controller('staffController', function($scope) {
   $scope.pageName = "Staff Login";
@@ -405,12 +406,14 @@ app.controller('your_billController', function($scope, customerData) {
   }
 });
 
-app.controller('your_billPayController', function($scope) {
+app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
+  $scope.bill = customerData.getBill();
 });
 
-app.controller('your_billSplitController', function($scope) {
+app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
+  $scope.bill = customerData.getBill();
 });
 
 ////////////
