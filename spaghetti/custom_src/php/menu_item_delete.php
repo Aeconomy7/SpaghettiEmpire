@@ -12,4 +12,6 @@
   $item_name = $data->item_name;
 
   $result = $conn->query('DELETE FROM menu_item WHERE item_name=\'' . $item_name . '\'');
+
+  echo($result);
 ?>
