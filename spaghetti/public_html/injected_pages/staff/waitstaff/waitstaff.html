@@ -1,6 +1,6 @@
 <html lang="en-US">
  <body>
-   <h1 class="text-center">Waitstaff Dashboard</h1>
+   <h1 class="text-center pageTitle">{{pageName}} Dashboard</h1>
    <div class="container mt-2">
      <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
 
@@ -16,171 +16,63 @@
     <button class="btn btn-page" id="myBtn">Refill Request</button>
      <a class="btn btn-page" href="/spaghetti/public_html/#/staff/waitstaff/refills">Help Requests</a>
 
-       <!-- This container holds all 16 tables and whatnot -->
+       <!-- This container holds all 24 tables and whatnot -->
        <div class="container">
           <div class="row">
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark" id="myBtn">
+              <div class="col-md-3 block-align" ng-repeat="table in [].constructor(tables) track by $index">
+                <button type="button" class="btn btn-outline-dark" id="{{$index+1}}" onclick="viewTableModal(this.id)">
                   <div class="circle">
-                      <p>Table 1</p>
+                      <p>Table {{$index+1}}</p>
                   </div>
                 </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 2</p>
-                  </div>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 3</p>
-                  </div>
-                </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 4</p>
-                  </div>
-                </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 5</p>
-                  </div>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 6</p>
-                  </div>
-                </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 7</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 8</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 9</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 10</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 11</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 12</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 13</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 14</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 15</p>
-                  </div>
-                  </button>
-              </div>
-              <div class="col-md-3 block-align">
-                <button type="button" class="btn btn-outline-dark">
-                  <div class="circle">
-                      <p>Table 16</p>
-                  </div>
-                  </button>
-              </div>
-          </div>
-        </div>
-
-        <!-- The Modal -->
-        <div id="myModal" class="modal row">
-            <!-- Modal content -->
-            <span class="close">&times;</span>
-            <div class="modal-content card" ng-repeat="x in drinks">
-              <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p class="font-weight-bold">Table: {{x.table}}</p>
-                    </div>
-                    <div class="col-sm-6">
-                      <div  ng-repeat="y in x.drink">
-                          <p class="float-left">{{y.type}}</p>
-                          <input class="float-right" type="checkbox" name="valuey" value={{y.type}}></input><br>
-                          <div style="clear: both;"></div>
+                <!-- The Modal for each table -->
+                <div id="myModal{{$index+1}}" class="modal row">
+                    <!-- Modal content -->
+                    <span id="span{{$index+1}}" class="close">&times;</span>
+                    <div class="modal-content card" >
+                      <div class="card-body">
+                        <h3 class="text-center">Table {{$index+1}} Information</h3>
+                        <div class="row" ng-repeat="item in getDrinksByTable($index+1) track by $index">
+                            <p class="float-left col-md-6">{{item}}</p>
+                            <input class="float-right col-md-6" type="checkbox" name="valuey" value=1></input><br>
+                            <div style="clear: both;"></div>
+                        </div>
                       </div>
                     </div>
                 </div>
               </div>
-            </div>
+
+          </div>
         </div>
 
      </div>
    </div>
-   <script >// Get the modal
-    var modal = document.getElementById('myModal');
+   <!-- Generates the modal for a table when its clicked -->
+   <script>
+      function viewTableModal(t_id) {
+        var modal = document.getElementById('myModal'+t_id);
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+        // Get the button that opens the modal
+        var btn = document.getElementById(t_id);
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+        // Get the <span> element that closes the modal
+        var span = document.getElementById('span'+t_id);
 
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
         modal.style.display = "block";
-    }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-                modal.style.display = "none";
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
         }
-    }
-</script>
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                    modal.style.display = "none";
+            }
+        }
+      }
+   </script>
+
  </body>
 </html>

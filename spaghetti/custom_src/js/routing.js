@@ -232,21 +232,31 @@ app.controller('kitchenStaffFeedController', function($scope) {
 });
 
 /* Waitstaff */
-app.controller('waitStaffController', function($scope) {
+app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
-  $scope.drinks = [{
-                  table: '7',
-                  drink: [
-                        {type:'rootbeer'},
-                        {type: 'sprite'},
-                        {type: 'water'}
-                        ]
-    },
-    {table: '9', drink: [
-                      {type:'sprite'}
-                    ]
+  $scope.tables = 24;
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  // Returns all active orders from database
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all drinks matching the table number of ng-repeat inside waitstaff.html
+  $scope.getDrinksByTable = function(tableNum) {
+    var drinks = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
+        drinks.push($scope.orders[i].item_name);
+      }
     }
-  ]
+    return drinks;
+  }
+
 });
 
 app.controller('waitStaffRefillController', function($scope) {
@@ -391,8 +401,14 @@ app.controller('your_orderController', function($scope, $route, $window, custome
 /* Your Bill */
 app.controller('your_billController', function($scope, customerData) {
   $scope.pageName = "Your Bill";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
+  /*$scope.bill_info = customerData.getOrderOverall();
+  $scope.bill = customerData.getBill(); */
+  $scope.bill_info = [
+      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+  ];
+  $scope.bill = 29.50;
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSectionBill = function(section) {
