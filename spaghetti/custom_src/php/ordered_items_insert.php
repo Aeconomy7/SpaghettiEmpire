@@ -16,7 +16,7 @@
   $type = $data->type;
   $active = $data->active;
 
-  $result = $conn->query('INSERT INTO ordered_items (phone_no, sid, item_name, price, active) VALUES (\'' . $phone_no . '\',\'' . $sid . '\',\'' . $item_name . '\',\'' . $price . '\',\'' . $type . '\',\'' . $active . '\')');
+  $result = $conn->query('INSERT INTO ordered_items (phone_no, sid, item_name, price, type, active) VALUES (\'' . $phone_no . '\',\'' . $sid . '\',\'' . $item_name . '\',\'' . $price . '\',\'' . $type . '\',\'' . $active . '\')');
 
   echo($result);
 
