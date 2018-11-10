@@ -56,15 +56,16 @@ app.service('orderDatabase', ['$http', function($http) {
       .then(function (response) {
         var result = response.data;
         var items = [];
-        for(var i = 0; i < result.length; i++) {
-          if(result[i].active == "1") {
-            items.push(result[i]);
+        for(var i = 0; i < result.records.length; i++) {
+          if(result.records[i].active == "1") {
+            items.push(result.records[i]);
           }
         }
         return items;
       });
       return $promise;
   }
+
 
   return {
     push_order: push_order,
