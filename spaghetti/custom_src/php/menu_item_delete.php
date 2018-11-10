@@ -11,7 +11,7 @@
   $data = json_decode(file_get_contents('php://input'));
   $item_name = $data->item_name;
 
-  $result = $conn->query('DELETE FROM menu_item WHERE item_name=\'' . $item_name . '\'');
+  $result = $conn->query('DELETE FROM menu_items WHERE item_name=\'' . $item_name . '\'');
 
   echo($result);
 ?>
