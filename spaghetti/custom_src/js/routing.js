@@ -220,17 +220,6 @@ app.controller('your_refills', function($scope, customerData) {
 /* General Staff */
 app.controller('staffController', function($scope, $window) {
   $scope.pageName = "Staff Login";
-  /* Row format:
-    waitstaff1, waitstaff2, waitstaff3
-    kitchenstaff1, kitchenstaff2, kitchenstaff3,
-    manager1
-
-    $scope.staffIDs = [
-      '11114001', '11114002', '11114003',
-      '11115001', '11115002', '11115003',
-      '11111337'
-    ];
-  */
 
   $scope.login_id = "";
   $scope.counter = 0;
@@ -532,8 +521,36 @@ app.controller('gamesSnakeController', function($scope) {
 });
 
 /* Loyalty */
-app.controller('loyaltyController', function($scope) {
+app.controller('loyaltyController', function($scope, loyaltyDatabase) {
   $scope.pageName = "Loyalty Login";
+
+  $scope.phone_id = "";
+  $scope.counter = 0;
+
+  $scope.appendVal = function(val) {
+    if($scope.counter < 10) {
+      $scope.phone_id += val;
+      $scope.counter++;
+    }
+    else {
+      alert("No more numbers allowed");
+    }
+  }
+  $scope.backspaceVal = function() {
+    $scope.phone_id = $scope.phone_id.substring(0, $scope.phone_id.length - 1);
+    $scope.counter--;
+  }
+
+  $scope.loyalty_login = function() {
+    console.log($scope.phone_id);
+    loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
+        console.log("done calling");
+    });
+  }
+
+  $scope.loyalty_signup = function() {
+    console.log($scope.phone_id);
+  }
 });
 
 app.controller('loyaltyProfileController', function($scope) {

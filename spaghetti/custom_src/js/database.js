@@ -136,3 +136,41 @@ app.service('feedbackDatabase', ['$http', function($http) {
   };
 
 }]);
+
+app.service('loyaltyDatabase', ['$http', function($http) {
+
+  var result;
+  var items = [];
+
+  // Returns loyalty profile data and checks login
+  var get_profile = function(phone) {
+    var $promise = $http.get("/spaghetti/custom_src/php/loyalty_select.php",
+    {
+      'phone_no': phone
+    })
+    .then(function (response) {
+      result = response.data;
+      console.log(result);
+      return result;
+    });
+    return $promise;
+  }
+
+  var signup_profile = function(phone) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/loyalty_insert.php",
+      {
+        'phone_no': phone,
+        'pts': '0'
+      })
+      .then(function(response) {
+          console.log(response.data);
+      });
+  }
+
+  return {
+    get_profile: get_profile,
+    signup_profile: signup_profile
+  };
+
+}]);
