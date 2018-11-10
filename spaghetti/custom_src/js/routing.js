@@ -525,17 +525,31 @@ app.controller('your_billController', function($scope, customerData) {
   }
 });
 
+
 app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
+  $scope.bill_info = customerData.getOrderOverall();
   $scope.bill = customerData.getBill();
+
 });
 
 app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
+  $scope.bill_info = customerData.getOrderOverall();
   $scope.bill = customerData.getBill();
-});
 
-////////////
-app.controller('templateController', function($scope) {
-  $scope.pageName = "Template Page";
+  $scope.hasSectionBill = function(section) {
+    for(var i = 0; i < $scope.bill_info.length; i++) {
+      if($scope.bill_info[i].type == section)
+        return true;
+    }
+    return false;
+  }
+
+  $scope.RemoveItemFromBill = function(name, price, type) {
+    $scope.bill_info.RemoveFromBill("");
+    $scope.bill_info.removeFromCart("");
+  }
+
+
 });
