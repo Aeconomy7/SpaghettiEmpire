@@ -235,7 +235,7 @@ app.controller('kitchenStaffFeedController', function($scope) {
 app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
   $scope.tables = 24;
-
+  $scope.orders = [];
   // Specifies size of table for ng-repeat, only accepts arrays
   $scope.getTableAmount = function () {
     return new Array($scope.tables);
