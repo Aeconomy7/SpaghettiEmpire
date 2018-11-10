@@ -42,6 +42,7 @@ app.service('orderDatabase', ['$http', function($http) {
           'sid': cart[i].sid,
           'item_name': cart[i].item_name,
           'price': cart[i].price,
+          'type': cart[i].type,
           'active': cart[i].active
         })
         .then(function(response) {
