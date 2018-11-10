@@ -17,6 +17,7 @@
     $outp .= '"sid":"' . $rs["sid"] . '",';
     $outp .= '"item_name":"' . $rs["item_name"] . '",';
     $outp .= '"price":"' . $rs["price"] . '",';
+    $outp .= '"type":"' . $rs["type"] . '",';
     $outp .= '"active":"' . $rs["active"] . '"}';
   }
 
