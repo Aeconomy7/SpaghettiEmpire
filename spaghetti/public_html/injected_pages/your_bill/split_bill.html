@@ -72,6 +72,23 @@
              </div>
            </div>
          </div>
+
+         <div ng-show="hasSectionBill('kidsmenu')" class="card m-2 animated fadeIn">
+           <h3 class="card-title">Kid's Menu</h3>
+           <div ng-repeat="x in bill_info | filter:{type:'kidsmenu'}">
+             <div class="d-flex card-body">
+               <div class="col-md-8 text-left order-text">{{x.item_name}}</div>
+               <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
+             </div>
+             <div class="col-md-6">
+               <!-- Add to order button unique to this item, ng-click adds it to the customer's cart on click.
+                    Also have a separate onClick event to indicate the item was added. -->
+               <button id='{{$index}}'class="btn btn-block btn-select" onClick="removeItem(this.id);" ng-click="RemoveItemFromBill(x.item_name, x.price, type)">
+                 Add to Tab
+               </button>
+             </div>
+           </div>
+         </div>
        </div>
 
        <div class="card-footer d-flex">
