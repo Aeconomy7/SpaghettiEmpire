@@ -76,3 +76,30 @@ app.service('orderDatabase', ['$http', function($http) {
   };
 
 }]);
+
+
+app.service('feedbackDatabase', ['$http', function($http) {
+
+  var result;
+  var items = [];
+
+  // Returns gigantic list of all feedback
+  var get_feedback = function() {
+    var $promise = $http.get("/spaghetti/custom_src/php/feedback_select.php")
+      .then(function (response) {
+        result = response.data;
+        items = [];
+        for(var i = 0; i < result.records.length; i++) {
+          items.push(result.records[i]);
+        }
+        return items;
+      });
+      return $promise;
+  }
+
+
+  return {
+    get_feedback: get_feedback
+  };
+
+}]);

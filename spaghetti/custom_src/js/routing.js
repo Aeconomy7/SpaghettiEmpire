@@ -227,8 +227,14 @@ app.controller('kitchenStaffController', function($scope) {
   $scope.pageName = "Kitchen Staff";
 });
 
-app.controller('kitchenStaffFeedController', function($scope) {
+app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) {
   $scope.pageName = "Customer Feedback";
+  $scope.feedback = [];
+
+  feedbackDatabase.get_feedback().then(function(response) {
+    $scope.feedback = response;
+  });
+
 });
 
 app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
