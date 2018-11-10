@@ -550,6 +550,9 @@ app.controller('loyaltyController', function($scope, loyaltyDatabase) {
 
   $scope.loyalty_signup = function() {
     console.log($scope.phone_id);
+    loyaltyDatabase.signup_profile($scope.phone_id).then(function(response) {
+      console.log("done calling signup");
+    });
   }
 });
 
