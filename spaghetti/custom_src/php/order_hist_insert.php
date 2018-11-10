@@ -10,8 +10,11 @@
 
   $data = json_decode(file_get_contents('php://input'));
   $phone_no = $data->phone_no;
-  $pts = $data->pts;
+  $date = $data->date;
+  $active = $data->amt;
 
-  $result = $conn->query('INSERT INTO loyalty (phone_no, pts) VALUES (\'' . $phone_no . '\',\'' . $pts . '\')');
+  $result = $conn->query('INSERT INTO order_hist (phone_no, date, amt) VALUES (\'' . $phone_no . '\',\'' . $date . '\',\'' . $amt . '\')');
+
+  echo($result);
 
 ?>
