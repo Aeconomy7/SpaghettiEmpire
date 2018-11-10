@@ -49,7 +49,7 @@ app.config(function($routeProvider, $locationProvider) {
 
               .when('/staff/kitchen/open_orders', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/open_orders.html',
-                controller: 'kitchenStaffFeedController'
+                controller: 'kitchenStaffOrdersController'
               })
 
               .when('/staff/waitstaff', {
@@ -228,7 +228,34 @@ app.controller('kitchenStaffController', function($scope) {
 });
 
 app.controller('kitchenStaffFeedController', function($scope) {
+  $scope.pageName = "Customer Feedback";
+});
+
+app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
   $scope.pageName = "Open Orders";
+  $scope.tables = 24;
+  $scope.orders = [];
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all non-drinks matching the table number of ng-repeat inside open_orders.html
+  $scope.getOrderByTable = function(tableNum) {
+    var order = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type != 'drink') {
+        order.push($scope.orders[i].item_name);
+      }
+    }
+    return order;
+  }
+
 });
 
 /* Waitstaff */
@@ -236,7 +263,7 @@ app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
   $scope.tables = 24;
   $scope.orders = [];
-  
+
   // Specifies size of table for ng-repeat, only accepts arrays
   $scope.getTableAmount = function () {
     return new Array($scope.tables);
