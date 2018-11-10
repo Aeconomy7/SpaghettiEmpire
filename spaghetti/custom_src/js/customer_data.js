@@ -69,10 +69,10 @@ app.service('customerData', function(orderDatabase) {
 
   function getRefills() {
     for(var i = 0; i < order_overall.length; i++){
-      if(order_overall[i].type == drink){
-        refill.concat(order_overall[i]);
+      if(order_overall[i].type == 'drink'){
+        refills.push(order_overall[i]);
       }
     }
-    return refill;
+    return refills;
   }
 })
