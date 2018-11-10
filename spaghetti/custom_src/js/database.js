@@ -26,6 +26,9 @@ app.service('menuDatabase', ['$http', function($http) {
 
 app.service('orderDatabase', ['$http', function($http) {
 
+  var result;
+  var items = [];
+
   // Adds an order to the database
   var push_order = function(cart) {
     // (phone_no, sid, item_name, price, active)
@@ -54,16 +57,18 @@ app.service('orderDatabase', ['$http', function($http) {
   var get_active_orders = function() {
     var $promise = $http.get("/spaghetti/custom_src/php/ordered_items_select.php")
       .then(function (response) {
-        var result = response.data;
-        var items = [];
-        for(var i = 0; i < result.length; i++) {
-          if(result[i].active == "1") {
-            items.push(result[i]);
+        result = response.data;
+        items = [];
+        for(var i = 0; i < result.records.length; i++) {
+          if(result.records[i].active == "1") {
+            items.push(result.records[i]);
           }
         }
+        return items;
       });
       return $promise;
   }
+
 
   return {
     push_order: push_order,
