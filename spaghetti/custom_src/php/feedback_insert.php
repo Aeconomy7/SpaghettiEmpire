@@ -14,7 +14,7 @@
   $comment = $data->comment;
   $manageronly = $data->manageronly;
 
-  $result = $conn->query('INSERT INTO ordered_items (phone_no, sid, item_name, price, type, active) VALUES (\'' . $date . '\',\'' . $sid . '\',\'' . $comment . '\',\'' . $manageronly . '\')');
+  $result = $conn->query('INSERT INTO ordered_items (date, sid, comment, manageronly) VALUES (\'' . $date . '\',\'' . $sid . '\',\'' . $comment . '\',\'' . $manageronly . '\')');
 
   echo($result);
 
