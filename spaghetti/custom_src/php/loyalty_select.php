@@ -8,7 +8,7 @@
     echo 'Failed to connect to MySQL: (' . $conn->connect_errno . ') ' . $conn->connect_error;
   }
 
-  $result = $conn->query('SELECT * FROM loyalty');
+  $result = $conn->query('SELECT * FROM loyalty WHERE phone_no=\'' . $phone_no . '\'');
 
   $outp = '';
   while($rs = $result->fetch_array()){
