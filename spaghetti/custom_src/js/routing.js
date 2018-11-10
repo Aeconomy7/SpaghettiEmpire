@@ -187,12 +187,11 @@ app.controller('tableForm', function($scope, customerData) {
   }
 });
 
-// Controllers for all pages
-app.controller('your_refills', function(customerData) {
-  var pageName = "Refills";
-  var refills = customerData.getRefills();
-
+app.controller('your_refills', function($scope, customerData) {
+  $scope.refills = customerData.getRefills();
 });
+
+// Controllers for all pages
 /* General Staff */
 app.controller('staffController', function($scope) {
   $scope.pageName = "Staff Login";
@@ -233,21 +232,31 @@ app.controller('kitchenStaffFeedController', function($scope) {
 });
 
 /* Waitstaff */
-app.controller('waitStaffController', function($scope) {
+app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
-  $scope.drinks = [{
-                  table: '7',
-                  drink: [
-                        {type:'rootbeer'},
-                        {type: 'sprite'},
-                        {type: 'water'}
-                        ]
-    },
-    {table: '9', drink: [
-                      {type:'sprite'}
-                    ]
+  $scope.tables = 24;
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  // Returns all active orders from database
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all drinks matching the table number of ng-repeat inside waitstaff.html
+  $scope.getDrinksByTable = function(tableNum) {
+    var drinks = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
+        drinks.push($scope.orders[i].item_name);
+      }
     }
-  ]
+    return drinks;
+  }
+
 });
 
 app.controller('waitStaffRefillController', function($scope) {
@@ -405,12 +414,14 @@ app.controller('your_billController', function($scope, customerData) {
   }
 });
 
-app.controller('your_billPayController', function($scope) {
+app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
+  $scope.bill = customerData.getBill();
 });
 
-app.controller('your_billSplitController', function($scope) {
+app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
+  $scope.bill = customerData.getBill();
 });
 
 ////////////
