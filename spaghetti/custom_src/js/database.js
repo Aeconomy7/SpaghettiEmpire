@@ -61,6 +61,7 @@ app.service('orderDatabase', ['$http', function($http) {
             items.push(result[i]);
           }
         }
+        return items;
       });
       return $promise;
   }
