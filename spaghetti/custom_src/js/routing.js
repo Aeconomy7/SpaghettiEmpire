@@ -132,11 +132,6 @@ app.config(function($routeProvider, $locationProvider) {
                 controller: 'gamesTTTController'
               })
 
-              .when('/games/snake', {
-                templateUrl: '/spaghetti/public_html/injected_pages/games/snake.html',
-                controller: 'gamesSnakeController'
-              })
-
       // Loyalty routing and its subpages
       .when('/loyalty', {
         templateUrl: '/spaghetti/public_html/injected_pages/loyalty/loyalty.html',
@@ -457,10 +452,6 @@ app.controller('gamesTTTController', function($scope) {
   $scope.pageName = "Tic-Tac-Toe";
 });
 
-app.controller('gamesSnakeController', function($scope) {
-  $scope.pageName = "Snake";
-});
-
 /* Loyalty */
 app.controller('loyaltyController', function($scope) {
   $scope.pageName = "Loyalty Login";
@@ -525,17 +516,31 @@ app.controller('your_billController', function($scope, customerData) {
   }
 });
 
+
 app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
+  $scope.bill_info = customerData.getOrderOverall();
   $scope.bill = customerData.getBill();
+
 });
 
 app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
+  $scope.bill_info = customerData.getOrderOverall();
   $scope.bill = customerData.getBill();
-});
 
-////////////
-app.controller('templateController', function($scope) {
-  $scope.pageName = "Template Page";
+  $scope.hasSectionBill = function(section) {
+    for(var i = 0; i < $scope.bill_info.length; i++) {
+      if($scope.bill_info[i].type == section)
+        return true;
+    }
+    return false;
+  }
+
+  $scope.RemoveItemFromBill = function(name, price, type) {
+    $scope.bill_info.RemoveFromBill("");
+    $scope.bill_info.removeFromCart("");
+  }
+
+
 });

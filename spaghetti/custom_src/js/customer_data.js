@@ -17,7 +17,9 @@ app.service('customerData', function(orderDatabase) {
     addToBill: addToBill,
     getOrderOverall: getOrderOverall,
     getBill: getBill,
-    getRefills: getRefills
+    getRefills: getRefills,
+    removeFromCart: removeFromCart,
+    removeFromBill: removeFromBill
   };
 
   function setTableId(id) {
@@ -75,4 +77,21 @@ app.service('customerData', function(orderDatabase) {
     }
     return refills;
   }
+
+  function removeFromCart(selected_orders) {
+   console.log(selected_orders);
+   var index = bill_info.indexOf(selected_orders);
+   if(index > -1){
+     bill_info.splice(index, 1);
+   }
+   console.log(bill_info);
+ }
+
+ //TODO :     //this function needs to accept an object selected_orders
+ function removeFromBill(selected_orders, selected_orders_cost) {
+   final_bill -= selected_orders_cost;
+   // order_cart = order_cart [] - selected_orders; TODO
+   // orderDatabase.push_order(order_cart)
+ }
+
 })
