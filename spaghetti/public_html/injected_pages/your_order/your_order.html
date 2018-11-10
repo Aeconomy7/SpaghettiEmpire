@@ -7,10 +7,10 @@
         <h3 class="card-title">Appetizers</h3>
         <div ng-repeat="x in cart | filter:{type:'appetizer'}">
           <div class="d-flex card-body">
-            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-8 text-left order-text">{{x.item_name}}</div>
             <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
             <div class="col-md-2">
-              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.item_name)'>Remove</button>
             </div>
           </div>
         </div>
@@ -20,10 +20,10 @@
         <h3 class="card-title">Drinks</h3>
         <div ng-repeat="x in cart | filter:{type:'drink'}">
           <div class="d-flex card-body">
-            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-8 text-left order-text">{{x.item_name}}</div>
             <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
             <div class="col-md-2">
-              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.item_name)'>Remove</button>
             </div>
           </div>
         </div>
@@ -33,10 +33,10 @@
         <h3 class="card-title">Entrees</h3>
         <div ng-repeat="x in cart | filter:{type:'entree'}">
           <div class="d-flex card-body">
-            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-8 text-left order-text">{{x.item_name}}</div>
             <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
             <div class="col-md-2">
-              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.item_name)'>Remove</button>
             </div>
           </div>
         </div>
@@ -46,23 +46,23 @@
         <h3 class="card-title">Desserts</h3>
         <div ng-repeat="x in cart | filter:{type:'dessert'}">
           <div class="d-flex card-body">
-            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-8 text-left order-text">{{x.item_name}}</div>
             <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
             <div class="col-md-2">
-              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.item_name)'>Remove</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div ng-show="hasSection('kids')" class="card m-2 animated fadeIn">
+      <div ng-show="hasSection('kidsmenu')" class="card m-2 animated fadeIn">
         <h3 class="card-title">Kid's Menu</h3>
-        <div ng-repeat="x in cart | filter:{type:'kids'}">
+        <div ng-repeat="x in cart | filter:{type:'kidsmenu'}">
           <div class="d-flex card-body">
-            <div class="col-md-8 text-left order-text">{{x.name}}</div>
+            <div class="col-md-8 text-left order-text">{{x.item_name}}</div>
             <div class="col-md-2 text-center order-price">{{x.price | currency:"$"}}</div>
             <div class="col-md-2">
-              <button class="btn btn-sm btn-select" ng-click='removeItem(x.name)'>Remove</button>
+              <button class="btn btn-sm btn-select" ng-click='removeItem(x.item_name)'>Remove</button>
             </div>
           </div>
         </div>

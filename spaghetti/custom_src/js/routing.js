@@ -178,6 +178,14 @@ app.directive('back', function() {
     };
 });
 
+// Table ID form
+app.controller('tableForm', function($scope, customerData) {
+  $scope.t_id = '';
+  $scope.updateId = function(id) {
+    customerData.setTableId(id);
+    console.log(customerData.getTableId());
+  }
+});
 
 // Controllers for all pages
 app.controller('your_refills', function(customerData) {
@@ -255,56 +263,64 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
   $scope.pageName = "Appetizers";
   $scope.type = "appetizer";
   // Pull from DB, wait for it to finish
-  var pullItems = menuDatabase.pullDb("appetizer");
-  pullItems.then(function(result) {
-      $scope.items = result;
-      console.log($scope.items);
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.items = response;
   });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
 app.controller('menuDrinksController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Drinks";
   $scope.type = "drink";
-  $scope.items = menuDatabase.pullDb("drink");
-  console.log($scope.items);
+  menuDatabase.pullDb("drink").then(function(response) {
+      $scope.items = response;
+  });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
 app.controller('menuEntreesController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Entrees";
   $scope.type = "entree";
-  $scope.items = menuDatabase.pullDb("entree");
-  console.log($scope.items);
+  menuDatabase.pullDb("entree").then(function(response) {
+      $scope.items = response;
+  });
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
 app.controller('menuDessertsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Desserts";
   $scope.type = "dessert";
-  $scope.items = menuDatabase.pullDb("dessert");
+  menuDatabase.pullDb("dessert").then(function(response) {
+      $scope.items = response;
+  });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
 app.controller('menuKidsController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Kid's Menu";
   $scope.type = "kidsmenu";
-  $scope.items = menuDatabase.pullDb("kidsmenu");
-  console.log($scope.items);
+  menuDatabase.pullDb("kidsmenu").then(function(response) {
+      $scope.items = response;
+  });
 
   $scope.add = function(name, price, type) {
-    customerData.addToCart(name, price, type);
+    var floatPrice = parseFloat(price);
+    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -353,7 +369,8 @@ app.controller('your_orderController', function($scope, $route, $window, custome
   $scope.pageName = "Your Order";
   $scope.cart = customerData.getCart();
   $scope.cost = customerData.getCost();
-  $scope.sectionBool = false;
+  console.log("order cost: ");
+  console.log($scope.cost);
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSection = function(section) {
@@ -363,7 +380,6 @@ app.controller('your_orderController', function($scope, $route, $window, custome
     }
     return false;
   }
-
 
   // Submits their order to their bill and clears their order
   $scope.orderPlaced = function() {
