@@ -21,6 +21,7 @@ app.service('menuDatabase', ['$http', function($http) {
 
     var addItem = function(item_details) {
       var request;
+      console.log(item_details);
       request = $http.post("/spaghetti/custom_src/php/menu_item_insert.php",
         {
           'type': item_details.type,
@@ -31,6 +32,7 @@ app.service('menuDatabase', ['$http', function($http) {
           'img_path': item_details.img_path
         })
         .then(function(response) {
+            console.log(response);
             console.log(response.data);
         });
     }
