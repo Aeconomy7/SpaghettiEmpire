@@ -218,8 +218,54 @@ app.controller('your_refills', function($scope, customerData) {
 
 // Controllers for all pages
 /* General Staff */
-app.controller('staffController', function($scope) {
+app.controller('staffController', function($scope, $window) {
   $scope.pageName = "Staff Login";
+  /* Row format:
+    waitstaff1, waitstaff2, waitstaff3
+    kitchenstaff1, kitchenstaff2, kitchenstaff3,
+    manager1
+
+    $scope.staffIDs = [
+      '11114001', '11114002', '11114003',
+      '11115001', '11115002', '11115003',
+      '11111337'
+    ];
+  */
+
+  $scope.login_id = "";
+  $scope.counter = 0;
+
+  $scope.appendVal = function(val) {
+    if($scope.counter < 8) {
+      $scope.login_id += val;
+      $scope.counter++;
+    }
+    else {
+      alert("No more numbers allowed");
+    }
+  }
+  $scope.backspaceVal = function() {
+    $scope.login_id = $scope.login_id.substring(0, $scope.login_id.length - 1);
+    $scope.counter--;
+  }
+
+  $scope.staff_login = function() {
+    console.log($scope.login_id);
+    if($scope.login_id == "11114001" || $scope.login_id == "11114002" || $scope.login_id == "11114003") {
+      console.log("Wait Staff login");
+      $window.location.href ="/spaghetti/public_html/#/staff/waitstaff";
+    }
+    else if($scope.login_id == "11115001" || $scope.login_id == "11115002" || $scope.login_id == "11115003") {
+      console.log("Kitchen Staff login");
+      $window.location.href ="/spaghetti/public_html/#/staff/kitchen";
+    }
+    else if($scope.login_id == "11111337") {
+      console.log("Manager login");
+      $window.location.href ="/spaghetti/public_html/#/staff/manager";
+    }
+    else
+      alert("Invalid login ID, please try again");
+  }
 });
 
 /* Manager */
