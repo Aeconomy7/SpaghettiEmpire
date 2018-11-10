@@ -17,4 +17,6 @@
   $img_path = $data->img_path;
 
   $result = $conn->query('UPDATE menu_items SET item_name=\'' . $new_item_name . '\', price=' . $price . ', description=\'' . $description . '\', ingredients=\'' . $ingredients . '\', img_path=\'' . $img_path . '\' WHERE item_name=\'' . $original_item_name . '\'');
+
+  echo($result);
 ?>
