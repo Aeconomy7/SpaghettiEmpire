@@ -1,13 +1,17 @@
 <html lang="en-US">
  <body>
+   <!-- <div class="col-md-2" data-ng-controller="tableForm">
+     <input type="text" placeholder="Insert Table ID here" name="name" data-ng-model="t_id" class="form-control" required />
+     <input type="submit" ng-click="updateId(t_id)">
+   </div>
+ -->
    <h1 class="text-center pageTitle">{{pageName}}</h1>
    <div class="container mt-2">
      <div class="justify-content-center text-center col-md-12 mt-3 animated fadeIn">
 
-       <input class="form-control m-2" type="text" placeholder="Name">
+       <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="Name">
 
-       <select class="custom-select m-2">
-         <option selected="">Select Menu Category</option>
+       <select class="custom-select m-2" data-ng-model="type_add">
          <option value="1">Appetizer</option>
          <option value="2">Drink</option>
          <option value="3">Entree</option>
@@ -15,16 +19,19 @@
          <option value="5">Kids Meal</option>
        </select>
 
-       <input class="form-control m-2" type="text" placeholder="Price ($)">
-       <textarea class="form-control m-2" rows="3" placeholder="Description"></textarea>
-       <textarea class="form-control m-2" rows="5" placeholder="Ingredients"></textarea>
+       <input data-ng-model="price_add" class="form-control m-2" type="text" placeholder="Price ($)">
+       <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="Description"></textarea>
+       <textarea data-ng-model="ingr_add" class="form-control m-2" rows="5" placeholder="Ingredients"></textarea>
+       <textarea data-ng-model="img_add" class="form-control m-2" rows="3" placeholder="Image Path String (temporary)"></textarea>
 
+       <!--
        <div class="custom-file col-md-12 m-2">
         <input type="file" class="custom-file-input" id="customFile">
         <label class="custom-file-label text-left" for="customFile">Choose Image</label>
-      </div>
+      </div> -->
 
-      <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2">Submit</button>
+      <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+          ng-click="addToMenu(name_add, type_add, price_add, desc_add, ingr_add, img_add)">Submit</button>
      </div>
    </div>
  </body>

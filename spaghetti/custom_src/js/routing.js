@@ -8,6 +8,7 @@ app.config(function($routeProvider, $locationProvider) {
       controller: 'staffController'
     })
 
+              // Manager lad
               .when('/staff/manager', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/manager.html',
                 controller: 'managerController'
@@ -52,6 +53,7 @@ app.config(function($routeProvider, $locationProvider) {
                       controller: 'managerFeedController'
                     })
 
+              // Kitchen lads
               .when('/staff/kitchen', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/kitchen.html',
                 controller: 'kitchenStaffController'
@@ -67,6 +69,7 @@ app.config(function($routeProvider, $locationProvider) {
                 controller: 'kitchenStaffOrdersController'
               })
 
+              // Waitstaff lads
               .when('/staff/waitstaff', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/waitstaff/waitstaff.html',
                 controller: 'waitStaffController'
@@ -224,8 +227,44 @@ app.controller('managerMenuController', function($scope) {
   $scope.pageName = "Modify Menu";
 });
 
-app.controller('managerMenuAddController', function($scope) {
+app.controller('managerMenuAddController', function($scope, menuDatabase) {
   $scope.pageName = "Add New Item";
+
+  $scope.addToMenu = function(name_add, type_add, price_add, desc_add, ingr_add, img_add) {
+    // Input checking
+    if(type_add == '1') {
+      type_add = 'appetizer';
+    } else if (type_add == '2') {
+      type_add = 'drink'
+    } else if (type_add == '3') {
+      type_add = 'entree';
+    } else if (type_add == '4') {
+      type_add = 'dessert';
+    } else if (type_add == '5') {
+      type_add = 'kidsmenu';
+    }
+
+    if(name_add == undefined || type_add == undefined || price_add == undefined || desc_add == undefined || ingr_add == undefined || img_add == undefined)
+      alert("Please enter information for all fields.");
+    else if(parseFloat(price_add) < 0.0)
+      alert("Price cannot be less than 0");
+    // Add further input checks for now, such as apostrophes cuz gosh dang SQL errors
+
+
+    // Add item if all input is fine
+    else {
+      var item_details = {
+        type: type_add,
+        item_name: name_add,
+        price: price_add,
+        description: desc_add,
+        ingredients: ingr_add,
+        img_path: img_add
+      };
+      menuDatabase.addItem(item_details);
+      console.log("call finished from manager");
+    }
+  }
 });
 
 app.controller('managerMenuEditController', function($scope) {

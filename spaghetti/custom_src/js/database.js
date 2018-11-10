@@ -17,10 +17,29 @@ app.service('menuDatabase', ['$http', function($http) {
           return items;
         });
         return $promise;
-      }
+    }
+
+    var addItem = function(item_details) {
+      var request;
+      request = $http.post("/spaghetti/custom_src/php/menu_item_insert.php",
+        {
+          'type': item_details.type,
+          'item_name': item_details.item_name,
+          'price': item_details.price,
+          'description': item_details.description,
+          'ingredients': item_details.ingredients,
+          'img_path': item_details.img_path
+        })
+        .then(function(response) {
+            console.log(response.data);
+        });
+    }
+
 
     return {
-      pullDb: pullDb
+      pullDb: pullDb,
+      addItem: addItem,
+    //  deleteItem: deleteItem
     };
 }]);
 
