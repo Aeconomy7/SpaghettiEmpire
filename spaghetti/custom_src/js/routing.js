@@ -235,6 +235,7 @@ app.controller('kitchenStaffFeedController', function($scope) {
 app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
   $scope.tables = 24;
+  $scope.orders = [];
 
   // Specifies size of table for ng-repeat, only accepts arrays
   $scope.getTableAmount = function () {
@@ -248,13 +249,15 @@ app.controller('waitStaffController', function($scope, orderDatabase) {
 
   // Returns all drinks matching the table number of ng-repeat inside waitstaff.html
   $scope.getDrinksByTable = function(tableNum) {
-    var drinks = [];
-    for(var i = 0; i < $scope.orders.length; i++) {
-      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
-        drinks.push($scope.orders[i].item_name);
+    orderDatabase.get_active_orders().then(function(response) {
+      $scope.orders = response;
+      for(var i = 0; i < $scope.orders.length; i++) {
+        if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
+          drinks.push($scope.orders[i].item_name);
+        }
       }
-    }
-    return drinks;
+      return drinks;
+    });
   }
 
 });
