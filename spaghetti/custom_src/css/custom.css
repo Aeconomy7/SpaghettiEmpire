@@ -14,6 +14,14 @@ body{
   color: #f0ebd7;
 }
 
+.side-menu {
+  min-height: calc(100vh - 86px);
+}
+
+.full-card {
+  min-height: calc(100vh - 100px);
+}
+
 /*left side menu buttons (i.e. menu, games, loyalty, your order, your bill)*/
 .menu {
   color: #B01E16;

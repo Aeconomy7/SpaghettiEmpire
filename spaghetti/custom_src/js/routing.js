@@ -8,6 +8,7 @@ app.config(function($routeProvider, $locationProvider) {
       controller: 'staffController'
     })
 
+              // Manager lad
               .when('/staff/manager', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/manager.html',
                 controller: 'managerController'
@@ -16,6 +17,21 @@ app.config(function($routeProvider, $locationProvider) {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/modify_menu.html',
                       controller: 'managerMenuController'
                     })
+
+                          .when('/staff/manager/modify_menu/add_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/add_menu_item.html',
+                            controller: 'managerMenuAddController'
+                          })
+
+                          .when('/staff/manager/modify_menu/edit_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/edit_menu_item.html',
+                            controller: 'managerMenuEditController'
+                          })
+
+                          .when('/staff/manager/modify_menu/delete_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/delete_menu_item.html',
+                            controller: 'managerMenuEditController'
+                          })
 
                     .when('/staff/manager/modify_loyalty', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/modify_loyalty.html',
@@ -37,6 +53,7 @@ app.config(function($routeProvider, $locationProvider) {
                       controller: 'managerFeedController'
                     })
 
+              // Kitchen lads
               .when('/staff/kitchen', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/kitchen.html',
                 controller: 'kitchenStaffController'
@@ -49,9 +66,10 @@ app.config(function($routeProvider, $locationProvider) {
 
               .when('/staff/kitchen/open_orders', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/open_orders.html',
-                controller: 'kitchenStaffFeedController'
+                controller: 'kitchenStaffOrdersController'
               })
 
+              // Waitstaff lads
               .when('/staff/waitstaff', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/waitstaff/waitstaff.html',
                 controller: 'waitStaffController'
@@ -114,6 +132,11 @@ app.config(function($routeProvider, $locationProvider) {
                 controller: 'gamesTTTController'
               })
 
+              .when('/games/snake', {
+                templateUrl: '/spaghetti/public_html/injected_pages/games/snake.html',
+                controller: 'gamesSnakeController'
+              })
+
       // Loyalty routing and its subpages
       .when('/loyalty', {
         templateUrl: '/spaghetti/public_html/injected_pages/loyalty/loyalty.html',
@@ -152,6 +175,7 @@ app.config(function($routeProvider, $locationProvider) {
               controller: 'your_billPayController'
             })
 
+              // I want this to change so it renders current order_overall as a selectable menu
             .when('/your_bill/split_bill', {
               templateUrl: '/spaghetti/public_html/injected_pages/your_bill/split_bill.html',
               controller: 'your_billSplitController'
@@ -187,12 +211,13 @@ app.controller('tableForm', function($scope, customerData) {
   }
 });
 
-// Controllers for all pages
-app.controller('your_refills', function(customerData) {
-  var pageName = "Refills";
-  var refills = customerData.getRefills();
-
+// Customer refills view
+app.controller('your_refills', function($scope, customerData) {
+  $scope.refills = customerData.getRefills();
 });
+
+
+// Controllers for all pages
 /* General Staff */
 app.controller('staffController', function($scope) {
   $scope.pageName = "Staff Login";
@@ -203,8 +228,57 @@ app.controller('managerController', function($scope) {
   $scope.pageName = "Manager";
 });
 
+// Menu controllers for manager
 app.controller('managerMenuController', function($scope) {
   $scope.pageName = "Modify Menu";
+});
+
+app.controller('managerMenuAddController', function($scope, menuDatabase) {
+  $scope.pageName = "Add New Item";
+
+  $scope.addToMenu = function(name_add, type_add, price_add, desc_add, ingr_add, img_add) {
+    // Input checking
+    if(type_add == '1') {
+      type_add = 'appetizer';
+    } else if (type_add == '2') {
+      type_add = 'drink'
+    } else if (type_add == '3') {
+      type_add = 'entree';
+    } else if (type_add == '4') {
+      type_add = 'dessert';
+    } else if (type_add == '5') {
+      type_add = 'kidsmenu';
+    }
+
+    if(name_add == undefined || type_add == undefined || price_add == undefined || desc_add == undefined || ingr_add == undefined || img_add == undefined)
+      alert("Please enter information for all fields.");
+    else if(parseFloat(price_add) < 0.0)
+      alert("Price cannot be less than 0");
+    // Add further input checks for now, such as apostrophes cuz gosh dang SQL errors
+
+
+    // Add item if all input is fine
+    else {
+      var item_details = {
+        type: type_add,
+        item_name: name_add,
+        price: price_add,
+        description: desc_add,
+        ingredients: ingr_add,
+        img_path: img_add
+      };
+      menuDatabase.addItem(item_details);
+      console.log("call finished from manager");
+    }
+  }
+});
+
+app.controller('managerMenuEditController', function($scope) {
+  $scope.pageName = "Edit Menu";
+});
+
+app.controller('managerMenuDeleteController', function($scope) {
+  $scope.pageName = "Delete Menu Item";
 });
 
 app.controller('managerCompController', function($scope) {
@@ -228,26 +302,69 @@ app.controller('kitchenStaffController', function($scope) {
   $scope.pageName = "Kitchen Staff";
 });
 
-app.controller('kitchenStaffFeedController', function($scope) {
+app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) {
+  $scope.pageName = "Customer Feedback";
+  $scope.feedback = [];
+
+  feedbackDatabase.get_feedback().then(function(response) {
+    $scope.feedback = response;
+  });
+
+});
+
+app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
   $scope.pageName = "Open Orders";
+  $scope.tables = 24;
+  $scope.orders = [];
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all non-drinks matching the table number of ng-repeat inside open_orders.html
+  $scope.getOrderByTable = function(tableNum) {
+    var order = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type != 'drink') {
+        order.push($scope.orders[i].item_name);
+      }
+    }
+    return order;
+  }
+
 });
 
 /* Waitstaff */
-app.controller('waitStaffController', function($scope) {
+app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
-  $scope.drinks = [{
-                  table: '7',
-                  drink: [
-                        {type:'rootbeer'},
-                        {type: 'sprite'},
-                        {type: 'water'}
-                        ]
-    },
-    {table: '9', drink: [
-                      {type:'sprite'}
-                    ]
+  $scope.tables = 24;
+  $scope.orders = [];
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all drinks matching the table number of ng-repeat inside waitstaff.html
+  $scope.getDrinksByTable = function(tableNum) {
+    var drinks = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
+        drinks.push($scope.orders[i].item_name);
+      }
     }
-  ]
+    return drinks;
+  }
+
 });
 
 app.controller('waitStaffRefillController', function($scope) {
@@ -341,6 +458,10 @@ app.controller('gamesTTTController', function($scope) {
   $scope.pageName = "Tic-Tac-Toe";
 });
 
+app.controller('gamesSnakeController', function($scope) {
+  $scope.pageName = "Snake";
+});
+
 /* Loyalty */
 app.controller('loyaltyController', function($scope) {
   $scope.pageName = "Loyalty Login";
@@ -389,7 +510,7 @@ app.controller('your_orderController', function($scope, $route, $window, custome
   }
 });
 
-/* Your Bill */
+/* Your Bill
 app.controller('your_billController', function($scope, customerData) {
   $scope.pageName = "Your Bill";
   $scope.bill_info = customerData.getOrderOverall();
@@ -405,13 +526,86 @@ app.controller('your_billController', function($scope, customerData) {
   }
 });
 
-app.controller('your_billPayController', function($scope) {
+app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
+  $scope.bill = customerData.getBill();
 });
 
-app.controller('your_billSplitController', function($scope) {
+app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
+  $scope.bill = customerData.getBill();
 });
+*/
+
+
+
+
+/* Your Bill */
+
+app.controller('your_billController', function($scope, customerData) {
+  $scope.pageName = "Your Bill";
+  /*$scope.bill_info = customerData.getOrderOverall();
+  $scope.bill = customerData.getBill(); */
+  $scope.bill_info = [
+      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+      {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+      {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+  ];
+  $scope.bill = 29.50;
+
+  // Only print section headers if they have items from that section (appetizers/drinks/etc)
+  $scope.hasSectionBill = function(section) {
+    for(var i = 0; i < $scope.bill_info.length; i++) {
+      if($scope.bill_info[i].type == section)
+        return true;
+    }
+    return false;
+  }
+});
+
+
+app.controller('your_billPayController', function($scope, customerData) {
+  $scope.pageName = "Pay";
+  $scope.bill_info = [
+      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+      {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+      {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+  ];
+  $scope.bill = 29.50;
+  /* I plan on passing this controller the selected items from your_billSplitController to do payment and removal from overall bill*/
+
+});
+
+app.controller('your_billSplitController', function($scope, customerData) {
+  $scope.pageName = "Split Bill";
+  $scope.bill_info = [
+      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+      {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+      {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+  ];
+  $scope.bill = 29.50;
+
+
+  $scope.hasSectionBill = function(section) {
+    for(var i = 0; i < $scope.bill_info.length; i++) {
+      if($scope.bill_info[i].type == section)
+        return true;
+    }
+    return false;
+  }
+
+  $scope.RemoveItemFromBill = function(){
+
+    var selected_orders_cost = 4.9
+    $scope.bill_info.RemoveFromBill("Test Item 1");
+    $scope.bill_info.removeFromCart("Test Item 1");
+  }
+  // alert("here?");
+
+});
+
+
+
 
 ////////////
 app.controller('templateController', function($scope) {

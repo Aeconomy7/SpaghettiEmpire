@@ -8,17 +8,15 @@
     echo 'Failed to connect to MySQL: (' . $conn->connect_errno . ') ' . $conn->connect_error;
   }
 
-  $result = $conn->query('SELECT * FROM ordered_items');
+  $result = $conn->query('SELECT * FROM feedback');
 
   $outp = '';
   while($rs = $result->fetch_array()){
     if($outp != ""){ $outp .= ","; }
-    $outp .= '{"phone_no":"' . $rs["phone_no"] . '",';
+    $outp .= '{"date":"' . $rs["date"] . '",';
     $outp .= '"sid":"' . $rs["sid"] . '",';
-    $outp .= '"item_name":"' . $rs["item_name"] . '",';
-    $outp .= '"price":"' . $rs["price"] . '",';
-    $outp .= '"type":"' . $rs["type"] . '",';
-    $outp .= '"active":"' . $rs["active"] . '"}';
+    $outp .= '"comment":"' . $rs["comment"] . '",';
+    $outp .= '"manageronly":"' . $rs["manageronly"] . '"}';
   }
 
   $outp = '{"records":['.$outp.']}';
