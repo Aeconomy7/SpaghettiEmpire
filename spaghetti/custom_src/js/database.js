@@ -37,10 +37,22 @@ app.service('menuDatabase', ['$http', function($http) {
         });
     }
 
+    var removeItem = function(item_name) {
+      var request;
+      request = $http.post("/spaghetti/custom_src/php/menu_item_delete.php",
+        {
+          'item_name': item_name
+        })
+        .then(function(response) {
+            console.log(response);
+            console.log(response.data);
+        });
+    }
 
     return {
       pullDb: pullDb,
       addItem: addItem,
+      removeItem: removeItem
     //  deleteItem: deleteItem
     };
 }]);

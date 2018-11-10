@@ -30,7 +30,7 @@ app.config(function($routeProvider, $locationProvider) {
 
                           .when('/staff/manager/modify_menu/delete_menu_item', {
                             templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/delete_menu_item.html',
-                            controller: 'managerMenuEditController'
+                            controller: 'managerMenuDeleteController'
                           })
 
                     .when('/staff/manager/modify_loyalty', {
@@ -267,17 +267,41 @@ app.controller('managerMenuAddController', function($scope, menuDatabase) {
         img_path: img_add
       };
       menuDatabase.addItem(item_details);
-      console.log("call finished from manager");
+      alert("Item added to menu!");
     }
   }
 });
 
-app.controller('managerMenuEditController', function($scope) {
+app.controller('managerMenuEditController', function($scope, menuDatabase) {
   $scope.pageName = "Edit Menu";
+
 });
 
-app.controller('managerMenuDeleteController', function($scope) {
+app.controller('managerMenuDeleteController', function($scope, menuDatabase) {
   $scope.pageName = "Delete Menu Item";
+
+  // Get all the items from each category, manager chooses which to delete
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.appetizers = response;
+  });
+  menuDatabase.pullDb("drink").then(function(response) {
+      $scope.drinks = response;
+  });
+  menuDatabase.pullDb("entree").then(function(response) {
+      $scope.entrees = response;
+  });
+  menuDatabase.pullDb("dessert").then(function(response) {
+      $scope.desserts = response;
+  });
+  menuDatabase.pullDb("kidsmenu").then(function(response) {
+      $scope.kidsmenu = response;
+  });
+
+  $scope.removeFromMenu = function(item_name) {
+    console.log(item_name);
+    menuDatabase.removeItem(item_name);
+    alert("Item successfully removed from menu.");
+  }
 });
 
 app.controller('managerCompController', function($scope) {
