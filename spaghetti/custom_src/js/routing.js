@@ -17,6 +17,21 @@ app.config(function($routeProvider, $locationProvider) {
                       controller: 'managerMenuController'
                     })
 
+                          .when('/staff/manager/modify_menu/add_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/add_menu_item.html',
+                            controller: 'managerMenuAddController'
+                          })
+
+                          .when('/staff/manager/modify_menu/edit_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/edit_menu_item.html',
+                            controller: 'managerMenuEditController'
+                          })
+
+                          .when('/staff/manager/modify_menu/delete_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/delete_menu_item.html',
+                            controller: 'managerMenuEditController'
+                          })
+
                     .when('/staff/manager/modify_loyalty', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/modify_loyalty.html',
                       controller: 'managerLoyaltyController'
@@ -187,9 +202,11 @@ app.controller('tableForm', function($scope, customerData) {
   }
 });
 
+// Customer refills view
 app.controller('your_refills', function($scope, customerData) {
   $scope.refills = customerData.getRefills();
 });
+
 
 // Controllers for all pages
 /* General Staff */
@@ -202,8 +219,21 @@ app.controller('managerController', function($scope) {
   $scope.pageName = "Manager";
 });
 
+// Menu controllers for manager
 app.controller('managerMenuController', function($scope) {
   $scope.pageName = "Modify Menu";
+});
+
+app.controller('managerMenuAddController', function($scope) {
+  $scope.pageName = "Add New Item";
+});
+
+app.controller('managerMenuEditController', function($scope) {
+  $scope.pageName = "Edit Menu";
+});
+
+app.controller('managerMenuDeleteController', function($scope) {
+  $scope.pageName = "Delete Menu Item";
 });
 
 app.controller('managerCompController', function($scope) {
