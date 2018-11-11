@@ -186,7 +186,7 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'templateController'
       })
 
-});
+}); // end configure
 
 // Back button directive
 app.directive('back', function() {
@@ -304,8 +304,9 @@ app.controller('managerMenuAddController', function($scope, menuDatabase) {
       menuDatabase.addItem(item_details);
       alert("Item added to menu!");
     }
-  }
-});
+  }// end addToMenu
+
+});//end managerMenuController
 
 app.controller('managerMenuEditController', function($scope, menuDatabase) {
   $scope.pageName = "Edit Menu";
@@ -649,10 +650,78 @@ app.controller('your_billSplitController', function($scope, customerData) {
     return false;
   }
 
-  $scope.RemoveItemFromBill = function(name, price, type) {
-    $scope.bill_info.RemoveFromBill("");
-    $scope.bill_info.removeFromCart("");
-  }
-
-
+    $scope.RemoveItemFromBill = function(selected_order) {
+      // alert("here?yes.");
+      // $scope.bill_info = customerData.removeFromBill("selected_order");
+      var index = bill_info.indexOf(selected_orders);
+      bill_info.RemoveFromCart(index);
+    }
 });
+
+// /* Your Bill */
+// app.controller('your_billController', function($scope, customerData) {
+//   $scope.pageName = "Your Bill";
+//   /*$scope.bill_info = customerData.getOrderOverall();
+//   $scope.bill = customerData.getBill(); */
+//   $scope.bill_info = [
+//       {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+//       {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+//       {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+//   ];
+//   $scope.bill = 29.50;
+//
+//   // Only print section headers if they have items from that section (appetizers/drinks/etc)
+//   $scope.hasSectionBill = function(section) {
+//     for(var i = 0; i < $scope.bill_info.length; i++) {
+//       if($scope.bill_info[i].type == section)
+//         return true;
+//     }
+//     return false;
+//   }
+// });
+//
+// app.controller('your_billPayController', function($scope, customerData) {
+//   $scope.pageName = "Pay";
+//   $scope.bill_info = [
+//       {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+//       {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+//       {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+//   ];
+//   $scope.bill = 29.50;
+//
+//   // Only print section headers if they have items from that section (appetizers/drinks/etc)
+//   $scope.hasSectionBill = function(section) {
+//     for(var i = 0; i < $scope.bill_info.length; i++) {
+//       if($scope.bill_info[i].type == section)
+//         return true;
+//     }
+//     return false;
+//   }
+// });
+//
+// app.controller('your_billSplitController', function($scope, customerData) {
+//   $scope.pageName = "Split Bill";
+//   $scope.bill_info = [
+//       {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+//       {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+//       {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+//   ];
+//   $scope.bill = 29.50;
+//
+//   // Only print section headers if they have items from that section (appetizers/drinks/etc)
+//   $scope.hasSectionBill = function(section) {
+//     for(var i = 0; i < $scope.bill_info.length; i++) {
+//       if($scope.bill_info[i].type == section)
+//         return true;
+//     }
+//     return false;
+//   }
+//
+//   $scope.RemoveItemFromBill = function(selected_order) {
+//     // alert("here?yes.");
+//     // $scope.bill_info = customerData.removeFromBill("selected_order");
+//     var index = bill_info.indexOf(selected_orders);
+//     bill_info.RemoveFromCart(index);
+//   }
+//
+// });
