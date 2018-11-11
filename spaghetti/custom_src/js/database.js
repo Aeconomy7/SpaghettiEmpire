@@ -37,6 +37,24 @@ app.service('menuDatabase', ['$http', function($http) {
         });
     }
 
+    var editItem = function(item_details) {
+      var request;
+      console.log(item_details);
+      request = $http.post("/spaghetti/custom_src/php/menu_item_edit.php",
+        {
+          'original_item_name': item_details.original_item_name,
+          'new_item_name': item_details.new_item_name,
+          'price': item_details.price,
+          'description': item_details.description,
+          'ingredients': item_details.ingredients,
+          'img_path': item_details.img_path
+        })
+        .then(function(response) {
+            console.log(response);
+            console.log(response.data);
+        });
+    }
+
     var removeItem = function(item_name) {
       var request;
       request = $http.post("/spaghetti/custom_src/php/menu_item_delete.php",
@@ -52,6 +70,7 @@ app.service('menuDatabase', ['$http', function($http) {
     return {
       pullDb: pullDb,
       addItem: addItem,
+      editItem: editItem,
       removeItem: removeItem
     //  deleteItem: deleteItem
     };
