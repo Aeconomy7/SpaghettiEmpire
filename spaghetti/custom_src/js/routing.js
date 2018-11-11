@@ -479,21 +479,8 @@ app.controller('managerLoyaltyEditController', function($scope, discountDatabase
     return false;
   }
 
-  $scope.submitEditReward = function(name_add, type_add, pt_add, disc_add, desc_add) {
-    // Input checking
-    if(type_add == '1') {
-      type_add = 'appetizer';
-    } else if (type_add == '2') {
-      type_add = 'drink'
-    } else if (type_add == '3') {
-      type_add = 'entree';
-    } else if (type_add == '4') {
-      type_add = 'dessert';
-    } else if (type_add == '5') {
-      type_add = 'kidsmenu';
-    }
-
-    if(name_add == undefined || type_add == undefined || pt_add == undefined || disc_add == undefined || desc_add == undefined)
+  $scope.submitEditReward = function(name_add, pt_add, disc_add, desc_add) {
+    if(name_add == undefined || pt_add == undefined || disc_add == undefined || desc_add == undefined)
       alert("Please enter information for all fields.");
     else if(parseFloat(pt_add) < 0.0)
       alert("Point cost cannot be less than 0");
@@ -506,7 +493,6 @@ app.controller('managerLoyaltyEditController', function($scope, discountDatabase
         new_name: name_add,
         description: desc_add,
         pt_cost: pt_add,
-        type: type_add,
         discount_amt: disc_add,
       };
       discountDatabase.editReward(item_details);
@@ -773,7 +759,7 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
 
 app.controller('loyaltyRedeemController', function($scope, discountDatabase) {
   $scope.pageName = "Redeem Loyalty Points";
-  
+
   discountDatabase.getRewards("appetizer").then(function(response) {
       $scope.appetizers_rewards = response;
   });

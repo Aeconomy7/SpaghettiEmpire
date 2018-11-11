@@ -237,7 +237,6 @@ app.service('discountDatabase', ['$http', function($http) {
           'new_name': item_details.new_name,
           'description': item_details.description,
           'pt_cost': item_details.pt_cost,
-          'type': item_details.type,
           'discount_amt': item_details.discount_amt
         })
         .then(function(response) {
