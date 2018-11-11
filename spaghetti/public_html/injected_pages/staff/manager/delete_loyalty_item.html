@@ -12,11 +12,11 @@
               </div>
               <div id="collapseApp" class="collapse hide" aria-labelledby="headingApp" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in appetizers" class="d-flex">
+                  <div ng-repeat="item in appetizers_rewards" class="d-flex">
                     <h4 class="text-left col-md-6">
-                      {{item.item_name}}
+                      {{item.name}}
                     </h4>
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromRewards(item.name)">Remove</button>
                   </div>
                 </div>
               </div>
@@ -29,11 +29,11 @@
               </div>
               <div id="collapseDrink" class="collapse hide" aria-labelledby="headingDrink" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in drinks" class="d-flex">
+                  <div ng-repeat="item in drinks_rewards" class="d-flex">
                     <h4 class="text-left col-md-6">
-                      {{item.item_name}}
+                      {{item.name}}
                     </h4>
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromRewards(item.name)">Remove</button>
                   </div>
                 </div>
               </div>
@@ -46,11 +46,11 @@
               </div>
               <div id="collapseEntree" class="collapse hide" aria-labelledby="headingEntrees" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in entrees" class="d-flex">
+                  <div ng-repeat="item in entrees_rewards" class="d-flex">
                     <h4 class="text-left col-md-6">
-                      {{item.item_name}}
+                      {{item.name}}
                     </h4>
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromRewards(item.name)">Remove</button>
                   </div>
                 </div>
               </div>
@@ -63,11 +63,11 @@
               </div>
               <div id="collapseDess" class="collapse hide" aria-labelledby="headingDess" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in desserts" class="d-flex">
+                  <div ng-repeat="item in desserts_rewards" class="d-flex">
                     <h4 class="text-left col-md-6">
-                      {{item.item_name}}
+                      {{item.name}}
                     </h4>
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromRewards(item.name)">Remove</button>
                   </div>
                 </div>
               </div>
@@ -80,11 +80,11 @@
               </div>
               <div id="collapseKids" class="collapse hide" aria-labelledby="headingKids" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in kidsmenu" class="d-flex">
+                  <div ng-repeat="item in kidsmenu_rewards" class="d-flex">
                     <h4 class="text-left col-md-6">
-                      {{item.item_name}}
+                      {{item.name}}
                     </h4>
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromRewards(item.name)">Remove</button>
                   </div>
                 </div>
               </div>

@@ -19,13 +19,12 @@
          <option value="5">Kids Meal</option>
        </select>
 
-       <input data-ng-model="price_add" class="form-control m-2" type="text" placeholder="Point Cost">
-       <input data-ng-model="price_add" class="form-control m-2" type="text" placeholder="Discount Amount -($)">
+       <input data-ng-model="pt_add" class="form-control m-2" type="text" placeholder="Point Cost">
+       <input data-ng-model="disc_add" class="form-control m-2" type="text" placeholder="Discount Amount -($)">
        <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="Description"></textarea>
-       <textarea data-ng-model="img_add" class="form-control m-2" rows="3" placeholder="Image URL"></textarea>
 
       <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
-          ng-click="addToMenu(name_add, type_add, price_add, desc_add, ingr_add, img_add)">Submit</button>
+          ng-click="addToRewards(name_add, type_add, pt_add, disc_add, desc_add)">Submit</button>
      </div>
    </div>
  </body>

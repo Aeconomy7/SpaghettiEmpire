@@ -72,7 +72,6 @@ app.service('menuDatabase', ['$http', function($http) {
       addItem: addItem,
       editItem: editItem,
       removeItem: removeItem
-    //  deleteItem: deleteItem
     };
 }]);
 
@@ -192,4 +191,77 @@ app.service('loyaltyDatabase', ['$http', function($http) {
     signup_profile: signup_profile
   };
 
+}]);
+
+app.service('discountDatabase', ['$http', function($http) {
+    var result;
+    var items = [];
+
+    var getRewards = function(typeName) {
+      var $promise = $http.get("/spaghetti/custom_src/php/discount_select.php")
+      .then(function (response) {
+        result = response.data;
+        items = [];
+        for(var i = 0; i < result.records.length; i++) {
+          if(result.records[i].type == typeName) {
+            items.push(result.records[i]);
+          }
+        }
+        return items;
+      });
+      return $promise;
+    }
+
+    var addReward = function(item_details) {
+      var request;
+      console.log(item_details);
+      request = $http.post("/spaghetti/custom_src/php/discount_insert.php",
+        {
+          'name': item_details.name,
+          'description': item_details.description,
+          'pt_cost': item_details.pt_cost,
+          'type': item_details.type,
+          'discount_amt': item_details.discount_amt
+        })
+        .then(function(response) {
+            console.log(response.data);
+        });
+    }
+
+    var editReward = function(item_details) {
+      var request;
+      console.log(item_details);
+      request = $http.post("/spaghetti/custom_src/php/discount_edit.php",
+        {
+          'original_name': item_details.original_name,
+          'new_name': item_details.new_name,
+          'description': item_details.description,
+          'pt_cost': item_details.pt_cost,
+          'type': item_details.type,
+          'discount_amt': item_details.discount_amt
+        })
+        .then(function(response) {
+            console.log(response);
+            console.log(response.data);
+        });
+    }
+
+    var removeReward = function(name) {
+      var request;
+      request = $http.post("/spaghetti/custom_src/php/discount_delete.php",
+        {
+          'name': name
+        })
+        .then(function(response) {
+            console.log(response);
+            console.log(response.data);
+        });
+    }
+
+    return {
+      getRewards: getRewards,
+      addReward: addReward,
+      editReward: editReward,
+      removeReward: removeReward
+    };
 }]);
