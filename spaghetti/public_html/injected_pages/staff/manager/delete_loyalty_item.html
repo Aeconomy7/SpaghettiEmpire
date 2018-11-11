@@ -1,5 +1,98 @@
-<html lang="en-US">
+<html>
   <body>
     <h1 class="text-center pageTitle">{{pageName}}</h1>
+    <div class="container mt-2">
+      <div class="col-md-12 mt-3 animated fadeIn">
+        <div class="accordion" id="accordionExample">
+
+            <div class="card">
+              <div class="card-header btn btn-page" id="headingApp" type="button" data-toggle="collapse"
+                  data-target="#collapseApp" aria-expanded="true" aria-controls="collapseApp">
+                    <h3>Appetizers</h3>
+              </div>
+              <div id="collapseApp" class="collapse hide" aria-labelledby="headingApp" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div ng-repeat="item in appetizers" class="d-flex">
+                    <h4 class="text-left col-md-6">
+                      {{item.item_name}}
+                    </h4>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header btn btn-page" id="headingDrink" type="button" data-toggle="collapse"
+                  data-target="#collapseDrink" aria-expanded="true" aria-controls="collapseDrink">
+                    <h3>Drinks</h3>
+              </div>
+              <div id="collapseDrink" class="collapse hide" aria-labelledby="headingDrink" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div ng-repeat="item in drinks" class="d-flex">
+                    <h4 class="text-left col-md-6">
+                      {{item.item_name}}
+                    </h4>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header btn btn-page" id="headingEntree" type="button" data-toggle="collapse"
+                  data-target="#collapseEntree" aria-expanded="true" aria-controls="collapseEntree">
+                    <h3>Entrees</h3>
+              </div>
+              <div id="collapseEntree" class="collapse hide" aria-labelledby="headingEntrees" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div ng-repeat="item in entrees" class="d-flex">
+                    <h4 class="text-left col-md-6">
+                      {{item.item_name}}
+                    </h4>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header btn btn-page" id="headingDess" type="button" data-toggle="collapse"
+                  data-target="#collapseDess" aria-expanded="true" aria-controls="collapseDess">
+                    <h3>Desserts</h3>
+              </div>
+              <div id="collapseDess" class="collapse hide" aria-labelledby="headingDess" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div ng-repeat="item in desserts" class="d-flex">
+                    <h4 class="text-left col-md-6">
+                      {{item.item_name}}
+                    </h4>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header btn btn-page" id="headingKids" type="button" data-toggle="collapse"
+                  data-target="#collapseKids" aria-expanded="true" aria-controls="collapseKids">
+                    <h3>Kid's Menu</h3>
+              </div>
+              <div id="collapseKids" class="collapse hide" aria-labelledby="headingKids" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div ng-repeat="item in kidsmenu" class="d-flex">
+                    <h4 class="text-left col-md-6">
+                      {{item.item_name}}
+                    </h4>
+                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
