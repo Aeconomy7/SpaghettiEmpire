@@ -410,18 +410,136 @@ app.controller('managerLoyaltyController', function($scope) {
   $scope.pageName = "Modify Loyalty";
 });
 
-app.controller('managerLoyaltyAddController', function($scope) {
+app.controller('managerLoyaltyAddController', function($scope, discountDatabase) {
   $scope.pageName = "Add New Loyalty Item";
 
+  $scope.addToRewards = function(name_add, type_add, pt_add, disc_add, desc_add) {
+    // Input checking
+    if(type_add == '1') {
+      type_add = 'appetizer';
+    } else if (type_add == '2') {
+      type_add = 'drink'
+    } else if (type_add == '3') {
+      type_add = 'entree';
+    } else if (type_add == '4') {
+      type_add = 'dessert';
+    } else if (type_add == '5') {
+      type_add = 'kidsmenu';
+    }
+
+    if(name_add == undefined || type_add == undefined || pt_add == undefined || disc_add == undefined || desc_add == undefined)
+      alert("Please enter information for all fields.");
+    else if(parseFloat(pt_add) < 0.0)
+      alert("Point cost cannot be less than 0");
+    // Add further input checks for now, such as apostrophes cuz gosh dang SQL errors
+
+    // Add item if all input is fine
+    else {
+      var item_details = {
+        name: name_add,
+        description: desc_add,
+        pt_cost: pt_add,
+        type: type_add,
+        discount_amt: disc_add,
+      };
+      discountDatabase.addReward(item_details);
+      alert("Item added to loyalty rewards!");
+    }
+  }
+
 });
 
-app.controller('managerLoyaltyEditController', function($scope) {
+app.controller('managerLoyaltyEditController', function($scope, discountDatabase) {
   $scope.pageName = "Edit Loyalty Item";
 
+  // Get all the items from each category, manager chooses which to delete
+  discountDatabase.getRewards("appetizer").then(function(response) {
+      $scope.appetizers_rewards = response;
+  });
+  discountDatabase.getRewards("drink").then(function(response) {
+      $scope.drinks_rewards = response;
+  });
+  discountDatabase.getRewards("entree").then(function(response) {
+      $scope.entrees_rewards = response;
+  });
+  discountDatabase.getRewards("dessert").then(function(response) {
+      $scope.desserts_rewards = response;
+  });
+  discountDatabase.getRewards("kidsmenu").then(function(response) {
+      $scope.kidsmenu_rewards = response;
+  });
+
+  $scope.editRewardItem = function(name) {
+    $scope.itemToEdit = name;
+  }
+
+  $scope.showItem = function(name) {
+    if(name == $scope.itemToEdit)
+      return true;
+    return false;
+  }
+
+  $scope.submitEditReward = function(name_add, type_add, pt_add, disc_add, desc_add) {
+    // Input checking
+    if(type_add == '1') {
+      type_add = 'appetizer';
+    } else if (type_add == '2') {
+      type_add = 'drink'
+    } else if (type_add == '3') {
+      type_add = 'entree';
+    } else if (type_add == '4') {
+      type_add = 'dessert';
+    } else if (type_add == '5') {
+      type_add = 'kidsmenu';
+    }
+
+    if(name_add == undefined || type_add == undefined || pt_add == undefined || disc_add == undefined || desc_add == undefined)
+      alert("Please enter information for all fields.");
+    else if(parseFloat(pt_add) < 0.0)
+      alert("Point cost cannot be less than 0");
+    // Add further input checks for now, such as apostrophes cuz gosh dang SQL errors
+
+    // Add item if all input is fine
+    else {
+      var item_details = {
+        original_name: $scope.itemToEdit,
+        new_name: name_add,
+        description: desc_add,
+        pt_cost: pt_add,
+        type: type_add,
+        discount_amt: disc_add,
+      };
+      discountDatabase.editReward(item_details);
+      alert("Item changed in loyalty rewards!");
+    }
+  }
 });
 
-app.controller('managerLoyaltyDeleteController', function($scope) {
+app.controller('managerLoyaltyDeleteController', function($scope, discountDatabase) {
   $scope.pageName = "Delete Loyalty Item";
+
+  // Get all the items from each category, manager chooses which to delete
+  discountDatabase.getRewards("appetizer").then(function(response) {
+      $scope.appetizers_rewards = response;
+  });
+  discountDatabase.getRewards("drink").then(function(response) {
+      $scope.drinks_rewards = response;
+  });
+  discountDatabase.getRewards("entree").then(function(response) {
+      $scope.entrees_rewards = response;
+  });
+  discountDatabase.getRewards("dessert").then(function(response) {
+      $scope.desserts_rewards = response;
+  });
+  discountDatabase.getRewards("kidsmenu").then(function(response) {
+      $scope.kidsmenu_rewards = response;
+  });
+
+  $scope.removeFromRewards = function(name) {
+    console.log(name);
+    discountDatabase.removeReward(name);
+    alert("Item successfully removed from loyalty rewards!");
+  }
 
 });
 
@@ -653,12 +771,24 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
 
 });
 
-app.controller('loyaltyRedeemController', function($scope) {
+app.controller('loyaltyRedeemController', function($scope, discountDatabase) {
   $scope.pageName = "Redeem Loyalty Points";
-  $scope.items = [
-    {name: 'Free Drink', description: 'One free drink to enjoy, on us. Discount will be applied to the lowest priced drink on your bill.', cost: 5},
-    {name: 'Free Appetizer', description: 'One free appetizer to enjoy, on us. Discount will be applied to the lowest priced appetizer on your bill.', cost: 10}
-  ]
+  
+  discountDatabase.getRewards("appetizer").then(function(response) {
+      $scope.appetizers_rewards = response;
+  });
+  discountDatabase.getRewards("drink").then(function(response) {
+      $scope.drinks_rewards = response;
+  });
+  discountDatabase.getRewards("entree").then(function(response) {
+      $scope.entrees_rewards = response;
+  });
+  discountDatabase.getRewards("dessert").then(function(response) {
+      $scope.desserts_rewards = response;
+  });
+  discountDatabase.getRewards("kidsmenu").then(function(response) {
+      $scope.kidsmenu_rewards = response;
+  });
 });
 
 app.controller('loyaltyHistoryController', function($scope) {

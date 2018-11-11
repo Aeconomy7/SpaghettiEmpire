@@ -12,12 +12,23 @@
               </div>
               <div id="collapseApp" class="collapse hide" aria-labelledby="headingApp" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in appetizers" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in appetizers_rewards">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editRewardItem(item.name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.name)">
+                      <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="New Reward Name">
+                      <input data-ng-model="pt_add" class="form-control m-2" type="text" placeholder="New Point Cost">
+                      <input data-ng-model="disc_add" class="form-control m-2" type="text" placeholder="New Discount Amount -($)">
+                      <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="New Description"></textarea>
+
+                     <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+                         ng-click="submitEditRewards(name_add, type_add, pt_add, disc_add, desc_add)">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -30,12 +41,23 @@
               </div>
               <div id="collapseDrink" class="collapse hide" aria-labelledby="headingDrink" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in drinks" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in drinks_rewards">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editRewardItem(item.name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.name)">
+                      <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="New Reward Name">
+                      <input data-ng-model="pt_add" class="form-control m-2" type="text" placeholder="New Point Cost">
+                      <input data-ng-model="disc_add" class="form-control m-2" type="text" placeholder="New Discount Amount -($)">
+                      <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="New Description"></textarea>
+
+                     <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+                         ng-click="submitEditRewards(name_add, type_add, pt_add, disc_add, desc_add)">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -48,12 +70,23 @@
               </div>
               <div id="collapseEntree" class="collapse hide" aria-labelledby="headingEntrees" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in entrees" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in entrees_rewards">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editRewardItem(item.name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.name)">
+                      <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="New Reward Name">
+                      <input data-ng-model="pt_add" class="form-control m-2" type="text" placeholder="New Point Cost">
+                      <input data-ng-model="disc_add" class="form-control m-2" type="text" placeholder="New Discount Amount -($)">
+                      <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="New Description"></textarea>
+
+                     <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+                         ng-click="submitEditRewards(name_add, type_add, pt_add, disc_add, desc_add)">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -66,12 +99,23 @@
               </div>
               <div id="collapseDess" class="collapse hide" aria-labelledby="headingDess" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in desserts" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in desserts_rewards">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editRewardItem(item.name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.name)">
+                      <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="New Reward Name">
+                      <input data-ng-model="pt_add" class="form-control m-2" type="text" placeholder="New Point Cost">
+                      <input data-ng-model="disc_add" class="form-control m-2" type="text" placeholder="New Discount Amount -($)">
+                      <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="New Description"></textarea>
+
+                     <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+                         ng-click="submitEditRewards(name_add, type_add, pt_add, disc_add, desc_add)">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -84,12 +128,23 @@
               </div>
               <div id="collapseKids" class="collapse hide" aria-labelledby="headingKids" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in kidsmenu" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in kidsmenu_rewards">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editRewardItem(item.name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.name)">
+                      <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="New Reward Name">
+                      <input data-ng-model="pt_add" class="form-control m-2" type="text" placeholder="New Point Cost">
+                      <input data-ng-model="disc_add" class="form-control m-2" type="text" placeholder="New Discount Amount -($)">
+                      <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="New Description"></textarea>
+
+                     <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+                         ng-click="submitEditRewards(name_add, type_add, pt_add, disc_add, desc_add)">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
