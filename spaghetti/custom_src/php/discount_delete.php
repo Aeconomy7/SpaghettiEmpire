@@ -9,10 +9,9 @@
   }
 
   $data = json_decode(file_get_contents('php://input'));
-  $phone_no = $data->phone_no;
-  $pts = $data->pts;
+  $name = $data->name;
 
-  $result = $conn->query('INSERT INTO loyalty (phone_no, pts) VALUES (\'' . $phone_no . '\',\'' . $pts . '\')');
+  $result = $conn->query('DELETE FROM discount WHERE name=\'' . $name . '\'');
 
   echo($result);
 ?>
