@@ -26,11 +26,11 @@ app.service('customerData', function(orderDatabase) {
   };
 
 
-  var bill_info = [
-      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
-      {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
-      {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
-  ];
+  // var bill_info = [
+  //     {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+  //     {'phone_no': "0000000001", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+  //     {'phone_no': "0000000002", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+  // ];
 
   function setTableId(id) {
     tableId = id;
@@ -100,7 +100,7 @@ app.service('customerData', function(orderDatabase) {
     // var index = bill_info.indexOf(selected_orders);
     for(var i = 0; i < bill_info.length; i++){
      if(bill_info[i] === index){
-       order_overall = bill_info.delete(index, 1);
+       order_overall = bill_info.delete(index, 1); // might be splice() ?
      }
    }
     alert("can u here me now?");
