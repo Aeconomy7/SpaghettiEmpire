@@ -144,7 +144,7 @@ app.service('loyaltyDatabase', ['$http', function($http) {
 
   // Returns loyalty profile data and checks login
   var get_profile = function(phone) {
-    var $promise = $http.get("/spaghetti/custom_src/php/loyalty_select.php",
+    var $promise = $http.post("/spaghetti/custom_src/php/loyalty_select.php",
     {
       'phone_no': phone
     })
