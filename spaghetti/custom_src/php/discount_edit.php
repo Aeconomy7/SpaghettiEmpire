@@ -13,10 +13,9 @@
   $new_name = $data->new_name;
   $description = $data->description;
   $pt_cost = $data->pt_cost;
-  $type = $data->type;
   $discount_amt = $data->discount_amt;
 
-  $result = $conn->query('UPDATE discount SET name=\'' . $new_name . '\', description=' . $description . ', pt_cost=\'' . $pt_cost . '\', type=\'' . $type . '\', discount_amt=\'' . $discount_amt . '\' WHERE name=\'' . $original_name . '\'');
+  $result = $conn->query('UPDATE discount SET name=\'' . $new_name . '\', description=' . $description . ', pt_cost=\'' . $pt_cost . '\', discount_amt=\'' . $discount_amt . '\' WHERE name=\'' . $original_name . '\'');
 
   echo($result);
 ?>
