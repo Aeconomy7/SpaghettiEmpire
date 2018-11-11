@@ -10,13 +10,10 @@
 
   $data = json_decode(file_get_contents('php://input'));
   $phone_no = $data->phone_no;
-  $sid = $data->sid;
-  $item_name = $data->item_name;
-  $price = $data->price;
-  $type = $data->type;
-  $active = $data->active;
+  $date = $data->date;
+  $active = $data->amt;
 
-  $result = $conn->query('INSERT INTO ordered_items (phone_no, sid, item_name, price, type, active) VALUES (\'' . $phone_no . '\',\'' . $sid . '\',\'' . $item_name . '\',\'' . $price . '\',\'' . $type . '\',\'' . $active . '\')');
+  $result = $conn->query('INSERT INTO order_hist (phone_no, date, amt) VALUES (\'' . $phone_no . '\',\'' . $date . '\',\'' . $amt . '\')');
 
   echo($result);
 

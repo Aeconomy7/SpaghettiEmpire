@@ -8,6 +8,7 @@ app.config(function($routeProvider, $locationProvider) {
       controller: 'staffController'
     })
 
+              // Manager lad
               .when('/staff/manager', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/manager.html',
                 controller: 'managerController'
@@ -17,10 +18,40 @@ app.config(function($routeProvider, $locationProvider) {
                       controller: 'managerMenuController'
                     })
 
+                          .when('/staff/manager/modify_menu/add_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/add_menu_item.html',
+                            controller: 'managerMenuAddController'
+                          })
+
+                          .when('/staff/manager/modify_menu/edit_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/edit_menu_item.html',
+                            controller: 'managerMenuEditController'
+                          })
+
+                          .when('/staff/manager/modify_menu/delete_menu_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/delete_menu_item.html',
+                            controller: 'managerMenuDeleteController'
+                          })
+
                     .when('/staff/manager/modify_loyalty', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/modify_loyalty.html',
                       controller: 'managerLoyaltyController'
                     })
+
+                          .when('/staff/manager/modify_loyalty/add_loyalty_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/add_loyalty_item.html',
+                            controller: 'managerLoyaltyAddController'
+                          })
+
+                          .when('/staff/manager/modify_loyalty/edit_loyalty_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/edit_loyalty_item.html',
+                            controller: 'managerLoyaltyEditController'
+                          })
+
+                          .when('/staff/manager/modify_loyalty/delete_loyalty_item', {
+                            templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/delete_loyalty_item.html',
+                            controller: 'managerLoyaltyDeleteController'
+                          })
 
                     .when('/staff/manager/comp', {
                       templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/comp.html',
@@ -37,6 +68,7 @@ app.config(function($routeProvider, $locationProvider) {
                       controller: 'managerFeedController'
                     })
 
+              // Kitchen lads
               .when('/staff/kitchen', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/kitchen.html',
                 controller: 'kitchenStaffController'
@@ -49,9 +81,10 @@ app.config(function($routeProvider, $locationProvider) {
 
               .when('/staff/kitchen/open_orders', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/kitchen/open_orders.html',
-                controller: 'kitchenStaffFeedController'
+                controller: 'kitchenStaffOrdersController'
               })
 
+              // Waitstaff lads
               .when('/staff/waitstaff', {
                 templateUrl: '/spaghetti/public_html/injected_pages/staff/waitstaff/waitstaff.html',
                 controller: 'waitStaffController'
@@ -112,6 +145,11 @@ app.config(function($routeProvider, $locationProvider) {
               .when('/games/tictactoe', {
                 templateUrl: '/spaghetti/public_html/injected_pages/games/tictactoe.html',
                 controller: 'gamesTTTController'
+              })
+
+              .when('/games/snake', {
+                templateUrl: '/spaghetti/public_html/injected_pages/games/snake.html',
+                controller: 'gamesSnakeController'
               })
 
       // Loyalty routing and its subpages
@@ -187,15 +225,51 @@ app.controller('tableForm', function($scope, customerData) {
   }
 });
 
-// Controllers for all pages
-app.controller('your_refills', function(customerData) {
-  var pageName = "Refills";
-  var refills = customerData.getRefills();
-
+// Customer refills view
+app.controller('your_refills', function($scope, customerData) {
+  $scope.refills = customerData.getRefills();
 });
+
+
+// Controllers for all pages
 /* General Staff */
-app.controller('staffController', function($scope) {
+app.controller('staffController', function($scope, $window) {
   $scope.pageName = "Staff Login";
+
+  $scope.login_id = "";
+  $scope.counter = 0;
+
+  $scope.appendVal = function(val) {
+    if($scope.counter < 8) {
+      $scope.login_id += val;
+      $scope.counter++;
+    }
+    else {
+      alert("No more numbers allowed");
+    }
+  }
+  $scope.backspaceVal = function() {
+    $scope.login_id = $scope.login_id.substring(0, $scope.login_id.length - 1);
+    $scope.counter--;
+  }
+
+  $scope.staff_login = function() {
+    console.log($scope.login_id);
+    if($scope.login_id == "11114001" || $scope.login_id == "11114002" || $scope.login_id == "11114003") {
+      console.log("Wait Staff login");
+      $window.location.href ="/spaghetti/public_html/#/staff/waitstaff";
+    }
+    else if($scope.login_id == "11115001" || $scope.login_id == "11115002" || $scope.login_id == "11115003") {
+      console.log("Kitchen Staff login");
+      $window.location.href ="/spaghetti/public_html/#/staff/kitchen";
+    }
+    else if($scope.login_id == "11111337") {
+      console.log("Manager login");
+      $window.location.href ="/spaghetti/public_html/#/staff/manager";
+    }
+    else
+      alert("Invalid login ID, please try again");
+  }
 });
 
 /* Manager */
@@ -203,8 +277,81 @@ app.controller('managerController', function($scope) {
   $scope.pageName = "Manager";
 });
 
+// Menu controllers for manager
 app.controller('managerMenuController', function($scope) {
   $scope.pageName = "Modify Menu";
+});
+
+app.controller('managerMenuAddController', function($scope, menuDatabase) {
+  $scope.pageName = "Add New Item";
+
+  $scope.addToMenu = function(name_add, type_add, price_add, desc_add, ingr_add, img_add) {
+    // Input checking
+    if(type_add == '1') {
+      type_add = 'appetizer';
+    } else if (type_add == '2') {
+      type_add = 'drink'
+    } else if (type_add == '3') {
+      type_add = 'entree';
+    } else if (type_add == '4') {
+      type_add = 'dessert';
+    } else if (type_add == '5') {
+      type_add = 'kidsmenu';
+    }
+
+    if(name_add == undefined || type_add == undefined || price_add == undefined || desc_add == undefined || ingr_add == undefined || img_add == undefined)
+      alert("Please enter information for all fields.");
+    else if(parseFloat(price_add) < 0.0)
+      alert("Price cannot be less than 0");
+    // Add further input checks for now, such as apostrophes cuz gosh dang SQL errors
+
+
+    // Add item if all input is fine
+    else {
+      var item_details = {
+        type: type_add,
+        item_name: name_add,
+        price: price_add,
+        description: desc_add,
+        ingredients: ingr_add,
+        img_path: img_add
+      };
+      menuDatabase.addItem(item_details);
+      alert("Item added to menu!");
+    }
+  }
+});
+
+app.controller('managerMenuEditController', function($scope, menuDatabase) {
+  $scope.pageName = "Edit Menu";
+
+});
+
+app.controller('managerMenuDeleteController', function($scope, menuDatabase) {
+  $scope.pageName = "Delete Menu Item";
+
+  // Get all the items from each category, manager chooses which to delete
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.appetizers = response;
+  });
+  menuDatabase.pullDb("drink").then(function(response) {
+      $scope.drinks = response;
+  });
+  menuDatabase.pullDb("entree").then(function(response) {
+      $scope.entrees = response;
+  });
+  menuDatabase.pullDb("dessert").then(function(response) {
+      $scope.desserts = response;
+  });
+  menuDatabase.pullDb("kidsmenu").then(function(response) {
+      $scope.kidsmenu = response;
+  });
+
+  $scope.removeFromMenu = function(item_name) {
+    console.log(item_name);
+    menuDatabase.removeItem(item_name);
+    alert("Item successfully removed from menu.");
+  }
 });
 
 app.controller('managerCompController', function($scope) {
@@ -213,6 +360,21 @@ app.controller('managerCompController', function($scope) {
 
 app.controller('managerLoyaltyController', function($scope) {
   $scope.pageName = "Modify Loyalty";
+});
+
+app.controller('managerLoyaltyAddController', function($scope) {
+  $scope.pageName = "Add New Loyalty Item";
+
+});
+
+app.controller('managerLoyaltyEditController', function($scope) {
+  $scope.pageName = "Edit Loyalty Item";
+
+});
+
+app.controller('managerLoyaltyDeleteController', function($scope) {
+  $scope.pageName = "Delete Loyalty Item";
+
 });
 
 app.controller('managerFeedController', function($scope) {
@@ -228,26 +390,69 @@ app.controller('kitchenStaffController', function($scope) {
   $scope.pageName = "Kitchen Staff";
 });
 
-app.controller('kitchenStaffFeedController', function($scope) {
+app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) {
+  $scope.pageName = "Customer Feedback";
+  $scope.feedback = [];
+
+  feedbackDatabase.get_feedback().then(function(response) {
+    $scope.feedback = response;
+  });
+
+});
+
+app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
   $scope.pageName = "Open Orders";
+  $scope.tables = 24;
+  $scope.orders = [];
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all non-drinks matching the table number of ng-repeat inside open_orders.html
+  $scope.getOrderByTable = function(tableNum) {
+    var order = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type != 'drink') {
+        order.push($scope.orders[i].item_name);
+      }
+    }
+    return order;
+  }
+
 });
 
 /* Waitstaff */
-app.controller('waitStaffController', function($scope) {
+app.controller('waitStaffController', function($scope, orderDatabase) {
   $scope.pageName = "Wait Staff";
-  $scope.drinks = [{
-                  table: '7',
-                  drink: [
-                        {type:'rootbeer'},
-                        {type: 'sprite'},
-                        {type: 'water'}
-                        ]
-    },
-    {table: '9', drink: [
-                      {type:'sprite'}
-                    ]
+  $scope.tables = 24;
+  $scope.orders = [];
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all drinks matching the table number of ng-repeat inside waitstaff.html
+  $scope.getDrinksByTable = function(tableNum) {
+    var drinks = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
+        drinks.push($scope.orders[i].item_name);
+      }
     }
-  ]
+    return drinks;
+  }
+
 });
 
 app.controller('waitStaffRefillController', function($scope) {
@@ -269,7 +474,7 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
+    customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -282,7 +487,7 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
+    customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -294,7 +499,7 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
   });
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
+    customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -307,7 +512,7 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
+    customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -320,7 +525,7 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    customerData.addToCart('0000000000', customerData.getTableId(), name, floatPrice, type);
+    customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
   }
 });
 
@@ -341,15 +546,63 @@ app.controller('gamesTTTController', function($scope) {
   $scope.pageName = "Tic-Tac-Toe";
 });
 
-/* Loyalty */
-app.controller('loyaltyController', function($scope) {
-  $scope.pageName = "Loyalty Login";
+app.controller('gamesSnakeController', function($scope) {
+  $scope.pageName = "Snake";
 });
 
-app.controller('loyaltyProfileController', function($scope) {
+/* Loyalty */
+app.controller('loyaltyController', function($scope, $window, customerData, loyaltyDatabase) {
+  $scope.pageName = "Loyalty Login";
+
+  $scope.phone_id = "";
+  $scope.counter = 0;
+
+  $scope.appendVal = function(val) {
+    if($scope.counter < 10) {
+      $scope.phone_id += val;
+      $scope.counter++;
+    }
+    else {
+      alert("No more numbers allowed");
+    }
+  }
+  $scope.backspaceVal = function() {
+    $scope.phone_id = $scope.phone_id.substring(0, $scope.phone_id.length - 1);
+    $scope.counter--;
+  }
+
+  $scope.loyalty_login = function() {
+    console.log($scope.phone_id);
+    loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
+        console.log("done calling");
+        if(response.records.length == 1) {
+          customerData.setPhoneNo($scope.phone_id);
+          window.location.href = "/spaghetti/public_html/#/loyalty/profile";
+        }
+        else {
+          alert("No account exists for phone number " + $scope.phone_id);
+          $scope.phone_id = "";
+        }
+    });
+  }
+
+  $scope.loyalty_signup = function() {
+    console.log($scope.phone_id);
+    loyaltyDatabase.signup_profile($scope.phone_id);
+  }
+
+});
+
+app.controller('loyaltyProfileController', function($scope, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Profile";
-  $scope.pointsEarned = 0;
-  $scope.phoneNumber = "111-111-1111";
+  $scope.pts = -1;
+  $scope.phone = "0000000000";
+  // Load the profile with the phone number used to log in
+  loyaltyDatabase.get_profile(customerData.getPhoneNo()).then(function(response) {
+      $scope.pts = response.records[0].pts;
+      $scope.phone = response.records[0].phone_no;
+  });
+
 });
 
 app.controller('loyaltyRedeemController', function($scope) {
@@ -405,15 +658,31 @@ app.controller('your_billController', function($scope, customerData) {
   }
 });
 
-app.controller('your_billPayController', function($scope) {
+
+app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
+  $scope.bill_info = customerData.getOrderOverall();
+  $scope.bill = customerData.getBill();
+
 });
 
-app.controller('your_billSplitController', function($scope) {
+app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
-});
+  $scope.bill_info = customerData.getOrderOverall();
+  $scope.bill = customerData.getBill();
 
-////////////
-app.controller('templateController', function($scope) {
-  $scope.pageName = "Template Page";
+  $scope.hasSectionBill = function(section) {
+    for(var i = 0; i < $scope.bill_info.length; i++) {
+      if($scope.bill_info[i].type == section)
+        return true;
+    }
+    return false;
+  }
+
+  $scope.RemoveItemFromBill = function(name, price, type) {
+    $scope.bill_info.RemoveFromBill("");
+    $scope.bill_info.removeFromCart("");
+  }
+
+
 });

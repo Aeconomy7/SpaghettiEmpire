@@ -8,7 +8,10 @@
     echo 'Failed to connect to MySQL: (' . $conn->connect_errno . ') ' . $conn->connect_error;
   }
 
-  $result = $conn->query('SELECT * FROM loyalty');
+  $data = json_decode(file_get_contents('php://input'));
+  $phone_no = $data->phone_no;
+  
+  $result = $conn->query('SELECT * FROM loyalty WHERE phone_no=\'' . $phone_no . '\'');
 
   $outp = '';
   while($rs = $result->fetch_array()){
