@@ -22,13 +22,7 @@
        <input data-ng-model="price_add" class="form-control m-2" type="text" placeholder="Price ($)">
        <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="Description"></textarea>
        <textarea data-ng-model="ingr_add" class="form-control m-2" rows="5" placeholder="Ingredients"></textarea>
-       <textarea data-ng-model="img_add" class="form-control m-2" rows="3" placeholder="Image Path String (temporary)"></textarea>
-
-       <!--
-       <div class="custom-file col-md-12 m-2">
-        <input type="file" class="custom-file-input" id="customFile">
-        <label class="custom-file-label text-left" for="customFile">Choose Image</label>
-      </div> -->
+       <textarea data-ng-model="img_add" class="form-control m-2" rows="3" placeholder="Image URL"></textarea>
 
       <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
           ng-click="addToMenu(name_add, type_add, price_add, desc_add, ingr_add, img_add)">Submit</button>
