@@ -521,7 +521,7 @@ app.controller('gamesSnakeController', function($scope) {
 });
 
 /* Loyalty */
-app.controller('loyaltyController', function($scope, loyaltyDatabase) {
+app.controller('loyaltyController', function($scope, $window, loyaltyDatabase) {
   $scope.pageName = "Loyalty Login";
 
   $scope.phone_id = "";
@@ -545,6 +545,15 @@ app.controller('loyaltyController', function($scope, loyaltyDatabase) {
     console.log($scope.phone_id);
     loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
         console.log("done calling");
+        // Successful login
+        if(response.length == 1) {
+          customerData.setPhoneNo($scope.phone_id);
+          window.location.href = "/spaghetti/public_html/#/loyalty/profile";
+        }
+        else {
+          alert("No account exists for phone number " + $scope.phone_id);
+          $scope.phone_id = "";
+        }
     });
   }
 
@@ -552,12 +561,19 @@ app.controller('loyaltyController', function($scope, loyaltyDatabase) {
     console.log($scope.phone_id);
     loyaltyDatabase.signup_profile($scope.phone_id);
   }
+
 });
 
-app.controller('loyaltyProfileController', function($scope) {
+app.controller('loyaltyProfileController', function($scope, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Profile";
-  $scope.pointsEarned = 0;
-  $scope.phoneNumber = "111-111-1111";
+  $scope.pts = -1;
+  $scope.phone = "0000000000";
+  // Load the profile with the phone number used to log in
+  loyaltyDatabase.get_profile(customerData.getPhoneNo()).then(function(response) {
+      $scope.pts = response[0].pts;
+      $scope.phone = response[0].phone;
+  });
+
 });
 
 app.controller('loyaltyRedeemController', function($scope) {
