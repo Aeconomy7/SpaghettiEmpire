@@ -545,7 +545,7 @@ app.controller('loyaltyController', function($scope, $window, loyaltyDatabase) {
     console.log($scope.phone_id);
     loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
         console.log("done calling");
-        // Successful login
+        console.log(response);
         if(response.records.length == 1) {
           customerData.setPhoneNo($scope.phone_id);
           window.location.href = "/spaghetti/public_html/#/loyalty/profile";
