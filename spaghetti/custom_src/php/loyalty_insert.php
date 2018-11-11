@@ -14,4 +14,5 @@
 
   $result = $conn->query('INSERT INTO loyalty (phone_no, pts) VALUES (\'' . $phone_no . '\',\'' . $pts . '\')');
 
+  echo($result);
 ?>

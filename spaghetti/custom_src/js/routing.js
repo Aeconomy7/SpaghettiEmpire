@@ -30,7 +30,7 @@ app.config(function($routeProvider, $locationProvider) {
 
                           .when('/staff/manager/modify_menu/delete_menu_item', {
                             templateUrl: '/spaghetti/public_html/injected_pages/staff/manager/delete_menu_item.html',
-                            controller: 'managerMenuEditController'
+                            controller: 'managerMenuDeleteController'
                           })
 
                     .when('/staff/manager/modify_loyalty', {
@@ -218,8 +218,43 @@ app.controller('your_refills', function($scope, customerData) {
 
 // Controllers for all pages
 /* General Staff */
-app.controller('staffController', function($scope) {
+app.controller('staffController', function($scope, $window) {
   $scope.pageName = "Staff Login";
+
+  $scope.login_id = "";
+  $scope.counter = 0;
+
+  $scope.appendVal = function(val) {
+    if($scope.counter < 8) {
+      $scope.login_id += val;
+      $scope.counter++;
+    }
+    else {
+      alert("No more numbers allowed");
+    }
+  }
+  $scope.backspaceVal = function() {
+    $scope.login_id = $scope.login_id.substring(0, $scope.login_id.length - 1);
+    $scope.counter--;
+  }
+
+  $scope.staff_login = function() {
+    console.log($scope.login_id);
+    if($scope.login_id == "11114001" || $scope.login_id == "11114002" || $scope.login_id == "11114003") {
+      console.log("Wait Staff login");
+      $window.location.href ="/spaghetti/public_html/#/staff/waitstaff";
+    }
+    else if($scope.login_id == "11115001" || $scope.login_id == "11115002" || $scope.login_id == "11115003") {
+      console.log("Kitchen Staff login");
+      $window.location.href ="/spaghetti/public_html/#/staff/kitchen";
+    }
+    else if($scope.login_id == "11111337") {
+      console.log("Manager login");
+      $window.location.href ="/spaghetti/public_html/#/staff/manager";
+    }
+    else
+      alert("Invalid login ID, please try again");
+  }
 });
 
 /* Manager */
@@ -267,18 +302,42 @@ app.controller('managerMenuAddController', function($scope, menuDatabase) {
         img_path: img_add
       };
       menuDatabase.addItem(item_details);
-      console.log("call finished from manager");
+      alert("Item added to menu!");
     }
   }// end addToMenu
 
 });//end managerMenuController
 
-app.controller('managerMenuEditController', function($scope) {
+app.controller('managerMenuEditController', function($scope, menuDatabase) {
   $scope.pageName = "Edit Menu";
+
 });
 
-app.controller('managerMenuDeleteController', function($scope) {
+app.controller('managerMenuDeleteController', function($scope, menuDatabase) {
   $scope.pageName = "Delete Menu Item";
+
+  // Get all the items from each category, manager chooses which to delete
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.appetizers = response;
+  });
+  menuDatabase.pullDb("drink").then(function(response) {
+      $scope.drinks = response;
+  });
+  menuDatabase.pullDb("entree").then(function(response) {
+      $scope.entrees = response;
+  });
+  menuDatabase.pullDb("dessert").then(function(response) {
+      $scope.desserts = response;
+  });
+  menuDatabase.pullDb("kidsmenu").then(function(response) {
+      $scope.kidsmenu = response;
+  });
+
+  $scope.removeFromMenu = function(item_name) {
+    console.log(item_name);
+    menuDatabase.removeItem(item_name);
+    alert("Item successfully removed from menu.");
+  }
 });
 
 app.controller('managerCompController', function($scope) {
@@ -463,14 +522,58 @@ app.controller('gamesSnakeController', function($scope) {
 });
 
 /* Loyalty */
-app.controller('loyaltyController', function($scope) {
+app.controller('loyaltyController', function($scope, $window, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Login";
+
+  $scope.phone_id = "";
+  $scope.counter = 0;
+
+  $scope.appendVal = function(val) {
+    if($scope.counter < 10) {
+      $scope.phone_id += val;
+      $scope.counter++;
+    }
+    else {
+      alert("No more numbers allowed");
+    }
+  }
+  $scope.backspaceVal = function() {
+    $scope.phone_id = $scope.phone_id.substring(0, $scope.phone_id.length - 1);
+    $scope.counter--;
+  }
+
+  $scope.loyalty_login = function() {
+    console.log($scope.phone_id);
+    loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
+        console.log("done calling");
+        if(response.records.length == 1) {
+          customerData.setPhoneNo($scope.phone_id);
+          window.location.href = "/spaghetti/public_html/#/loyalty/profile";
+        }
+        else {
+          alert("No account exists for phone number " + $scope.phone_id);
+          $scope.phone_id = "";
+        }
+    });
+  }
+
+  $scope.loyalty_signup = function() {
+    console.log($scope.phone_id);
+    loyaltyDatabase.signup_profile($scope.phone_id);
+  }
+
 });
 
-app.controller('loyaltyProfileController', function($scope) {
+app.controller('loyaltyProfileController', function($scope, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Profile";
-  $scope.pointsEarned = 0;
-  $scope.phoneNumber = "111-111-1111";
+  $scope.pts = -1;
+  $scope.phone = "0000000000";
+  // Load the profile with the phone number used to log in
+  loyaltyDatabase.get_profile(customerData.getPhoneNo()).then(function(response) {
+      $scope.pts = response.records[0].pts;
+      $scope.phone = response.records[0].phone_no;
+  });
+
 });
 
 app.controller('loyaltyRedeemController', function($scope) {

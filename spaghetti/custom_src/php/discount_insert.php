@@ -9,9 +9,13 @@
   }
 
   $data = json_decode(file_get_contents('php://input'));
-  $item_name = $data->item_name;
+  $name = $data->name;
+  $description = $data->description;
+  $pt_cost = $data->pt_cost;
+  $type = $data->type;
+  $discount_amt = $data->discount_amt;
 
-  $result = $conn->query('DELETE FROM menu_items WHERE item_name=\'' . $item_name . '\'');
+  $result = $conn->query('INSERT INTO discount (name, description, pt_cost, type, discount_amt) VALUES (\'' . $name . '\',\'' . $description . '\',\'' . $pt_cost . '\',\'' . $type . '\',\'' . $discount_amt . '\')');
 
   echo($result);
 ?>
