@@ -70,6 +70,7 @@ app.service('menuDatabase', ['$http', function($http) {
     return {
       pullDb: pullDb,
       addItem: addItem,
+      editItem: editItem,
       removeItem: removeItem
     //  deleteItem: deleteItem
     };
