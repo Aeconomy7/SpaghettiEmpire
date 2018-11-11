@@ -325,6 +325,54 @@ app.controller('managerMenuAddController', function($scope, menuDatabase) {
 app.controller('managerMenuEditController', function($scope, menuDatabase) {
   $scope.pageName = "Edit Menu";
 
+  // Get all the items from each category, manager chooses which to edit
+  menuDatabase.pullDb("appetizer").then(function(response) {
+      $scope.appetizers = response;
+  });
+  menuDatabase.pullDb("drink").then(function(response) {
+      $scope.drinks = response;
+  });
+  menuDatabase.pullDb("entree").then(function(response) {
+      $scope.entrees = response;
+  });
+  menuDatabase.pullDb("dessert").then(function(response) {
+      $scope.desserts = response;
+  });
+  menuDatabase.pullDb("kidsmenu").then(function(response) {
+      $scope.kidsmenu = response;
+  });
+
+  $scope.editMenuItem = function(item_name) {
+    $scope.itemToEdit = item_name;
+  }
+
+  $scope.showItem = function(item_name) {
+    if(item_name == $scope.itemToEdit)
+      return true;
+    return false;
+  }
+
+  $scope.submitEditMenu = function(name_add, price_add, desc_add, ingr_add, img_add) {
+    if(name_add == undefined || price_add == undefined || desc_add == undefined || ingr_add == undefined || img_add == undefined)
+      alert("Please enter information for all fields.");
+    else if(parseFloat(price_add) < 0.0)
+      alert("Price cannot be less than 0");
+    // Add further input checks for now, such as apostrophes cuz gosh dang SQL errors
+
+    // Add item if all input is fine
+    else {
+      var item_details = {
+        original_item_name: $scope.itemToEdit,
+        new_item_name: name_add,
+        price: price_add,
+        description: desc_add,
+        ingredients: ingr_add,
+        img_path: img_add
+      };
+      menuDatabase.editItem(item_details);
+      alert("Menu item change submitted!");
+    }
+  }
 });
 
 app.controller('managerMenuDeleteController', function($scope, menuDatabase) {

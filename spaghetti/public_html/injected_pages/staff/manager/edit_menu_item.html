@@ -12,12 +12,26 @@
               </div>
               <div id="collapseApp" class="collapse hide" aria-labelledby="headingApp" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in appetizers" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in appetizers">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.item_name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editMenuItem(item.item_name)">Edit</button>
+                    </div>
+
+                    <div ng-show="showItem(item.item_name)">
+                      <input data-ng-model="name_add" class="form-control m-2" type="text" placeholder="New Name">
+                      <input data-ng-model="price_add" class="form-control m-2" type="text" placeholder="New Price ($)">
+                      <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="New Description"></textarea>
+                      <textarea data-ng-model="ingr_add" class="form-control m-2" rows="5" placeholder="New Ingredients"></textarea>
+                      <textarea data-ng-model="img_add" class="form-control m-2" rows="3" placeholder="New Image URL"></textarea>
+
+                     <button type="submit" class="btn btn-primary border border-dark col-md-12 m-2"
+                         ng-click="submitEditMenu(name_add, price_add, desc_add, ingr_add, img_add)">Submit</button>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -30,12 +44,15 @@
               </div>
               <div id="collapseDrink" class="collapse hide" aria-labelledby="headingDrink" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in drinks" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in drinks">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.item_name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editMenuItem(item.item_name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.item_name)">{{item.item_name}}</div>
                   </div>
                 </div>
               </div>
@@ -48,12 +65,15 @@
               </div>
               <div id="collapseEntree" class="collapse hide" aria-labelledby="headingEntrees" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in entrees" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in entrees">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.item_name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editMenuItem(item.item_name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.item_name)">{{item.item_name}}</div>
                   </div>
                 </div>
               </div>
@@ -66,12 +86,15 @@
               </div>
               <div id="collapseDess" class="collapse hide" aria-labelledby="headingDess" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in desserts" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in desserts">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.item_name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editMenuItem(item.item_name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.item_name)">{{item.item_name}}</div>
                   </div>
                 </div>
               </div>
@@ -84,12 +107,15 @@
               </div>
               <div id="collapseKids" class="collapse hide" aria-labelledby="headingKids" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div ng-repeat="item in kidsmenu" class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{item.item_name}}
-                    </h4>
-                    <!-- edit function here? -->
-                    <button class="btn btn-page col-md-6" ng-click="removeFromMenu(item.item_name)">Edit</button>
+                  <div ng-repeat="item in kidsmenu">
+                    <div class="d-flex">
+                      <h4 class="text-left col-md-6">
+                        {{item.item_name}}
+                      </h4>
+                      <!-- edit function here? -->
+                      <button class="btn btn-page col-md-6" ng-click="editMenuItem(item.item_name)">Edit</button>
+                    </div>
+                    <div ng-show="showItem(item.item_name)">{{item.item_name}}</div>
                   </div>
                 </div>
               </div>
