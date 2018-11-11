@@ -34,6 +34,12 @@ body{
   padding-bottom: 30px;
 }
 
+.menu-pic {
+  width:256px;
+  height:256px;
+  border:0;
+}
+
 .navbar-light .navbar-nav .nav-link{
   color: black;
   font-size: 20px;
