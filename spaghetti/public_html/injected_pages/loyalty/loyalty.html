@@ -65,6 +65,9 @@
     }
     function myBackspace() {
 
+      if(counter <= 0){
+        counter = 1;
+    }
         document.getElementById("mySearch").value = document.getElementById("mySearch").value.substring(0, document.getElementById("mySearch").value.length - 1);
         counter--;
 
