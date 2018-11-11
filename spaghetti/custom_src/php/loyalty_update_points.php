@@ -12,7 +12,7 @@
   $phone_no = $data->phone_no;
   $pts = $data->pts;
 
-  $result = $conn->query('UPDATE loyalty SET active=' . $pts . ' WHERE phone_no=\'' . $phone_no . '\'');
+  $result = $conn->query('UPDATE loyalty SET pts=' . $pts . ' WHERE phone_no=\'' . $phone_no . '\'');
 
   echo($result);
 ?>
