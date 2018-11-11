@@ -40,6 +40,10 @@ body{
   font-weight: 500;
 }
 
+.btn {
+  font-size:20px;
+}
+
 .btn-top {
   background-color: #7b7b7b;
   border: none;
