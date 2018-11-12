@@ -806,6 +806,7 @@ app.controller('your_orderController', function($scope, $route, $window, custome
   }
 });
 
+
 /* Your Bill */
 app.controller('your_billController', function($scope, customerData) {
   $scope.pageName = "Your Bill";
@@ -843,10 +844,11 @@ app.controller('your_billSplitController', function($scope, customerData) {
     return false;
   }
 
-  $scope.RemoveItemFromBill = function(name, price, type) {
-    $scope.bill_info.RemoveFromBill("");
-    $scope.bill_info.removeFromCart("");
+
+  $scope.RemoveItemFromBill = function(name) {
+    console.log(name);
+    var index = $scope.bill_info.indexOf(name);
+    // $scope.bill_info.RemoveFromBill(""); TODO
+    customerData.removeFromCart(index);
   }
-
-
 });
