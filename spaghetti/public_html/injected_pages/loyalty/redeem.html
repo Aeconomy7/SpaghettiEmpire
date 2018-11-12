@@ -19,7 +19,7 @@
                     <div class="d-flex">
                       <div class="col-md-6 text-left">{{item.description}}</div>
                       <div class="col-md-6">
-                        <button id='{{$index}}'class="btn btn-block btn-select">Redeem Reward</button>
+                        <button id='{{$index}}'class="btn btn-block btn-select" ng-click="add(x.item_name, x.price, type)">Redeem Reward</button>
                       </div>
                     </div>
                   </div>

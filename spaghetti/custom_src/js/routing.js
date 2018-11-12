@@ -806,6 +806,12 @@ app.controller('loyaltyRedeemController', function($scope, discountDatabase) {
   discountDatabase.getRewards("kidsmenu").then(function(response) {
       $scope.kidsmenu_rewards = response;
   });
+
+  /* this is a function that expects the type of the discount and disc_amt
+     this assumes that discounts are ONLY type based, which is fine for now */
+  $scope.loyalty_redeem = function(type_f, disc_amt) {
+
+  }
 });
 
 app.controller('loyaltyHistoryController', function($scope) {

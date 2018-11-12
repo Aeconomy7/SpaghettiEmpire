@@ -129,4 +129,18 @@ app.service('customerData', function(orderDatabase) {
  function getHelpRequests() {
    return help_requests;
  }
+
+ //function returns the item with the highest value in order_overall
+ function getHighestItemofType(type_f) {
+   var highestsum = 0.0;
+   var highestPricedItem = [];//keeps track of the highest priced item
+
+   for(var i = 0; i < order_overall.length; i++){
+     if(order_overall[i].type == type_f && order_overall[i].price >= highestsum){
+       highestPricedItem = order_overall[i];
+     }
+   }
+
+   return highestPricedItem;
+ }
 })
