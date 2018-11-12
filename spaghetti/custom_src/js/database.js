@@ -120,6 +120,20 @@ app.service('orderDatabase', ['$http', function($http) {
       return $promise;
   }
 
+  var update_price = function(item_name, phone_no, new_price) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/ordered_items_update_price.php",
+      {
+
+        'name': item_name,
+        'phone_no': phone_no,
+        'price': new_price
+      })
+      .then(function(response) {
+          console.log(response);
+          console.log(response.data);
+      });
+  }
 
   return {
     push_order: push_order,

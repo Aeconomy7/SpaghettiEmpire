@@ -788,7 +788,7 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
 
 });
 
-app.controller('loyaltyRedeemController', function($scope, discountDatabase) {
+app.controller('loyaltyRedeemController', function($scope, customerData, discountDatabase, loyaltyDatabase) {
   $scope.pageName = "Redeem Loyalty Points";
 
   discountDatabase.getRewards("appetizer").then(function(response) {
@@ -810,7 +810,11 @@ app.controller('loyaltyRedeemController', function($scope, discountDatabase) {
   /* this is a function that expects the type of the discount and disc_amt
      this assumes that discounts are ONLY type based, which is fine for now */
   $scope.loyalty_redeem = function(type_f, disc_amt) {
-
+    console.log('we redeemin');
+    var item_to_discount = customerData.getHighestItemofType(type_f);
+    console.log('original price: ' + item_to_discount.price);
+    item_to_discount.price = disc_amt;
+    console.log('discount price: ' + item_to_discount.price);
   }
 });
 
