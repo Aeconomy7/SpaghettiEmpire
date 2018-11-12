@@ -137,6 +137,7 @@ app.service('customerData', function(orderDatabase) {
    var highestPricedItem = [];//keeps track of the highest priced item
 
    for(var i = 0; i < order_overall.length; i++){
+     console.log(order_overall[i].type + ':' + order_overall[i].price);
      if(order_overall[i].type == type_f && order_overall[i].price >= highestsum){
        console.log('found more expensive item to discount!');
        highestPricedItem = order_overall[i];
