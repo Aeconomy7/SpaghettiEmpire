@@ -134,12 +134,13 @@ app.service('customerData', function(orderDatabase) {
  //function returns the item with the highest value in order_overall
  function getHighestItemofType(type_f) {
    var highestsum = 0.0;
+   var highestPricedItem;
 
    for(var i = 0; i < order_overall.length; i++){
      console.log(order_overall[i]);
      if(order_overall[i].type == type_f && order_overall[i].price >= highestsum){
        console.log('found more expensive item to discount!');
-       var highestPricedItem = order_overall[i];
+       highestPricedItem = order_overall[i];
      }
    }
    console.log('highestPricedItem: ' + highestPricedItem.name);
