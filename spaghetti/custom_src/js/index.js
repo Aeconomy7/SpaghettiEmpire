@@ -16,3 +16,7 @@ window.onclick = function(event) {
             sHour.style.display = "none";
     }
 }
+
+$("#help").click(function() {
+  $(this).toggleClass('selected');
+});

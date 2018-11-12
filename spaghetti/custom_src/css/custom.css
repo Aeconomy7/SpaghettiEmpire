@@ -55,8 +55,8 @@ body{
   border: none;
 }
 
-.help.clicked {
-  background: white;
+.selected {
+  background: yellow;
 }
 
 .card {
@@ -102,6 +102,7 @@ width: 100px;
 display: table;
 margin: 20px auto;
 }
+
 .circle p {
 vertical-align: middle;
 display: table-cell;

@@ -9,6 +9,8 @@ app.service('customerData', function(orderDatabase) {
   var order_overall = []; // Stores the items of all orders placed
   var final_bill = 0; // Stores the final bill of all orders placed
   var refills = [];//stores refills needed by customer
+  var help_requests = [];//stores pairs of tables and help requests needed
+  var needHelp = false;//stores whether a table has called for help or not
   return {
     setTableId: setTableId,
     setPhoneNo: setPhoneNo,
@@ -22,7 +24,9 @@ app.service('customerData', function(orderDatabase) {
     getBill: getBill,
     getRefills: getRefills,
     removeFromCart: removeFromCart,
-    removeFromBill: removeFromBill
+    removeFromBill: removeFromBill,
+    customerHelp: customerHelp,
+    getHelpRequests: getHelpRequests
   };
 
   function setTableId(id) {
@@ -111,4 +115,18 @@ app.service('customerData', function(orderDatabase) {
    // orderDatabase.push_order(order_cart)
  }
 
+ function customerHelp(t_id) {
+   for(var i = 0; i < help_requests.length; i++){
+     if(help_requests[i].ID == t_id){
+       help_requests[i].needsHelp = !help_requests[i].needsHelp;
+       return;
+     }
+   }
+   help_requests.push({'ID': t_id, 'needsHelp': true});
+   console.log("added true " + t_id);
+ }
+
+ function getHelpRequests() {
+   return help_requests;
+ }
 })
