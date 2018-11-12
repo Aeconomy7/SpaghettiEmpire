@@ -26,7 +26,8 @@ app.service('customerData', function(orderDatabase) {
     removeFromCart: removeFromCart,
     removeFromBill: removeFromBill,
     customerHelp: customerHelp,
-    getHelpRequests: getHelpRequests
+    getHelpRequests: getHelpRequests,
+    getHighestItemofType: getHighestItemofType
   };
 
   function setTableId(id) {
