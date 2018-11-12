@@ -230,6 +230,13 @@ app.controller('your_refills', function($scope, customerData) {
   $scope.refills = customerData.getRefills();
 });
 
+//customer help Requests
+app.controller('help_requests', function($scope, customerData) {
+  $scope.addRequest = function() {
+    console.log("adding request");
+    customerData.customerHelp(customerData.getTableId());
+  }
+});
 
 // Controllers for all pages
 /* General Staff */
@@ -580,7 +587,7 @@ app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
 });
 
 /* Waitstaff */
-app.controller('waitStaffController', function($scope, orderDatabase) {
+app.controller('waitStaffController', function($scope, orderDatabase, customerData) {
   $scope.pageName = "Wait Staff";
   $scope.tables = 24;
   $scope.orders = [];
@@ -603,6 +610,19 @@ app.controller('waitStaffController', function($scope, orderDatabase) {
       }
     }
     return drinks;
+  }
+
+  // Returns all help requests matching the table number of ng-repeat inside waitstaff.html
+  $scope.getHelpByTable = function(tableNum) {
+    var help = customerData.getHelpRequests();
+    console.log(tableNum);
+    for(var i = 0; i < help.length; i++) {
+      console.log("id= " + help[i].ID + " and needsHelp = " + help[i].needsHelp);
+      if(help[i].ID == tableNum && help[i].needsHelp == true) {
+        console.log("table needs help");
+        return true;
+      }
+    }
   }
 
 });

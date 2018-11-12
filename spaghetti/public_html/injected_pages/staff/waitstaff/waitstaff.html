@@ -20,7 +20,7 @@
        <div class="container">
           <div class="row">
               <div class="col-md-3 block-align" ng-repeat="table in [].constructor(tables) track by $index">
-                <button type="button" class="btn btn-outline-dark" id="{{$index+1}}" onclick="viewTableModal(this.id)">
+                <button type="button" class="btn btn-outline-dark" ng-class="{'selected': getHelpByTable($index+1)}" id="{{$index+1}}" onclick="viewTableModal(this.id)">
                   <div class="circle">
                       <p>Table {{$index+1}}</p>
                   </div>

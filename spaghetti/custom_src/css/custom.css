@@ -55,9 +55,10 @@ body{
   border: none;
 }
 
-.help.clicked {
-  background: white;
+.selected {
+  background: yellow;
 }
+
 .card {
   background-color: #f0ebd7;
   border-color: #B01E16;
@@ -101,6 +102,7 @@ width: 100px;
 display: table;
 margin: 20px auto;
 }
+
 .circle p {
 vertical-align: middle;
 display: table-cell;
@@ -133,7 +135,7 @@ display: table-cell;
 }
 
 /* The Close Button */
-.close, .exit {
+.close, .exit, .bye {
     display: relative;
     color: white;
     float: right;
@@ -142,7 +144,7 @@ display: table-cell;
     font-weight: bold;
 }
 
-.close:hover, .close:focus, .exit:hover, .exit:focus {
+.close:hover, .close:focus, .exit:hover, .exit:focus, .bye:hover, .bye:focus {
     color: #000;
     cursor: pointer;
 }
