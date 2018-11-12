@@ -1,46 +1,35 @@
 <html lang="en-US">
-
    <head>
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
        <title>Credit Card Validation Demo</title>
        <link rel="stylesheet" type="text/css" href="/spaghetti/custom_src/css/styles.css">
-       <link rel="stylesheet" type="text/css" href="/spaghetti/custom_src/css/demo.css">
    </head>
-
-
    <body>
-     <h1 class="text-center">{{pageName}}</h1>
-     <div style="border: solid" class="container mt-2">
-       <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
-
-     <body style="background-color:#52688c">
-
-       <div class="accordion" id="accordionExample">
-         <div class="card">
-           <div class="card-header" id="headingOne">
-             <h5 class="mb-0">
-               <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                 Pay with Card
-               </button>
-             </h5>
-           </div>
-           <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-             <div class="card-body">
-
-               <p> Tip Percentages </p>
-               <p> 15%: <!--.15 * Bill total --> <!-- Add in the variables for the money-->
-               20%:
-               25%:
-              </p>
-              <div class="row justify-content-center align-items-center">
-                <div class="col-md-2">
-                  <input class="form-control form-control-lg mt-2" type="text" placeholder="Tip" id="tipBar">
+     <h1 class="text-center pageTitle">{{pageName}}</h1>
+     <div class="container mt-2">
+       <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn overflow-scroll">
+         <body>
+         <div class="accordion" id="accordionExample">
+           <div class="card">
+             <div class="card-header" id="headingOne">
+               <h5 class="mb-0">
+                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                   Pay with Card
+                 </button>
+               </h5>
+             </div>
+             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+               <div class="card-body">
+                 <p> Tip Percentages </p>
+                 <p> 15%: <!--.15 * Bill total --> <!-- Add in the variables for the money-->
+                 20%:
+                 25%:
+                </p>
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-md-2">
+                    <input class="form-control form-control-lg mt-2" type="text" placeholder="Tip" id="tipBar">
+                  </div>
                 </div>
-              </div>
-
-
-               <div class="container-fluid"> <!-- This is the div function for the confirm card box -->
+                 <div class="container-fluid"> <!-- This is the div function for the confirm card box -->
                    <div class="creditCardForm">
                        <div class="heading">
                            <h1>Confirm Purchase</h1>
@@ -92,51 +81,15 @@
                        </div>
                    </div>
 
-
-
-                   <div class="row justify-content-center colalign-items-center">
-                       <button type="button" class="btn btn-select btn-block col-sm-4"><h4>Submit Payment</h4></button>
-                   </div>
-                  <!--  <p class="examples-note">Here are some dummy credit card numbers and CVV codes so you can test out the form:</p>
-
-                   <div class="examples">
-                       <div class="table-responsive">
-                           <table class="table table-hover">
-                               <thead>
-                                   <tr>
-                                       <th>Type</th>
-                                       <th>Card Number</th>
-                                       <th>Security Code</th>
-                                   </tr>
-                               </thead>
-                               <tbody>
-                                   <tr>
-                                       <td>Visa</td>
-                                       <td>4716108999716531</td>
-                                       <td>257</td>
-                                   </tr>
-                                   <tr>
-                                       <td>Master Card</td>
-                                       <td>5281037048916168</td>
-                                       <td>043</td>
-                                   </tr>
-                                   <tr>
-                                       <td>American Express</td>
-                                       <td>342498818630298</td>
-                                       <td>3156</td>
-                                   </tr>
-                               </tbody>
-                           </table>
-                       </div>
-                   </div>
-               </div>
-             -->
+                 <div class="row justify-content-center colalign-items-center">
+                     <button type="button" class="btn btn-select btn-block col-sm-4"><h4>Submit Payment</h4></button>
+                 </div>
              </div>
            </div>
          </div>
+        </div>
 
-
-         <div class="card">
+         <div class="card mt-1">
            <div class="card-header" id="headingTwo">
              <h5 class="mb-0">
                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -164,10 +117,7 @@
            </div>
          </div>
 
-
        <script src="/spaghetti/custom_src/js/jquery.payform.min.js" charset="utf-8"></script>
        <script src="/spaghetti/custom_src/js/script.js"></script>
-
-
  </body>
 </html>

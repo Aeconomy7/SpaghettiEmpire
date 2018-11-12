@@ -45,12 +45,11 @@ $(function() {
 
         e.preventDefault();
 
-        var isCardValid = $.payform.validateCardNumber(cardNumber.val());
         var isCvvValid = $.payform.validateCardCVC(CVV.val());
 
         if(owner.val().length < 5){
             alert("Wrong owner name");
-        } else if (!isCardValid) {
+        } else if (cardNumber.val().length < 16) {
             alert("Wrong card number");
         } else if (!isCvvValid) {
             alert("Wrong CVV");
