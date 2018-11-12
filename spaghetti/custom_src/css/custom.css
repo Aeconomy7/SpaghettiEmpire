@@ -58,6 +58,7 @@ body{
 .help.clicked {
   background: white;
 }
+
 .card {
   background-color: #f0ebd7;
   border-color: #B01E16;
@@ -133,7 +134,7 @@ display: table-cell;
 }
 
 /* The Close Button */
-.close, .exit {
+.close, .exit, .bye {
     display: relative;
     color: white;
     float: right;
@@ -142,7 +143,7 @@ display: table-cell;
     font-weight: bold;
 }
 
-.close:hover, .close:focus, .exit:hover, .exit:focus {
+.close:hover, .close:focus, .exit:hover, .exit:focus, .bye:hover, .bye:focus {
     color: #000;
     cursor: pointer;
 }
