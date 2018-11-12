@@ -141,6 +141,7 @@ app.service('customerData', function(orderDatabase) {
        highestPricedItem = order_overall[i];
      }
    }
+   console.log('highestPricedItem: ' + highestPricedItem.name + ':' highestPricedItem.price);
 
    return highestPricedItem;
  }
