@@ -725,22 +725,33 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
 
   $scope.loyalty_login = function() {
     console.log($scope.phone_id);
-    loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
-        console.log("done calling");
-        if(response.records.length == 1) {
-          customerData.setPhoneNo($scope.phone_id);
-          window.location.href = "/spaghetti/public_html/#/loyalty/profile";
-        }
-        else {
-          alert("No account exists for phone number " + $scope.phone_id);
-          $scope.phone_id = "";
-        }
-    });
+    if($scope.counter != 10) {
+      alert("Invalid input; please enter a full phone number (10 digits)")
+    }
+    else {
+      loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
+          console.log("done calling");
+          if(response.records.length == 1) {
+            customerData.setPhoneNo($scope.phone_id);
+            window.location.href = "/spaghetti/public_html/#/loyalty/profile";
+          }
+          else {
+            alert("No account exists for phone number " + $scope.phone_id);
+            $scope.phone_id = "";
+          }
+      });
+    }
   }
 
   $scope.loyalty_signup = function() {
     console.log($scope.phone_id);
-    loyaltyDatabase.signup_profile($scope.phone_id);
+    if($scope.counter != 10) {
+      alert("Please enter a valid phone number (10 digits), and then press the Sign Up button.");
+    }
+    else {
+      loyaltyDatabase.signup_profile($scope.phone_id);
+      alert("Sign-Up successful! You can now login using that phone number.");
+    }
   }
 
 });
