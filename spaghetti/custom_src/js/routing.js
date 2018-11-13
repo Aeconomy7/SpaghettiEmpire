@@ -829,6 +829,7 @@ app.controller('loyaltyHistoryController', function($scope, customerData, orderD
 
   orderDatabase.get_order_history_loyalty(customerData.getPhoneNo()).then(function(response){
     $scope.order_history = response;
+    console.log(response);
   });
 });
 
