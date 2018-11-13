@@ -12,7 +12,7 @@
   $phone_no = $data->phone_no;
   $amt = $data->amt;
 
-  $result = $conn->query('INSERT INTO order_hist (phone_no, amt) VALUES (\'' . $phone_no . '\',\'' . $amt . '\')');
+  $result = $conn->query('INSERT INTO order_hist (phone_no, amt) VALUES (\'' . $phone_no . '\',' . $amt . ')');
 
   echo($result);
 
