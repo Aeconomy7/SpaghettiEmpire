@@ -174,7 +174,7 @@ app.service('orderDatabase', ['$http', function($http) {
           if(result.records.phone_no == phone_no) {
             orders.push(result.records[i]);
           }
-        
+
       }
       return orders;
     });
@@ -186,7 +186,8 @@ app.service('orderDatabase', ['$http', function($http) {
     get_active_orders: get_active_orders,
     update_price: update_price,
     update_phone: update_phone,
-    get_order_history: get_order_history
+    get_order_history: get_order_history,
+    get_order_history_loyalty: get_order_history_loyalty
   };
 
 }]);
