@@ -144,6 +144,7 @@ app.service('orderDatabase', ['$http', function($http) {
     })
     .then(function(response) {
       console.log("phone numbers updated");
+      console.log(response.data);
     })
   }
 
