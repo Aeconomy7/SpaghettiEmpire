@@ -1,6 +1,3 @@
-/* Credit to Coder on the Road */
-/* Modified by Alexander Economy */
-
 var gameField = new Array();
 var board = document.getElementById("game-table");
 var currentCol;
