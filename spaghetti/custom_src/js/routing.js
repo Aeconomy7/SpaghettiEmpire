@@ -563,7 +563,7 @@ app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) 
     $scope.feedback = response;
     $scope.allowedFeedback = [];
     for(var i = 0; i < $scope.feedback.length; i++) {
-      console.log(scope.feedback[i]);
+      console.log($scope.feedback[i]);
       if($scope.feedback[i].managerOnly == '0') {
         $scope.allowedFeedback.push($scope.feedback[i]);
       }
