@@ -917,7 +917,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     // ORDER: mark items off as inactive
       /*  $data = json_decode(file_get_contents('php://input'));
         $sid = $data->sid; */
-
+      orderDatabase.update_active_orders(customerData.getTableId());
         // send to order history
         /*   $phone_no = $data->phone_no;
           $amt = $data->amt; */
