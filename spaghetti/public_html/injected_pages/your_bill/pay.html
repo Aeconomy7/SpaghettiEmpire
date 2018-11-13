@@ -80,16 +80,16 @@
                        </div>
                    </div>
 
-                   <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="Comments (optional)"></textarea>
+                   <textarea data-ng-model="comment_box" class="form-control m-2" rows="3" placeholder="Comments (optional)"></textarea>
                      <div class="form-check">
-                       <input class="form-check-input" type="checkbox" value="" id="kitchenComment">
+                       <input class="form-check-input" ng-click="feedbackKitchen()" type="checkbox" value="" id="kitchenComment">
                        <label class="form-check-label" for="defaultCheck1">
                          Send Comment to Kitchen
                        </label>
                      </div>
 
                  <div class="row justify-content-center colalign-items-center">
-                     <button type="button" class="btn btn-select btn-block col-sm-4"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}}</h4></button>
+                     <button type="button" class="btn btn-select btn-block col-md-6" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}}</h4></button>
                  </div>
              </div>
            </div>
@@ -115,15 +115,15 @@
                  <input class="form-control form-control-lg mt-2" type="text" placeholder="Tip" id="tipBar">
                </div>
              </div>
-             <textarea data-ng-model="desc_add" class="form-control m-2" rows="3" placeholder="Comments (optional)"></textarea>
+             <textarea data-ng-model="comment_box" class="form-control m-2" rows="3" placeholder="Comments (optional)"></textarea>
                <div class="form-check">
-                 <input class="form-check-input" type="checkbox" value="" id="kitchenComment">
+                 <input class="form-check-input" ng-click="feedbackKitchen()" type="checkbox" value="" id="kitchenComment">
                  <label class="form-check-label" for="defaultCheck1">
                    Send Comment to Kitchen
                  </label>
                </div>
              <div class="row justify-content-center colalign-items-center">
-                 <button type="button" class="btn btn-select btn-block col-sm-4"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}}</h4></button>
+                 <button type="button" class="btn btn-select btn-block col-md-6" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}}</h4></button>
              </div>
 
              </div>
