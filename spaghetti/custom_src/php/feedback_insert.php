@@ -9,12 +9,11 @@
   }
 
   $data = json_decode(file_get_contents('php://input'));
-  $date = $data->date;
   $sid = $data->sid;
   $comment = $data->comment;
   $manageronly = $data->manageronly;
 
-  $result = $conn->query('INSERT INTO feedback (date, sid, comment, manageronly) VALUES (\'' . $date . '\',\'' . $sid . '\',\'' . $comment . '\',\'' . $manageronly . '\')');
+  $result = $conn->query('INSERT INTO feedback (sid, comment, manageronly) VALUES (' . $sid . ',\'' . $comment . '\',\'' . $manageronly . '\')');
 
   echo($result);
 
