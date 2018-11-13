@@ -43,6 +43,20 @@ app.service('customerData', function(orderDatabase) {
 
   function setPhoneNo(phone) {
     phone_no = phone;
+    console.log(order_cart);
+    console.log(order_overall);
+    if(order_cart.length != 0) {
+      for(var i = 0; i < order_cart.length; i++) {
+        order_cart[i].phone_no = phone_no;
+      }
+    }
+    if(order_overall.length != 0) {
+      for(var i = 0; i < order_overall.length; i++) {
+        order_overall.phone_no = phone_no;
+      }
+    }
+    console.log(order_cart);
+    console.log(order_overall);
   }
 
   function getPhoneNo() {
