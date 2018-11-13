@@ -67,8 +67,8 @@
           <div class="card-body">
             <div class="row" ng-model="refills">
               <h3 class="card-title text-center">Refills</h3>
-              <div class="card-body" ng-repeat="drink in refills">
-                <p class="float-left">{{drink.item_name}}</p>
+              <div class="card-body" ng-repeat="drink in refillsNeeded">
+                <p class="float-left">{{drink}}</p>
                 <input class="float-right" type="checkbox" name="valuey" value="1"></input><br>
                 <div style="clear: both;"></div>
               </div>
