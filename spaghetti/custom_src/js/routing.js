@@ -886,7 +886,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.bill_info = [];
   $scope.bill = 0.0;
   $scope.pts_earned = 0;
-  $scope.sendToKitchen = false;
+  $scope.managerOnly = true;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -902,32 +902,38 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   });
 
   $scope.feedbackKitchen = function() {
-    if($scope.sendToKitchen == false)
-      $scope.sendToKitchen = true;
+    if($scope.managerOnly == true)
+      $scope.managerOnly = false;
     else
-      $scope.sendToKitchen = false;
+      $scope.managerOnly = true;
   }
 
   $scope.sendOffToEverything = function(comment) {
     // FEEDBACK: insert feedback
-      feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.sendToKitchen);
+      feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
 
     // ORDER: mark items off as inactive
       /*  $data = json_decode(file_get_contents('php://input'));
         $sid = $data->sid; */
-        // HISTORY
-        /*$phone_no = $data->phone_no;
-        $date = $data->date;
-        $active = $data->amt;*/
+
+        // send to order history
+        /*   $phone_no = $data->phone_no;
+          $amt = $data->amt; */
+      var phone = customerData.getPhoneNo();
+      var amt = $scope.bill;
+      console.log("Inserting into order history");
+      console.log(phone, amt);
+      orderDatabase.insert_into_history(phone, amt);
 
 
     // LOYALTY: assign points
       var phone = customerData.getPhoneNo();
       var current_pts = customerData.getPts();
-      var new_pts = current_pts + $scope.pts_earned;
+      var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
       console.log("Assigning new info for loyalty:");
       console.log(phone, new_pts);
       loyaltyDatabase.update_points(phone, new_pts);
+
   }
 
 });
