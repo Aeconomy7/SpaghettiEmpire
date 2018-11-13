@@ -167,7 +167,7 @@ app.service('customerData', function(orderDatabase) {
  function getHighestItemofType(type_f) {
    var highestsum = 0.0;
    var highestPricedItem;
-   var all_order = this.getOrderOverall();
+   var all_order = getOrderOverall();
 
    for(var i = 0; i < all_order.length; i++){
      console.log(all_order[i]);
