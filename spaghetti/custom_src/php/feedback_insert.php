@@ -13,7 +13,7 @@
   $comment = $data->comment;
   $manageronly = $data->manageronly;
 
-  $result = $conn->query('INSERT INTO feedback (sid, comment, manageronly) VALUES (' . $sid . ',\'' . $comment . '\',\'' . $manageronly . '\')');
+  $result = $conn->query('INSERT INTO feedback (sid, comment, manageronly) VALUES (' . $sid . ',\'' . $comment . '\',' . $manageronly . ')');
 
   echo($result);
 
