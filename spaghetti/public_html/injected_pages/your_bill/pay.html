@@ -88,7 +88,7 @@
                      </div>
 
                  <div class="row justify-content-center colalign-items-center">
-                    <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{bill + tip_amt | currency:'$'}}</h4></button>
+                    <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{parseFloat(bill) + parseFloat(tip_amt) | currency:'$'}}</h4></button>
                  </div>
                  <p>You will earn {{pts_earned}} points for this purchase!</p>
              </div>
@@ -123,7 +123,7 @@
                  </label>
                </div>
              <div class="row justify-content-center colalign-items-center">
-               <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{bill + tip_amt_cash | currency:'$'}}</h4></button>
+               <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{parseFloat(bill) + parseFloat(tip_amt) | currency:'$'}}</h4></button>
              </div>
              <p>You will earn {{pts_earned}} points for this purchase!</p>
 
