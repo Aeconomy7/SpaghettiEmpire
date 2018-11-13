@@ -171,7 +171,7 @@ app.service('orderDatabase', ['$http', function($http) {
       result = response.data;
       orders = [];
       for(var i = 0; i < result.records.length; i++) {
-          if(result.records.phone_no == phone_no) {
+          if(result.records[i].phone_no == phone_no) {
             orders.push(result.records[i]);
           }
 
