@@ -925,6 +925,8 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
       var phone = customerData.getPhoneNo();
       var current_pts = customerData.getPts();
       var new_pts = current_pts + $scope.pts_earned;
+      console.log("Assigning new info for loyalty:");
+      console.log(phone, new_pts);
       loyaltyDatabase.update_points(phone, new_pts);
   }
 
