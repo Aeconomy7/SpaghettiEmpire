@@ -150,6 +150,18 @@ app.service('orderDatabase', ['$http', function($http) {
     })
   }
 
+  var insert_into_history = function(phone, amt) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/order_hist_insert.php",
+    {
+      'phone_no': phone,
+      'amt': amt
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
+
   /* returns whole damn order history of restraunt */
   var get_order_history = function() {
     var $promise = $http.get("/spaghetti/custom_src/php/order_hist_select.php")
@@ -188,6 +200,7 @@ app.service('orderDatabase', ['$http', function($http) {
     get_active_orders: get_active_orders,
     update_price: update_price,
     update_phone: update_phone,
+    insert_into_history: insert_into_history,
     get_order_history: get_order_history,
     get_order_history_loyalty: get_order_history_loyalty
   };
@@ -216,7 +229,6 @@ app.service('feedbackDatabase', ['$http', function($http) {
 
   var insert_feedback = function(comment, table, managerOnly) {
     var request;
-    console.log(table, comment, managerOnly);
     request = $http.post("/spaghetti/custom_src/php/feedback_insert.php",
     {
       'sid': table,
