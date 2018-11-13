@@ -6,12 +6,14 @@
         <table class="table">
           <thead>
             <tr>
+              <th>#</th>
               <th>Date of Visit</th>
               <th>Bill</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="order in order_history" class="d-flex">
+              <th scope="row"></th>
               <td>{{order.amt}}</td>
               <td>{{order.date}}</td>
             </tr>
