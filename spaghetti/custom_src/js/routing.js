@@ -782,8 +782,6 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
 
 app.controller('loyaltyProfileController', function($scope, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Profile";
-  $scope.pts = -1;
-  $scope.phone = "0000000000";
   // Load the profile with the phone number used to log in
   loyaltyDatabase.get_profile(customerData.getPhoneNo()).then(function(response) {
       $scope.pts = response.records[0].pts;
@@ -828,9 +826,9 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
 
 app.controller('loyaltyHistoryController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Order History";
-
-  orderDatabase.get_order_history().then(function(response) {
-
+  orderDatabase.get_order_history_loyalty(customerData.getPhoneNo()).then(function(response){
+    $scope.order_history = response;
+    console.log(response);
   });
 });
 
@@ -861,10 +859,19 @@ app.controller('your_orderController', function($scope, $route, $window, custome
 
 
 /* Your Bill */
-app.controller('your_billController', function($scope, customerData) {
+app.controller('your_billController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Your Bill";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
+  $scope.bill_info = [];
+  $scope.bill = 0.0;
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.tmp = response;
+    for(var i = 0; i < $scope.tmp.length; i++) {
+      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+        $scope.bill_info.push($scope.tmp[i]);
+        $scope.bill += parseFloat($scope.tmp[i].price);
+      }
+    }
+  });
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSectionBill = function(section) {
@@ -877,17 +884,51 @@ app.controller('your_billController', function($scope, customerData) {
 });
 
 
-app.controller('your_billPayController', function($scope, customerData) {
+app.controller('your_billPayController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Pay";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
+  $scope.bill_info = [];
+  $scope.bill = 0.0;
+  $scope.sendToKitchen = false;
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.tmp = response;
+    for(var i = 0; i < $scope.tmp.length; i++) {
+      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+        $scope.bill_info.push($scope.tmp[i]);
+        $scope.bill += parseFloat($scope.tmp[i].price);
+      }
+    }
+    $scope.tip_15 = $scope.bill * 0.15;
+    $scope.tip_20 = $scope.bill * 0.20;
+    $scope.tip_25 = $scope.bill * 0.25;
+  });
+
+  $scope.feedbackKitchen = function() {
+    if(!$scope.sendToKitchen)
+      $scope.sendToKitchen = true;
+    else
+      $scope.sendToKitchen = false;
+  }
+
+  $scope.sendOffToEverything = function(comment) {
+    console.log(comment);
+    console.log($scope.sendToKitchen);
+  }
 
 });
 
-app.controller('your_billSplitController', function($scope, customerData) {
+app.controller('your_billSplitController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Split Bill";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
+  $scope.bill_info = [];
+  $scope.bill = 0.0;
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.tmp = response;
+    for(var i = 0; i < $scope.tmp.length; i++) {
+      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+        $scope.bill_info.push($scope.tmp[i]);
+        $scope.bill += parseFloat($scope.tmp[i].price);
+      }
+    }
+  });
 
   $scope.hasSectionBill = function(section) {
     for(var i = 0; i < $scope.bill_info.length; i++) {

@@ -100,15 +100,25 @@ app.service('customerData', function(orderDatabase) {
   // Submits items from cart to their total bill and clears cart
   function addToBill() {
     orderDatabase.push_order(order_cart);
-    order_overall = order_overall.concat(order_cart);
-    final_bill += order_cost;
+
     order_cart = [];
     order_cost = 0.0;
   }
 
   // Returns overall order, for bill
   function getOrderOverall() {
-    return order_overall;
+    order_overall = [];
+    final_bill = 0.0;
+    var tmp = orderDatabase.get_active_orders().then(function(response) {
+      for(var i = 0; i < tmp.length; i++) {
+        if(tmp[i].sid == tableId && tmp[i].phone_no == phone_no) {
+          order_overall.concat(tmp[i]);
+          final_bill += tmp[i].price;
+        }
+      }
+      console.log(order_overall);
+      return order_overall;
+    });
   }
 
   // Returns payment amount due

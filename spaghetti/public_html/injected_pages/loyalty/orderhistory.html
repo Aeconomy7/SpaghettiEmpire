@@ -4,6 +4,10 @@
     <div class="container overflow-scroll">
       <div class="col-md-12 mt-3 animated fadeIn">
         <div ng-repeat="order in order_history" class="d-flex">
+          <div class="d-flex">
+            <div class="col-md-6 text-left menuItem">{{order.date}}</div>
+            <div class="col-md-6 menuPrice">{{order.amt}}</div>
+          </div>
         </div>
       </div>
     </div>
