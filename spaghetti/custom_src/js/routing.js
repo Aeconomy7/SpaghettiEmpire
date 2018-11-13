@@ -911,33 +911,28 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
   $scope.sendOffToEverything = function(comment) {
     // FEEDBACK: insert feedback
-    if(comment.length != 0)
+    if(typeof comment != "undefined")
       feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
 
-    // ORDER: mark items off as inactive
-      /*  $data = json_decode(file_get_contents('php://input'));
-        $sid = $data->sid; */
-      orderDatabase.update_active_orders(customerData.getTableId());
-        // send to order history
-        /*   $phone_no = $data->phone_no;
-          $amt = $data->amt; */
-      var phone = customerData.getPhoneNo();
-      var amt = $scope.bill;
-      console.log("Inserting into order history");
-      console.log(phone, amt);
-      orderDatabase.insert_into_history(phone, amt);
+    // mark items off as inactive
+    orderDatabase.update_active_orders(customerData.getTableId());
+    // send to order history
+    var phone = customerData.getPhoneNo();
+    var amt = $scope.bill;
+    console.log("Inserting into order history");
+    console.log(phone, amt);
+    orderDatabase.insert_into_history(phone, amt);
 
 
-    // LOYALTY: assign points
-      var phone = customerData.getPhoneNo();
-        if(phone != "0000000000") {
-        var current_pts = customerData.getPts();
-        var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
-        console.log("Assigning new info for loyalty:");
-        console.log(phone, new_pts);
-        loyaltyDatabase.update_points(phone, new_pts);
-      }
-
+  // LOYALTY: assign points
+    var phone = customerData.getPhoneNo();
+      if(phone != "0000000000") {
+      var current_pts = customerData.getPts();
+      var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
+      console.log("Assigning new info for loyalty:");
+      console.log(phone, new_pts);
+      loyaltyDatabase.update_points(phone, new_pts);
+    }
   }
 
 });
