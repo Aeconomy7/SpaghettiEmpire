@@ -53,6 +53,8 @@ app.service('customerData', function(orderDatabase) {
         order_overall[i].phone_no = phone_no;
       }
     }
+    console.log("calling update on");
+    console.log("0000000000", phone_no, tableId);
     orderDatabase.update_phone("0000000000", phone_no, tableId);
   }
 
