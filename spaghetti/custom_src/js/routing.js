@@ -865,10 +865,11 @@ app.controller('your_billController', function($scope, customerData, orderDataba
   $scope.bill = 0.0;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
+    console.log($scope.tmp);
     for(var i = 0; i < $scope.tmp.length; i++) {
-      if($scope.tmp[i].sid == tableId && $scope.tmp[i].phone_no == phone_no) {
+      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
         $scope.bill_info.concat($scope.tmp[i]);
-        $scope.bill += $scope.tmp[i].price;
+        $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
     console.log($scope.bill_info);
@@ -892,10 +893,11 @@ app.controller('your_billPayController', function($scope, customerData) {
   $scope.bill = 0.0;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
+    console.log($scope.tmp);
     for(var i = 0; i < $scope.tmp.length; i++) {
-      if($scope.tmp[i].sid == tableId && $scope.tmp[i].phone_no == phone_no) {
+      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
         $scope.bill_info.concat($scope.tmp[i]);
-        $scope.bill += $scope.tmp[i].price;
+        $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
     console.log($scope.bill_info);
