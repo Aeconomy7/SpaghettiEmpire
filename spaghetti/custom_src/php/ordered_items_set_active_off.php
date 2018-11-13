@@ -11,7 +11,7 @@
   $data = json_decode(file_get_contents('php://input'));
   $sid = $data->sid;
 
-  $result = $conn->query('UPDATE ordered_items SET active=0 WHERE sid=\'' . $sid . '\'');
+  $result = $conn->query('UPDATE ordered_items SET active=\'0\' WHERE sid=' . $sid);
 
   echo($result);
 ?>

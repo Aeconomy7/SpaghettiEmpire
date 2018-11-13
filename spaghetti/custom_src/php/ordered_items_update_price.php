@@ -13,7 +13,7 @@
   $phone_no = $data->phone_no;
   $price = $data->price;
 
-  $result = $conn->query('UPDATE ordered_items SET price=' . $price . ' WHERE name=\'' . $name . '\', phone_no=\'' . $phone_no . '\', active=\'1\' LIMIT 1');
+  $result = $conn->query('UPDATE ordered_items SET price=' . $price . ' WHERE name=\'' . $name . '\', phone_no=\'' . $phone_no . '\', active=1 LIMIT 1');
 
   echo($result);
 ?>
