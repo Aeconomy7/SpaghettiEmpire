@@ -824,7 +824,6 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
   }
 });
 
-app.controller('loyaltyHistoryController', function($scope, customerData, orderDatabase) {
 app.controller('loyaltyHistoryController', function($scope) {
   $scope.pageName = "Order History";
 });
@@ -856,10 +855,22 @@ app.controller('your_orderController', function($scope, $route, $window, custome
 
 
 /* Your Bill */
-app.controller('your_billController', function($scope, customerData) {
+app.controller('your_billController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Your Bill";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
+  $scope.bill_info = [];
+  $scope.bill = 0.0;
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.tmp = response;
+    for(var i = 0; i < tmp.length; i++) {
+      if(tmp[i].sid == tableId && tmp[i].phone_no == phone_no) {
+        order_overall.concat(tmp[i]);
+        $scope.bill_info.concat(tmp[i]);
+        $scope.bill += tmp[i].price;
+      }
+    }
+    console.log($scope.bill_info);
+    console.log($scope.bill);
+  });
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSectionBill = function(section) {
@@ -874,11 +885,23 @@ app.controller('your_billController', function($scope, customerData) {
 
 app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
-  $scope.tip_15 = $scope.bill * 0.15;
-  $scope.tip_20 = $scope.bill * 0.20;
-  $scope.tip_25 = $scope.bill * 0.25;
+  $scope.bill_info = [];
+  $scope.bill = 0.0;
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.tmp = response;
+    for(var i = 0; i < tmp.length; i++) {
+      if(tmp[i].sid == tableId && tmp[i].phone_no == phone_no) {
+        order_overall.concat(tmp[i]);
+        $scope.bill_info.concat(tmp[i]);
+        $scope.bill += tmp[i].price;
+      }
+    }
+    console.log($scope.bill_info);
+    console.log($scope.bill);
+    $scope.tip_15 = $scope.bill * 0.15;
+    $scope.tip_20 = $scope.bill * 0.20;
+    $scope.tip_25 = $scope.bill * 0.25;
+  });
 
 });
 
