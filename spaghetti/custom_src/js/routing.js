@@ -726,10 +726,10 @@ app.controller('gamesSnakeController', function($scope) {
 app.controller('loyaltyController', function($scope, $window, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Login";
 
-  if(customerData.getPhone() != '0000000000') {
+  if(customerData.getPhoneNo() != '0000000000') {
     window.location.href = "/spaghetti/public_html/#/loyalty/profile";
   }
-  
+
   $scope.phone_id = "";
   $scope.counter = 0;
 
