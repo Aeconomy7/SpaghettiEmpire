@@ -3,30 +3,25 @@
    <h1 class="text-center pageTitle">{{pageName}}</h1>
    <div class="container mt-2 overflow-scroll">
      <div class="justify-content-center text-left col-md-12 mt-2 animated fadeIn">
-       <div class="accordion" id="accordionExample">
 
          <div ng-repeat="submission in allowedFeedback">
-           <div class="card">
-             <div class="card-header btn btn-page" id="feedback{{$index}}" type="button" data-toggle="{{$index}}"
-                 data-target="#{{$index}}" aria-expanded="true" aria-controls="{{$index}}">
+           <div class="card m-1">
+             <div class="card-header btn btn-page">
                    <h3>{{submission.date}}</h3>
              </div>
-             <div id="{{$index}}" class="collapse hide" aria-labelledby="feedback{{$index}}" data-parent="#accordionExample">
-               <div class="card-body">
-                  <div class="d-flex">
-                    <h4 class="text-left col-md-6">
-                      {{submission.comment}}
-                    </h4>
-                    <h4 class="text-left col-md-6">
-                      {{submission.sid}}
-                    </h4>
-                  </div>
-                </div>
+             <div class="card-body">
+              <div class="d-flex">
+                <h4 class="text-left col-md-6">
+                  {{submission.comment}}
+                </h4>
+                <h4 class="text-left col-md-6">
+                  {{submission.sid}}
+                </h4>
               </div>
+            </div>
            </div>
          </div>
 
-     </div>
     </div>
    </div>
  </body>
