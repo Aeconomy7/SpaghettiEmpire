@@ -134,10 +134,24 @@ app.service('orderDatabase', ['$http', function($http) {
       });
   }
 
+  var update_phone = function(original_phone, new_phone, table) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/ordered_items_update_phone_no.php",
+    {
+      'original_phone_no': original_phone,
+      'new_phone_no': new_phone,
+      'sid': table
+    })
+    .then(function(response) {
+      console.log("phone numbers updated");
+    })
+  }
+
   return {
     push_order: push_order,
     get_active_orders: get_active_orders,
-    update_price: update_price
+    update_price: update_price,
+    update_phone: update_phone
   };
 
 }]);

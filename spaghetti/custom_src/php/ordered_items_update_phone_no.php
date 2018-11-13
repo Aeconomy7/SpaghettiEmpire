@@ -13,7 +13,7 @@
   $new_phone_no = $data->new_phone_no;
   $sid = $data->sid;
 
-  $result = $conn->query('UPDATE ordered_items SET phone_no=' . $new_phone_no . ' WHERE phone_no=\'' . $original_phone_no . '\', sid=\'' . $sid . '\', active=1');
+  $result = $conn->query('UPDATE ordered_items SET phone_no=' . $new_phone_no . ' WHERE phone_no=\'' . $original_phone_no . '\', sid=\'' . $sid . '\', active=\'1\'');
 
   echo($result);
 ?>
