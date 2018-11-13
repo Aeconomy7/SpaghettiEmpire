@@ -1,11 +1,11 @@
 {"results":[{
   "team_name":"The Meatball Mob",
-  "team_members":[
+  "team_members":[{
     "Mason Hobbs",
     "Alexander Economy",
     "Alexander Alfonso",
     "Nicole Russo",
     "Preston Mitchells",
     "Fil"
-  ]
+  }]
 }]}
