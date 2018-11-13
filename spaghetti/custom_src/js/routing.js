@@ -546,8 +546,49 @@ app.controller('managerFeedController', function($scope, feedbackDatabase) {
 
 });
 
-app.controller('managerFinancialController', function($scope) {
+app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
+
+  orderDatabase.get_order_history().then(function(response) {
+    $scope.orders = response;
+  });
+
+  $scope.dateRanges = {
+    all: {from: 0, to: Number.MAX_VALUE},
+    day: getCurrentDayRange(),
+    week: getCurrentWeekRange(),
+    month: getCurrentMonthRange()
+  };
+
+  $scope.currentDateRange = $scope.dateRanges.daily;
+  $scope.eventDateFilter = function(event) {
+    return $scope.currentDateRange.from <= event.eventDate
+      && event.eventDate <= $scope.currentDateRange.to;
+  };
+
+  function getCurrentDayRange() {
+    return {
+      from: new Date().setHours(0,0,0,0),
+      to: new Date().setHours(23,59,59,999)
+    };
+  }
+
+  function getCurrentWeekRange() {
+    var curr = new Date;
+    return {
+      from: new Date(curr.setDate(curr.getDate() - curr.getDay())),
+      to: new Date(curr.setDate(curr.getDate() - curr.getDay()+6))
+    };
+  }
+
+  function getCurrentMonthRange() {
+    var curr = new Date;
+    return {
+      from: new Date(curr.getFullYear(), curr.getMonth(), 1),
+      to: new Date(curr.getFullYear(), curr.getMonth() + 1, 0)
+    };
+  }
+
 });
 
 /* Kitchen */
