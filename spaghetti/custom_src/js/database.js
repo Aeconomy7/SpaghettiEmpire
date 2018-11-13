@@ -158,7 +158,6 @@ app.service('orderDatabase', ['$http', function($http) {
       orders = [];
       for(var i = 0; i < result.records.length; i++) {
           orders.push(result.records[i]);
-        }
       }
       return orders;
     });
@@ -175,7 +174,7 @@ app.service('orderDatabase', ['$http', function($http) {
           if(result.records.phone_no == phone_no) {
             orders.push(result.records[i]);
           }
-        }
+        
       }
       return orders;
     });
