@@ -14,7 +14,7 @@
   $comment = $data->comment;
   $manageronly = $data->manageronly;
 
-  $result = $conn->query('INSERT INTO feedback (date, sid, comment, manageronly) VALUES (\'' . $date . '\',\'' . $sid . '\',\'' . $comment . '\',\'' . $manageronly . '\')');
+  $result = $conn->query('INSERT INTO feedback (date, sid, comment, manageronly) VALUES (\'' . $date . '\',' . $sid . ',\'' . $comment . '\',\'' . $manageronly . '\')');
 
   echo($result);
 
