@@ -826,7 +826,6 @@ app.controller('loyaltyHistoryController', function($scope, customerData, orderD
   $scope.pageName = "Order History";
   orderDatabase.get_order_history_loyalty(customerData.getPhoneNo()).then(function(response){
     $scope.order_history = response;
-    console.log(response);
   });
 });
 
@@ -904,9 +903,9 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
   $scope.feedbackKitchen = function() {
     if($scope.sendToKitchen == '0')
-      $scope.sendToKitchen = true;
+      $scope.sendToKitchen = '1';
     else
-      $scope.sendToKitchen = false;
+      $scope.sendToKitchen = '0';
   }
 
   $scope.sendOffToEverything = function(comment) {

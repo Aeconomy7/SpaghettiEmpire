@@ -217,6 +217,7 @@ app.service('feedbackDatabase', ['$http', function($http) {
   var insert_feedback = function(comment, table, managerOnly) {
     var d = new Date();
     var request;
+    console.log(d, table, comment, managerOnly);
     request = $http.post("/spaghetti/custom_src/php/feedback_insert.php",
     {
       'date': d,
