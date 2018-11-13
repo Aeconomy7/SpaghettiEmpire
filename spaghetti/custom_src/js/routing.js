@@ -904,12 +904,14 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.feedbackKitchen = function() {
     if($scope.managerOnly == true)
       $scope.managerOnly = false;
-    else
+    else if($scope.managerOnly == false)
       $scope.managerOnly = true;
+    console.log($scope.managerOnly);
   }
 
   $scope.sendOffToEverything = function(comment) {
     // FEEDBACK: insert feedback
+    if(comment.length != 0)
       feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
 
     // ORDER: mark items off as inactive
@@ -928,11 +930,13 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
     // LOYALTY: assign points
       var phone = customerData.getPhoneNo();
-      var current_pts = customerData.getPts();
-      var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
-      console.log("Assigning new info for loyalty:");
-      console.log(phone, new_pts);
-      loyaltyDatabase.update_points(phone, new_pts);
+        if(phone != "0000000000") {
+        var current_pts = customerData.getPts();
+        var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
+        console.log("Assigning new info for loyalty:");
+        console.log(phone, new_pts);
+        loyaltyDatabase.update_points(phone, new_pts);
+      }
 
   }
 

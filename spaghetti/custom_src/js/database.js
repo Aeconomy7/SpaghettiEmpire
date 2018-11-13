@@ -229,6 +229,7 @@ app.service('feedbackDatabase', ['$http', function($http) {
 
   var insert_feedback = function(comment, table, managerOnly) {
     var request;
+    console.log(managerOnly);
     request = $http.post("/spaghetti/custom_src/php/feedback_insert.php",
     {
       'sid': table,

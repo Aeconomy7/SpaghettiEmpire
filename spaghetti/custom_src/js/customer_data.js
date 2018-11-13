@@ -53,7 +53,7 @@ app.service('customerData', function(orderDatabase) {
         order_overall[i].phone_no = phone_no;
       }
     }
-    
+
   }
 
   function getPhoneNo() {
