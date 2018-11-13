@@ -5,13 +5,13 @@
       <div class="col-md-12 mt-3 animated fadeIn">
         <table class="table">
           <thead>
-            <tr>  
+            <tr>
               <th>Date of Visit</th>
               <th>Bill</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="order in order_history" class="d-flex">
+            <tr ng-repeat="order in order_history">
               <td>{{order.date}}</td>
               <td>{{order.amt}}</td>
             </tr>
