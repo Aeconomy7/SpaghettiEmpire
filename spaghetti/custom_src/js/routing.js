@@ -887,6 +887,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.pageName = "Pay";
   $scope.bill_info = [];
   $scope.bill = 0.0;
+  $scope.sendToKitchen = false;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -899,6 +900,18 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     $scope.tip_20 = $scope.bill * 0.20;
     $scope.tip_25 = $scope.bill * 0.25;
   });
+
+  $scope.feedbackKitchen = function() {
+    if(!$scope.sendToKitchen)
+      $scope.sendToKitchen = true;
+    else
+      $scope.sendToKitchen = false;
+  }
+
+  $scope.sendOffToEverything = function(comment) {
+    console.log(comment);
+    console.log($scope.sendToKitchen);
+  }
 
 });
 
