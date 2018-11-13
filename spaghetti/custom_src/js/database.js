@@ -152,7 +152,7 @@ app.service('orderDatabase', ['$http', function($http) {
 
   /* returns whole damn order history of restraunt */
   var get_order_history = function() {
-    var $promise = $http.get("/spaghetti/custom_src/php/order_history_select.php")
+    var $promise = $http.get("/spaghetti/custom_src/php/order_hist_select.php")
     .then(function (response) {
       result = response.data;
       orders = [];
@@ -166,7 +166,7 @@ app.service('orderDatabase', ['$http', function($http) {
 
   /* returns only order history of certain loyalty customer */
   var get_order_history_loyalty = function(phone_no) {
-    var $promise = $http.get("/spaghetti/custom_src/php/order_history_select.php")
+    var $promise = $http.get("/spaghetti/custom_src/php/order_hist_select.php")
     .then(function (response) {
       result = response.data;
       orders = [];
