@@ -15,9 +15,11 @@ app.service('customerData', function(orderDatabase) {
   return {
     setTableId: setTableId,
     setPhoneNo: setPhoneNo,
+    setPts: setPts,
     addToCart: addToCart,
     getTableId: getTableId,
     getPhoneNo: getPhoneNo,
+    getPts: getPts,
     getCart: getCart,
     getCost: getCost,
     addToBill: addToBill,
