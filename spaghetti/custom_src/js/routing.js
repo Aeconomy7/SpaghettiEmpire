@@ -902,10 +902,10 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   });
 
   $scope.feedbackKitchen = function() {
-    if($scope.sendToKitchen == '0')
-      $scope.sendToKitchen = '1';
+    if($scope.sendToKitchen == false)
+      $scope.sendToKitchen = true;
     else
-      $scope.sendToKitchen = '0';
+      $scope.sendToKitchen = false;
   }
 
   $scope.sendOffToEverything = function(comment) {
