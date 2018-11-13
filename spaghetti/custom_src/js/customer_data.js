@@ -90,7 +90,8 @@ app.service('customerData', function(orderDatabase) {
   // Submits items from cart to their total bill and clears cart
   function addToBill() {
     orderDatabase.push_order(order_cart);
-
+    order_overall = order_overall.concat(order_cart);
+    final_bill += order_cost;
     order_cart = [];
     order_cost = 0.0;
   }
@@ -167,14 +168,12 @@ app.service('customerData', function(orderDatabase) {
  function getHighestItemofType(type_f) {
    var highestsum = 0.0;
    var highestPricedItem;
-   var all_order = getOrderOverall();
-   console.log('all order: ' + all_order);
 
-   for(var i = 0; i < all_order.length; i++){
-     console.log(all_order[i]);
-     if(all_order[i].type == type_f && all_order[i].price >= highestsum){
+   for(var i = 0; i < order_overall.length; i++){
+     console.log(order_overall[i]);
+     if(order_overall[i].type == type_f && order_overall[i].price >= highestsum){
        console.log('found more expensive item to discount!');
-       highestPricedItem = all_order[i];
+       highestPricedItem = order_overall[i];
      }
    }
 
