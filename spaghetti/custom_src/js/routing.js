@@ -790,7 +790,7 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
 
 });
 
-app.controller('loyaltyRedeemController', function($scope, customerData, discountDatabase, loyaltyDatabase) {
+app.controller('loyaltyRedeemController', function($scope, customerData, orderDatabase, discountDatabase, loyaltyDatabase) {
   $scope.pageName = "Redeem Loyalty Points";
 
   discountDatabase.getRewards("appetizer").then(function(response) {
@@ -815,10 +815,11 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
     if(customerData.getPts() < pts_req){
       alert('Not enough loyalty points...Buy some more spaghetti!!!');
       return;
+    } else {
+      var item_to_discount = customerData.getHighestItemofType(type_f);
+      console.log('item_to_discount:' + item_to_discount);
+      item_to_discount.price = disc_amt;
     }
-    var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount);
-    item_to_discount.price = disc_amt;
   }
 });
 
