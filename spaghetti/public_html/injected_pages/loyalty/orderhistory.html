@@ -11,12 +11,10 @@
             </tr>
           </thead>
           <tbody>
-            <div ng-repeat="order in order_history" class="d-flex">
-              <tr>
-                <td>{{order.amt}}</td>
-                <td>{{order.date}}</td>
-              </tr>
-            </div>
+            <tr ng-repeat="order in order_history" class="d-flex">
+              <td>{{order.amt}}</td>
+              <td>{{order.date}}</td>
+            </tr>
           </tbody>
         </table>
       </div>
