@@ -20,10 +20,9 @@
              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                <div class="card-body">
                  <p> Tip Percentages </p>
-                 <p> 15%: <!--.15 * Bill total --> <!-- Add in the variables for the money-->
-                 20%:
-                 25%:
-                </p>
+                 <p> 15%: {{tip_15 | currency:'$'}}</p>
+                 <p> 20%: {{tip_20 | currency:'$'}}</p>
+                 <p> 25%: {{tip_25 | currency:'$'}}</p>
                 <div class="row justify-content-center align-items-center">
                   <div class="col-md-2">
                     <input class="form-control form-control-lg mt-2" type="text" placeholder="Tip" id="tipBar">
@@ -90,7 +89,7 @@
                      </div>
 
                  <div class="row justify-content-center colalign-items-center">
-                     <button type="button" class="btn btn-select btn-block col-sm-4"><h4>Submit Payment</h4></button>
+                     <button type="button" class="btn btn-select btn-block col-sm-4"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}}</h4></button>
                  </div>
              </div>
            </div>
@@ -108,10 +107,9 @@
            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
              <div class="card-body">
               <p> Tip Percentages </p>
-              <p> 15%: <!--.15 * Bill total --> <!-- Add in the variables for the money-->
-              20%:
-              25%:
-             </p>
+              <p> 15%: {{tip_15 | currency:'$'}}</p>
+              <p> 20%: {{tip_20 | currency:'$'}}</p>
+              <p> 25%: {{tip_25 | currency:'$'}}</p>
              <div class="row justify-content-center align-items-center">
                <div class="col-md-2">
                  <input class="form-control form-control-lg mt-2" type="text" placeholder="Tip" id="tipBar">
@@ -125,7 +123,7 @@
                  </label>
                </div>
              <div class="row justify-content-center colalign-items-center">
-                 <button type="button" class="btn btn-select btn-block col-sm-4"><h4>Submit Payment</h4></button>
+                 <button type="button" class="btn btn-select btn-block col-sm-4"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}}</h4></button>
              </div>
 
              </div>
