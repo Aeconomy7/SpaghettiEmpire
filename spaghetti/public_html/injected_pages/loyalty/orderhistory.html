@@ -10,12 +10,14 @@
               <th>Bill</th>
             </tr>
           </thead>
-          <div ng-repeat="order in order_history" class="d-flex">
-            <tr>
-              <td>{{order.amt}}</td>
-              <td>{{order.date}}</td>
-            </tr>
-          </div>
+          <tbody>
+            <div ng-repeat="order in order_history" class="d-flex">
+              <tr>
+                <td>{{order.amt}}</td>
+                <td>{{order.date}}</td>
+              </tr>
+            </div>
+          </tbody>
         </table>
       </div>
     </div>
