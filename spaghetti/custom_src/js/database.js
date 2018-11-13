@@ -171,6 +171,7 @@ app.service('orderDatabase', ['$http', function($http) {
       result = response.data;
       orders = [];
       for(var i = 0; i < result.records.length; i++) {
+          console.log("found order for phone_no: " + result.records[i].phone_no);
           if(result.records[i].phone_no == phone_no) {
             orders.push(result.records[i]);
           }
