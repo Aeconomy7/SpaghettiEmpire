@@ -861,7 +861,7 @@ app.controller('your_billController', function($scope, customerData, orderDataba
   $scope.bill = 0.0;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
-    for(var i = 0; i < tmp.length; i++) {
+    for(var i = 0; i < $scope.tmp.length; i++) {
       if($scope.tmp[i].sid == tableId && $scope.tmp[i].phone_no == phone_no) {
         $scope.bill_info.concat($scope.tmp[i]);
         $scope.bill += $scope.tmp[i].price;
@@ -888,7 +888,7 @@ app.controller('your_billPayController', function($scope, customerData) {
   $scope.bill = 0.0;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
-    for(var i = 0; i < tmp.length; i++) {
+    for(var i = 0; i < $scope.tmp.length; i++) {
       if($scope.tmp[i].sid == tableId && $scope.tmp[i].phone_no == phone_no) {
         $scope.bill_info.concat($scope.tmp[i]);
         $scope.bill += $scope.tmp[i].price;
