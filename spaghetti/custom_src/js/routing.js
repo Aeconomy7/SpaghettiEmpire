@@ -880,7 +880,7 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 });
 
 
-app.controller('your_billPayController', function($scope, customerData) {
+app.controller('your_billPayController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
   $scope.bill = 0.0;
@@ -899,7 +899,7 @@ app.controller('your_billPayController', function($scope, customerData) {
 
 });
 
-app.controller('your_billSplitController', function($scope, customerData) {
+app.controller('your_billSplitController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Split Bill";
   $scope.bill_info = [];
   $scope.bill = 0.0;
