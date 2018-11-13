@@ -169,7 +169,7 @@ app.service('customerData', function(orderDatabase) {
    var highestPricedItem;
    var all_order = this.getOrderOverall();
 
-   for(var i = 0; i < order_overall.length; i++){
+   for(var i = 0; i < all_order.length; i++){
      console.log(all_order[i]);
      if(all_order[i].type == type_f && all_order[i].price >= highestsum){
        console.log('found more expensive item to discount!');
