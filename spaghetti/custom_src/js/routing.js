@@ -822,8 +822,12 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
   }
 });
 
-app.controller('loyaltyHistoryController', function($scope) {
+app.controller('loyaltyHistoryController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Order History";
+
+  orderDatabase.get_order_history().then(function(response) {
+
+  });
 });
 
 /* Your Order */

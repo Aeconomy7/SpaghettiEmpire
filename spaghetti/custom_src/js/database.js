@@ -150,11 +150,44 @@ app.service('orderDatabase', ['$http', function($http) {
     })
   }
 
+  /* returns whole damn order history of restraunt */
+  var get_order_history = function() {
+    var $promise = $http.get("/spaghetti/custom_src/php/order_history_select.php")
+    .then(function (response) {
+      result = response.data;
+      orders = [];
+      for(var i = 0; i < result.records.length; i++) {
+          orders.push(result.records[i]);
+        }
+      }
+      return orders;
+    });
+    return $promise;
+  }
+
+  /* returns only order history of certain loyalty customer */
+  var get_order_history_loyalty = function(phone_no) {
+    var $promise = $http.get("/spaghetti/custom_src/php/order_history_select.php")
+    .then(function (response) {
+      result = response.data;
+      orders = [];
+      for(var i = 0; i < result.records.length; i++) {
+          if(result.records.phone_no == phone_no) {
+            orders.push(result.records[i]);
+          }
+        }
+      }
+      return orders;
+    });
+    return $promise;
+  }
+
   return {
     push_order: push_order,
     get_active_orders: get_active_orders,
     update_price: update_price,
-    update_phone: update_phone
+    update_phone: update_phone,
+    get_order_history: get_order_history
   };
 
 }]);
