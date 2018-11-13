@@ -809,12 +809,14 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
 
   /* this is a function that expects the type of the discount and disc_amt
      this assumes that discounts are ONLY type based, which is fine for now */
-  $scope.loyalty_redeem = function(type_f, disc_amt) {
-    console.log('we redeemin');
+  $scope.loyalty_redeem = function(pts_req, type_f, disc_amt) {
+    if(customerData.getPts() < pts_req){
+      alert('Not enough loyalty points...Buy some more spaghetti!!!');
+      return;
+    }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('original price: ' + item_to_discount.price);
+    console.log('item_to_discount:' + item_to_discount);
     item_to_discount.price = disc_amt;
-    console.log('discount price: ' + item_to_discount.price);
   }
 });
 

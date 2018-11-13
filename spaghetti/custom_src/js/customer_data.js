@@ -3,7 +3,8 @@ var app = angular.module('customerModule', ['dbApp']);
 // Stores all data about a customer
 app.service('customerData', function(orderDatabase) {
   var tableId = 0;  // Eventually will be linked with session
-  var phone_no = "0000000000";
+  var phone_no = "0000000000"; //customer phone/loyalty id
+  var pts = 0; //loyalty points
   var order_cart = []; // Stores items added but not placed yet
   var order_cost = 0.0; // Stores hypothetical cost if they placed the order so they can see how much its at
   var order_overall = []; // Stores the items of all orders placed
@@ -44,6 +45,14 @@ app.service('customerData', function(orderDatabase) {
 
   function getPhoneNo() {
     return phone_no;
+  }
+
+  function setPts(p) {
+    pts = p;
+  }
+
+  function getPts() {
+    return pts;
   }
   // Adding an item to their order cart, not yet placed
   function addToCart(phone, id, name, floatPrice, type) {
