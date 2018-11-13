@@ -168,6 +168,7 @@ app.service('customerData', function(orderDatabase) {
    var highestsum = 0.0;
    var highestPricedItem;
    var all_order = getOrderOverall();
+   console.log('all order: ' + all_order);
 
    for(var i = 0; i < all_order.length; i++){
      console.log(all_order[i]);

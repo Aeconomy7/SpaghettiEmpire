@@ -1,7 +1,3 @@
-$('.help').click(function() {
-    $(this).toggleClass('clicked');
-});
-
 //REFILL FROM CUSTOMER SIDE
 // Get the modal
  var popup = document.getElementById('refillModal');
