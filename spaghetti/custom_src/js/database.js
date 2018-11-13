@@ -135,6 +135,8 @@ app.service('orderDatabase', ['$http', function($http) {
   }
 
   var update_phone = function(original_phone, new_phone, table) {
+    console.log("Updating on");
+    console.log(original_phone, new_phone, table);
     var request;
     request = $http.post("/spaghetti/custom_src/php/ordered_items_update_phone_no.php",
     {
@@ -144,7 +146,7 @@ app.service('orderDatabase', ['$http', function($http) {
     })
     .then(function(response) {
       console.log("phone numbers updated");
-      console.log(response.data);
+      console.log(response);
     })
   }
 
