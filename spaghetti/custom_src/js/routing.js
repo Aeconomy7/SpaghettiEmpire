@@ -536,8 +536,14 @@ app.controller('managerLoyaltyDeleteController', function($scope, discountDataba
 
 });
 
-app.controller('managerFeedController', function($scope) {
+app.controller('managerFeedController', function($scope, feedbackDatabase) {
   $scope.pageName = "Customer Feedback";
+  $scope.feedback = [];
+
+  feedbackDatabase.get_feedback().then(function(response) {
+    $scope.feedback = response;
+  });
+
 });
 
 app.controller('managerFinancialController', function($scope) {
@@ -555,6 +561,12 @@ app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) 
 
   feedbackDatabase.get_feedback().then(function(response) {
     $scope.feedback = response;
+    $scope.allowedFeedback = [];
+    for(var i = 0; i < $scope.feedback.length; i++) {
+      if($scope.feedback[i].manageronly == '0') {
+        $scope.allowedFeedback.push($scope.feedback[i]);
+      }
+    }
   });
 
 });
@@ -748,13 +760,11 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
   }
 
   $scope.loyalty_login = function() {
-    console.log($scope.phone_id);
     if($scope.counter != 10) {
       alert("Invalid input; please enter a full phone number (10 digits)")
     }
     else {
       loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
-          console.log("done calling");
           if(response.records.length == 1) {
             customerData.setPhoneNo($scope.phone_id);
             window.location.href = "/spaghetti/public_html/#/loyalty/profile";
@@ -828,7 +838,6 @@ app.controller('loyaltyHistoryController', function($scope, customerData, orderD
   $scope.pageName = "Order History";
   orderDatabase.get_order_history_loyalty(customerData.getPhoneNo()).then(function(response){
     $scope.order_history = response;
-    console.log(response);
   });
 });
 
@@ -884,11 +893,12 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 });
 
 
-app.controller('your_billPayController', function($scope, customerData, orderDatabase) {
+app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
   $scope.bill = 0.0;
-  $scope.sendToKitchen = false;
+  $scope.pts_earned = 0;
+  $scope.managerOnly = '1';
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -900,18 +910,45 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     $scope.tip_15 = $scope.bill * 0.15;
     $scope.tip_20 = $scope.bill * 0.20;
     $scope.tip_25 = $scope.bill * 0.25;
+    $scope.pts_earned = parseInt(10 * $scope.bill);
   });
 
   $scope.feedbackKitchen = function() {
-    if(!$scope.sendToKitchen)
-      $scope.sendToKitchen = true;
-    else
-      $scope.sendToKitchen = false;
+    if($scope.managerOnly == '1')
+      $scope.managerOnly = '0';
+    else if($scope.managerOnly == '0')
+      $scope.managerOnly = '1';
+    console.log($scope.managerOnly);
   }
 
   $scope.sendOffToEverything = function(comment) {
-    console.log(comment);
-    console.log($scope.sendToKitchen);
+    // FEEDBACK: insert feedback
+    if(typeof comment != "undefined")
+      feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
+
+    // mark items off as inactive
+    orderDatabase.update_active_orders(customerData.getTableId());
+    // send to order history
+    var phone = customerData.getPhoneNo();
+    var amt = $scope.bill;
+    console.log("Inserting into order history");
+    console.log(phone, amt);
+    orderDatabase.insert_into_history(phone, amt);
+
+
+    // LOYALTY: assign points
+    var phone = customerData.getPhoneNo();
+      if(phone != "0000000000") {
+        var current_pts = customerData.getPts();
+        var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
+        console.log("Assigning new info for loyalty:");
+        console.log(phone, new_pts);
+        loyaltyDatabase.update_points(phone, new_pts);
+    }
+
+    alert("Payment received! Thanks for eating at Spaghetti Empire!");
+    window.location.href = "/spaghetti/public_html/";
+
   }
 
 });

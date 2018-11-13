@@ -147,7 +147,30 @@ app.service('orderDatabase', ['$http', function($http) {
     .then(function(response) {
       console.log("phone numbers updated");
       console.log(response);
+    });
+  }
+
+  var update_active_orders = function(table) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/ordered_items_set_active_off.php",
+    {
+      'sid': table
     })
+    .then(function(response) {
+        console.log(response);
+    });
+  }
+  
+  var insert_into_history = function(phone, amt) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/order_hist_insert.php",
+    {
+      'phone_no': phone,
+      'amt': amt
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
   }
 
   /* returns whole damn order history of restraunt */
@@ -188,6 +211,8 @@ app.service('orderDatabase', ['$http', function($http) {
     get_active_orders: get_active_orders,
     update_price: update_price,
     update_phone: update_phone,
+    update_active_orders: update_active_orders,
+    insert_into_history: insert_into_history,
     get_order_history: get_order_history,
     get_order_history_loyalty: get_order_history_loyalty
   };
@@ -214,9 +239,23 @@ app.service('feedbackDatabase', ['$http', function($http) {
       return $promise;
   }
 
+  var insert_feedback = function(comment, table, managerOnly) {
+    var request;
+    console.log(managerOnly);
+    request = $http.post("/spaghetti/custom_src/php/feedback_insert.php",
+    {
+      'sid': table,
+      'comment': comment,
+      'manageronly': managerOnly
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
 
   return {
-    get_feedback: get_feedback
+    get_feedback: get_feedback,
+    insert_feedback: insert_feedback
   };
 
 }]);
@@ -252,9 +291,22 @@ app.service('loyaltyDatabase', ['$http', function($http) {
       });
   }
 
+  var update_points = function(phone, new_pts) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/loyalty_update_points.php",
+    {
+        'phone_no': phone,
+        'pts': new_pts
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
+
   return {
     get_profile: get_profile,
-    signup_profile: signup_profile
+    signup_profile: signup_profile,
+    update_points: update_points
   };
 
 }]);
