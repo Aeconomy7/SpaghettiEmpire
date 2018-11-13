@@ -124,7 +124,6 @@ app.service('orderDatabase', ['$http', function($http) {
     var request;
     request = $http.post("/spaghetti/custom_src/php/ordered_items_update_price.php",
       {
-
         'name': item_name,
         'phone_no': phone_no,
         'price': new_price

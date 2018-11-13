@@ -783,7 +783,9 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
   // Load the profile with the phone number used to log in
   loyaltyDatabase.get_profile(customerData.getPhoneNo()).then(function(response) {
       $scope.pts = response.records[0].pts;
+      customerData.setPts($scope.pts);
       $scope.phone = response.records[0].phone_no;
+      customerData.setPhoneNo($scope.phone);
   });
 
 });
