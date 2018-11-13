@@ -10,10 +10,9 @@
 
   $data = json_decode(file_get_contents('php://input'));
   $phone_no = $data->phone_no;
-  $date = $data->date;
-  $active = $data->amt;
+  $amt = $data->amt;
 
-  $result = $conn->query('INSERT INTO order_hist (phone_no, date, amt) VALUES (\'' . $phone_no . '\',\'' . $date . '\',\'' . $amt . '\')');
+  $result = $conn->query('INSERT INTO order_hist (phone_no, amt) VALUES (\'' . $phone_no . '\',\'' . $amt . '\')');
 
   echo($result);
 
