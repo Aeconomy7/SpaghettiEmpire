@@ -886,7 +886,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.bill_info = [];
   $scope.bill = 0.0;
   $scope.pts_earned = 0;
-  $scope.managerOnly = true;
+  $scope.managerOnly = '1';
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -902,10 +902,10 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   });
 
   $scope.feedbackKitchen = function() {
-    if($scope.managerOnly == true)
-      $scope.managerOnly = false;
-    else if($scope.managerOnly == false)
-      $scope.managerOnly = true;
+    if($scope.managerOnly == '1')
+      $scope.managerOnly = '0';
+    else if($scope.managerOnly == '0')
+      $scope.managerOnly = '1';
     console.log($scope.managerOnly);
   }
 
