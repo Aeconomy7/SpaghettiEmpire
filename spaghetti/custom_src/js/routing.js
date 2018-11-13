@@ -538,6 +538,12 @@ app.controller('managerLoyaltyDeleteController', function($scope, discountDataba
 
 app.controller('managerFeedController', function($scope) {
   $scope.pageName = "Customer Feedback";
+  $scope.feedback = [];
+
+  feedbackDatabase.get_feedback().then(function(response) {
+    $scope.feedback = response;
+  });
+
 });
 
 app.controller('managerFinancialController', function($scope) {
@@ -555,6 +561,12 @@ app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) 
 
   feedbackDatabase.get_feedback().then(function(response) {
     $scope.feedback = response;
+    $scope.allowedFeedback = [];
+    for(var i = 0; i < $scope.feedback.length; i++) {
+      if($scope.feedback[i].managerOnly == '0') {
+        $scope.allowedFeedback.push($scope.feedback[i]);
+      }
+    }
   });
 
 });
@@ -924,15 +936,19 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     orderDatabase.insert_into_history(phone, amt);
 
 
-  // LOYALTY: assign points
+    // LOYALTY: assign points
     var phone = customerData.getPhoneNo();
       if(phone != "0000000000") {
-      var current_pts = customerData.getPts();
-      var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
-      console.log("Assigning new info for loyalty:");
-      console.log(phone, new_pts);
-      loyaltyDatabase.update_points(phone, new_pts);
+        var current_pts = customerData.getPts();
+        var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
+        console.log("Assigning new info for loyalty:");
+        console.log(phone, new_pts);
+        loyaltyDatabase.update_points(phone, new_pts);
     }
+
+    alert("Payment received! Thanks for eating at Spaghetti Empire!");
+    window.location.href = "/spaghetti/public_html/";
+
   }
 
 });
