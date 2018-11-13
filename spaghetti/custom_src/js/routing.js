@@ -748,13 +748,11 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
   }
 
   $scope.loyalty_login = function() {
-    console.log($scope.phone_id);
     if($scope.counter != 10) {
       alert("Invalid input; please enter a full phone number (10 digits)")
     }
     else {
       loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
-          console.log("done calling");
           if(response.records.length == 1) {
             customerData.setPhoneNo($scope.phone_id);
             window.location.href = "/spaghetti/public_html/#/loyalty/profile";
@@ -883,10 +881,11 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 });
 
 
-app.controller('your_billPayController', function($scope, customerData, orderDatabase) {
+app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
   $scope.bill = 0.0;
+  $scope.pts_earned = 0;
   $scope.sendToKitchen = false;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
@@ -899,18 +898,34 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     $scope.tip_15 = $scope.bill * 0.15;
     $scope.tip_20 = $scope.bill * 0.20;
     $scope.tip_25 = $scope.bill * 0.25;
+    $scope.pts_earned = parseInt(10 * $scope.bill);
   });
 
   $scope.feedbackKitchen = function() {
-    if(!$scope.sendToKitchen)
+    if($scope.sendToKitchen == '0')
       $scope.sendToKitchen = true;
     else
       $scope.sendToKitchen = false;
   }
 
   $scope.sendOffToEverything = function(comment) {
-    console.log(comment);
-    console.log($scope.sendToKitchen);
+    // FEEDBACK: insert feedback
+      feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.sendToKitchen);
+
+    // ORDER: mark items off as inactive
+      /*  $data = json_decode(file_get_contents('php://input'));
+        $sid = $data->sid; */
+        // HISTORY
+        /*$phone_no = $data->phone_no;
+        $date = $data->date;
+        $active = $data->amt;*/
+
+
+    // LOYALTY: assign points
+      var phone = customerData.getPhoneNo();
+      var current_pts = customerData.getPts();
+      var new_pts = current_pts + $scope.pts_earned;
+      loyaltyDatabase.update_points(phone, new_pts);
   }
 
 });
