@@ -824,12 +824,8 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
   }
 });
 
-app.controller('loyaltyHistoryController', function($scope, customerData, orderDatabase) {
+app.controller('loyaltyHistoryController', function($scope) {
   $scope.pageName = "Order History";
-
-  orderDatabase.get_order_history_loyalty(customerData.getPhoneNo()).then(function(response)){
-    $scope.order_history = response;
-  }
 });
 
 /* Your Order */
@@ -865,15 +861,12 @@ app.controller('your_billController', function($scope, customerData, orderDataba
   $scope.bill = 0.0;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
-    console.log($scope.tmp);
     for(var i = 0; i < $scope.tmp.length; i++) {
       if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
         $scope.bill_info.push($scope.tmp[i]);
         $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
-    console.log($scope.bill_info);
-    console.log($scope.bill);
   });
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
@@ -893,15 +886,12 @@ app.controller('your_billPayController', function($scope, customerData) {
   $scope.bill = 0.0;
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
-    console.log($scope.tmp);
     for(var i = 0; i < $scope.tmp.length; i++) {
       if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
         $scope.bill_info.push($scope.tmp[i]);
         $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
-    console.log($scope.bill_info);
-    console.log($scope.bill);
     $scope.tip_15 = $scope.bill * 0.15;
     $scope.tip_20 = $scope.bill * 0.20;
     $scope.tip_25 = $scope.bill * 0.25;
@@ -911,8 +901,17 @@ app.controller('your_billPayController', function($scope, customerData) {
 
 app.controller('your_billSplitController', function($scope, customerData) {
   $scope.pageName = "Split Bill";
-  $scope.bill_info = customerData.getOrderOverall();
-  $scope.bill = customerData.getBill();
+  $scope.bill_info = [];
+  $scope.bill = 0.0;
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.tmp = response;
+    for(var i = 0; i < $scope.tmp.length; i++) {
+      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+        $scope.bill_info.push($scope.tmp[i]);
+        $scope.bill += parseFloat($scope.tmp[i].price);
+      }
+    }
+  });
 
   $scope.hasSectionBill = function(section) {
     for(var i = 0; i < $scope.bill_info.length; i++) {
