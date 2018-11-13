@@ -782,8 +782,6 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
 
 app.controller('loyaltyProfileController', function($scope, customerData, loyaltyDatabase) {
   $scope.pageName = "Loyalty Profile";
-  $scope.pts = -1;
-  $scope.phone = "0000000000";
   // Load the profile with the phone number used to log in
   loyaltyDatabase.get_profile(customerData.getPhoneNo()).then(function(response) {
       $scope.pts = response.records[0].pts;
@@ -827,11 +825,8 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
 });
 
 app.controller('loyaltyHistoryController', function($scope, customerData, orderDatabase) {
+app.controller('loyaltyHistoryController', function($scope) {
   $scope.pageName = "Order History";
-
-  orderDatabase.get_order_history().then(function(response) {
-
-  });
 });
 
 /* Your Order */
@@ -881,6 +876,9 @@ app.controller('your_billPayController', function($scope, customerData) {
   $scope.pageName = "Pay";
   $scope.bill_info = customerData.getOrderOverall();
   $scope.bill = customerData.getBill();
+  $scope.tip_15 = $scope.bill * 0.15;
+  $scope.tip_20 = $scope.bill * 0.20;
+  $scope.tip_25 = $scope.bill * 0.25;
 
 });
 
