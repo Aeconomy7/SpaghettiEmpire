@@ -166,6 +166,7 @@ app.service('orderDatabase', ['$http', function($http) {
 
   /* returns only order history of certain loyalty customer */
   var get_order_history_loyalty = function(phone_no) {
+    console.log("finding orders from phone_no: " + phone_no);
     var $promise = $http.get("/spaghetti/custom_src/php/order_hist_select.php")
     .then(function (response) {
       result = response.data;
