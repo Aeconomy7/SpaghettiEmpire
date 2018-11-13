@@ -6,16 +6,16 @@
 
          <div ng-repeat="submission in allowedFeedback">
            <div class="card m-1">
-             <div class="card-header btn btn-page">
+             <div class="card-header">
                    <h3>{{submission.date}}</h3>
              </div>
              <div class="card-body">
               <div class="d-flex">
                 <h4 class="text-left col-md-6">
-                  {{submission.comment}}
+                  Comment: {{submission.comment}}
                 </h4>
-                <h4 class="text-left col-md-6">
-                  {{submission.sid}}
+                <h4 class="text-right col-md-6">
+                  From Table #{{submission.sid}}
                 </h4>
               </div>
             </div>
