@@ -174,6 +174,7 @@ app.service('customerData', function(orderDatabase) {
      if(order_overall[i].type == type_f && order_overall[i].price >= highestsum){
        console.log('found more expensive item to discount!');
        highestPricedItem = order_overall[i];
+       highestsum = order_overall[i].price;
      }
    }
 
