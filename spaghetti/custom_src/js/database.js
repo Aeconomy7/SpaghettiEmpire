@@ -214,9 +214,25 @@ app.service('feedbackDatabase', ['$http', function($http) {
       return $promise;
   }
 
+  var insert_feedback = function(comment, table, managerOnly) {
+    var d = new Date();
+    var request;
+    console.log(d, table, comment, managerOnly);
+    request = $http.post("/spaghetti/custom_src/php/feedback_insert.php",
+    {
+      'date': d,
+      'sid': table,
+      'comment': comment,
+      'manageronly': managerOnly
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
 
   return {
-    get_feedback: get_feedback
+    get_feedback: get_feedback,
+    insert_feedback: insert_feedback
   };
 
 }]);
@@ -252,9 +268,22 @@ app.service('loyaltyDatabase', ['$http', function($http) {
       });
   }
 
+  var update_points = function(phone, new_pts) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/loyalty_update_points.php",
+    {
+        'phone_no': phone,
+        'pts': new_pts
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
+
   return {
     get_profile: get_profile,
-    signup_profile: signup_profile
+    signup_profile: signup_profile,
+    update_points: update_points
   };
 
 }]);
