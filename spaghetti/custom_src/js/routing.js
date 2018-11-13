@@ -864,7 +864,7 @@ app.controller('your_billController', function($scope, customerData, orderDataba
     console.log($scope.tmp);
     for(var i = 0; i < $scope.tmp.length; i++) {
       if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
-        $scope.bill_info.concat($scope.tmp[i]);
+        $scope.bill_info.push($scope.tmp[i]);
         $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
@@ -892,7 +892,7 @@ app.controller('your_billPayController', function($scope, customerData) {
     console.log($scope.tmp);
     for(var i = 0; i < $scope.tmp.length; i++) {
       if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
-        $scope.bill_info.concat($scope.tmp[i]);
+        $scope.bill_info.push($scope.tmp[i]);
         $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
