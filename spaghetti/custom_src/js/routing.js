@@ -227,13 +227,21 @@ app.controller('tableForm', function($scope, customerData) {
 
 // Customer refills view
 app.controller('your_refills', function($scope, customerData) {
-  $scope.refills = customerData.getRefills();
+  var refill = [];
+  var tID = customerData.getTableId();
+  $scope.refillsNeeded = function() {
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tID && $scope.orders[i].type == 'drink') {
+        refill.push($scope.orders[i].item_name);
+      }
+    }
+    return refill;
+  }
 });
 
 //customer help Requests
 app.controller('help_requests', function($scope, customerData) {
   $scope.addRequest = function() {
-    console.log("adding request");
     customerData.customerHelp(customerData.getTableId());
   }
 });
@@ -627,11 +635,8 @@ app.controller('waitStaffController', function($scope, orderDatabase, customerDa
   // Returns all help requests matching the table number of ng-repeat inside waitstaff.html
   $scope.getHelpByTable = function(tableNum) {
     var help = customerData.getHelpRequests();
-    console.log(tableNum);
     for(var i = 0; i < help.length; i++) {
-      console.log("id= " + help[i].ID + " and needsHelp = " + help[i].needsHelp);
       if(help[i].ID == tableNum && help[i].needsHelp == true) {
-        console.log("table needs help");
         return true;
       }
     }
