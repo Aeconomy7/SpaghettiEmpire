@@ -136,7 +136,8 @@ app.service('orderDatabase', ['$http', function($http) {
 
   return {
     push_order: push_order,
-    get_active_orders: get_active_orders
+    get_active_orders: get_active_orders,
+    update_price: update_price
   };
 
 }]);
