@@ -559,13 +559,9 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
   // Initialization
   orderDatabase.get_order_history().then(function(response) {
     $scope.all_orders = response;
-    console.log(response);
-    console.log(response.data);
-    console.log("got response");
   });
 
   $scope.loadTab = "daily";
-  console.log($scope.loadTab);
   for(var i = 0; i < $scope.all_orders.length; i++) {
     // CURRENT DAY
       if($scope.currentDate == new Date($scope.all_orders[i].date).getDate()) {
@@ -577,8 +573,6 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
 
   $scope.changeTab = function(tabName) {
     $scope.loadTab = tabName;
-    console.log($scope.loadTab);
-    console.log($scope.all_orders);
 
     $scope.orders = [];
     for(var i = 0; i < $scope.all_orders.length; i++) {

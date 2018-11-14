@@ -182,7 +182,6 @@ app.service('orderDatabase', ['$http', function($http) {
       for(var i = 0; i < result.records.length; i++) {
           orders.push(result.records[i]);
       }
-      console.log(orders);
       return orders;
     });
     return $promise;
