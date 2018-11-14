@@ -7,11 +7,7 @@ app.service('customerData', function(orderDatabase) {
   var pts = 0; //loyalty points
   var order_cart = []; // Stores items added but not placed yet
   var order_cost = 0.0; // Stores hypothetical cost if they placed the order so they can see how much its at
-  var order_overall = [
-      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
-      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
-      {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
-  ]; // Stores the items of all orders placed
+  var order_overall = []; // Stores the items of all orders placed
 
   var final_bill = 0; // Stores the final bill of all orders placed
   var refills = [];//stores refills needed by customer
@@ -134,27 +130,13 @@ app.service('customerData', function(orderDatabase) {
   }
 
   function removeFromCart(index) {
-    // so the work flow is
-    //1. select item add it to my_tab (my_tab needs to be dyanmciall created and exist until its processed in #/pay)
-    // 2. Allow for up to the number of items in order_overall
-    // 3. when pay tab is selected send my_tab to #/pay (need some kind of error checking here)
-    // 4. remove items from order_overall and update final_bill
-    // 5. if items left in order_overall return to #/your_bill
-    // create new tab and add spliced item here. they might want to add more items to tab.
-   // var new Array tab_item = ...
-    order_overall.splice(index, 1);
+    var idx = order_cart.indexOf(index);
+    orde_cart.delete(idx, 1);
 
-    // tab_item needs to have teh first 2 itmes the same but the 4 are specfic to the item beign added to tab.
-    // tab_item = my_tab.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
-    return order_overall;
   }
 
- //TODO :     //this function needs to accept an object selected_orders
- function removeFromBill(selected_orders) {
+ function removeFromBill(selected_orders_cost) {
    final_bill -= selected_orders_cost;
-
-   // order_cart = order_cart [] - selected_orders; TODO
-   // orderDatabase.push_order(order_cart)
  }
 
  function customerHelp(t_id) {
