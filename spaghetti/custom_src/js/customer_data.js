@@ -39,7 +39,16 @@ app.service('customerData', function(orderDatabase) {
   };
 
   function setTableId(id) {
-    tableId = id;
+    if(id < 1 || id > 24) {
+      alert("Table ID must be between 1-24, please try again.")
+    }
+    else if(!Number.isInteger(id)) {
+      alert("Table ID must be a number, please try again.");
+    }
+    else {
+      tableId = id;
+      alert("Table ID Set! Your Table is: " + tableId);
+    }
   }
 
   function getTableId() {

@@ -126,8 +126,21 @@
              </div>
            </div>
          </div>
+       </div>
 
-       <script src="/spaghetti/custom_src/js/jquery.payform.min.js" charset="utf-8"></script>
-       <script src="/spaghetti/custom_src/js/script.js"></script>
+       <div class="d-flex">
+         <div class="col-md-6 card mt-3">
+           <p>Part of the loyalty system? Remember to redeem any rewards before you pay!</p>
+           <a class="btn btn-page" href="/spaghetti/public_html/#loyalty">Go to Loyalty Profile</a>
+         </div>
+         <div class="col-md-6 card mt-3">
+           <hp>Have any coupon codes? Enter them below!</p>
+           <textarea data-ng-model="coupon_code" class="form-control m-2" rows="1" placeholder="Enter Coupon Code"></textarea>
+           <button type="button" class="btn btn-select" ng-click="redeemCoupon(coupon_code)">Redeem Coupon</button>
+         </div>
+      </div>
+    </div>
+    <script src="/spaghetti/custom_src/js/jquery.payform.min.js" charset="utf-8"></script>
+    <script src="/spaghetti/custom_src/js/script.js"></script>
  </body>
 </html>

@@ -1020,8 +1020,9 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
       alert("Tip cannot be negative, please enter a new value and try again.");
     }
     else {
-      if(typeof comment != "undefined")
+      if(typeof comment != "undefined") {
         feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
+      }
 
       // mark items off as inactive
       orderDatabase.update_active_orders(customerData.getTableId());
@@ -1042,6 +1043,19 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
           console.log(phone, new_pts);
           loyaltyDatabase.update_points(phone, new_pts);
       }
+
+      // 1 in 5 chance to give a coupon code for 10% off their next order
+      var giveCode = Math.random();
+      if(giveCode < 0.2) {
+        // Generate a random string for coupon code
+        var codeGenerated = Math.random().toString(36).substr(2, 9);
+        console.log("Coupon code won");
+        console.log(codeGenerated);
+      }
+      else {
+        console.log("No coupon code generated =[")
+      }
+
 
       alert("Payment received! Thanks for eating at Spaghetti Empire!");
       window.location.href = "/spaghetti/public_html/";
