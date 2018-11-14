@@ -937,7 +937,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    if(typeof item_to_discount.item_name === 'undefined'){
+    if(typeof item_to_discount === 'undefined'){
       alert('Unable to find an item to apply reward to! Please check \'Your Bill\'.');
     } else {
       console.log('item_to_discount:' + item_to_discount);
