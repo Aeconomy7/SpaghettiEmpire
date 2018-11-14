@@ -1089,7 +1089,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
   // Submit payment and validate information
   $scope.sendOffToEverything = function(comment, tip_amt) {
-    if($scope.bill_info.length != 0) {
+    if($scope.bill_info.length == 0) {
       alert("You have not placed any orders.")
     }
     else {
