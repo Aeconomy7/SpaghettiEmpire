@@ -891,7 +891,7 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
 
 });
 
-app.controller('loyaltyRedeemController', function($scope, customerData, orderDatabase, discountDatabase, loyaltyDatabase) {
+app.controller('loyaltyRedeemController', function($scope, $route, customerData, orderDatabase, discountDatabase) {
   $scope.pageName = "Redeem Loyalty Points";
 
   discountDatabase.getRewards("appetizer").then(function(response) {
