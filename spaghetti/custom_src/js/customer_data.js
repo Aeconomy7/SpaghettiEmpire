@@ -138,10 +138,15 @@ app.service('customerData', function(orderDatabase) {
   }
 
   function removeFromYourOrder(name) {
-    var index = order_cart.indexOf(name);
+    var index;
+    for(var i = 0; i < order_cart.length; i++) {
+      if(order_cart[i].item_name == name) {
+        index = i;
+        break;
+      }
+    }
     if(index > -1)
       order_cart.splice(index, 1);
-    console.log(order_cart);
   }
 
  function removeFromBill(selected_orders_cost) {
