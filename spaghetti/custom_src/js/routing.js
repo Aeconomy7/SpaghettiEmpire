@@ -546,8 +546,78 @@ app.controller('managerFeedController', function($scope, feedbackDatabase) {
 
 });
 
-app.controller('managerFinancialController', function($scope) {
+app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
+  $scope.orders = [];
+  $scope.all_orders = [];
+  $scope.profits = 0.0;
+  $scope.losses = 0.0;
+  $scope.currentDate = new Date().getDate();
+  console.log($scope.currentDate);
+  $scope.currentMonth = new Date().getMonth()+1;
+  console.log($scope.currentMonth);
+
+  // Date stuff
+  var weekLower = $scope.currentDate - 3;
+  var weekHigher = $scope.currentDate + 3;
+
+  // Initialization
+  orderDatabase.get_order_history().then(function(response) {
+    $scope.all_orders = response;
+  });
+
+  $scope.loadTab = "daily";
+  for(var i = 0; i < $scope.all_orders.length; i++) {
+    // CURRENT DAY; check for day after as well since orders are like 5
+      if($scope.currentDate == new Date($scope.all_orders[i].date).getDate() || $scope.currentDate+1 == new Date($scope.all_orders[i].date).getDate()) {
+        $scope.orders.push($scope.all_orders[i]);
+        $scope.profits += parseFloat($scope.all_orders[i].amt);
+      }
+  }
+
+
+  $scope.changeTab = function(tabName) {
+    $scope.loadTab = tabName;
+
+    $scope.orders = [];
+    $scope.profits = 0.0;
+    for(var i = 0; i < $scope.all_orders.length; i++) {
+      // CURRENT DAY
+      if($scope.loadTab == "daily") {
+        if($scope.currentDate == new Date($scope.all_orders[i].date).getDate() || $scope.currentDate+1 == new Date($scope.all_orders[i].date).getDate()) {
+          $scope.orders.push($scope.all_orders[i]);
+          $scope.profits += parseFloat($scope.all_orders[i].amt);
+
+        }
+      }
+      // CURRENT WEEK: hacky because it will only look 3 behind and 3 ahead o well
+      if($scope.loadTab == "weekly") {
+          if(new Date($scope.all_orders[i].date).getDate() >= weekLower && new Date($scope.all_orders[i].date).getDate() <= weekHigher) {
+            $scope.orders.push($scope.all_orders[i]);
+            $scope.profits += parseFloat($scope.all_orders[i].amt);
+
+          }
+      }
+      // CURRENT MONTH
+      if($scope.loadTab == "monthly") {
+        if(new Date($scope.all_orders[i].date).getMonth()+1 == $scope.currentMonth) {
+          $scope.orders.push($scope.all_orders[i]);
+          $scope.profits += parseFloat($scope.all_orders[i].amt);
+
+        }
+      }
+
+      // ALL
+      if($scope.loadTab == "all") {
+        $scope.orders.push($scope.all_orders[i]);
+        $scope.profits += parseFloat($scope.all_orders[i].amt);
+        
+      }
+
+    }
+  }
+
+
 });
 
 /* Kitchen */
