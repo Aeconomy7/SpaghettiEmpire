@@ -11,7 +11,7 @@
            <div class="card">
              <div class="card-header" id="headingOne">
                <h5 class="mb-0">
-                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                 <button ng-click="payment_type = 'card'" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                    Pay with Card
                  </button>
                </h5>
@@ -23,8 +23,8 @@
                  <p class="btn btn-page" ng-click="tip_amt = tip_20"> 20%: {{tip_20 | currency:'$'}}</p>
                  <p class="btn btn-page" ng-click="tip_amt = tip_25"> 25%: {{tip_25 | currency:'$'}}</p>
                 <div class="row justify-content-center align-items-center">
-                  <div class="col-md-2">
-                    <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt" type="text" placeholder="Tip" id="tipBar">
+                  <div class="col-md-4">
+                    <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt" format="currency" type="text" placeholder="Tip" id="tipBar">
                   </div>
                 </div>
                  <div class="container-fluid"> <!-- This is the div function for the confirm card box -->
@@ -36,15 +36,15 @@
                            <form>
                                <div class="form-group owner">
                                    <label for="owner">Owner</label>
-                                   <input type="text" class="form-control" id="owner">
+                                   <input type="text" class="form-control" data-ng-model="card_owner" id="owner">
                                </div>
                                <div class="form-group CVV">
                                    <label for="cvv">CVV</label>
-                                   <input type="text" class="form-control" id="cvv">
+                                   <input type="text" class="form-control" data-ng-model="card_cvv" id="cvv">
                                </div>
                                <div class="form-group" id="card-number-field">
                                    <label for="cardNumber">Card Number</label>
-                                   <input type="text" class="form-control" id="cardNumber">
+                                   <input type="text" class="form-control" data-ng-model="card_number" id="cardNumber">
                                </div>
                                <div class="form-group" id="expiration-date">
                                    <label>Expiration Date</label>
@@ -96,7 +96,7 @@
          <div class="card mt-1">
            <div class="card-header" id="headingTwo">
              <h5 class="mb-0">
-               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+               <button ng-click="payment_type = 'cash'" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                  Pay with Cash
                </button>
              </h5>
@@ -108,8 +108,8 @@
               <p class="btn btn-page" ng-click="tip_amt = tip_20"> 20%: {{tip_20 | currency:'$'}}</p>
               <p class="btn btn-page" ng-click="tip_amt = tip_25"> 25%: {{tip_25 | currency:'$'}}</p>
              <div class="row justify-content-center align-items-center">
-               <div class="col-md-2">
-                 <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt" type="text" placeholder="Tip" id="tipBar">
+               <div class="col-md-4">
+                 <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt" format="currency" type="text" placeholder="Tip" id="tipBar">
                </div>
              </div>
              <textarea data-ng-model="comment_box" class="form-control m-2" rows="3" placeholder="Comments (optional)"></textarea>

@@ -216,6 +216,25 @@ app.directive('back', function() {
     };
 });
 
+// Currency filter directive
+app.directive('format', ['$filter', function ($filter) {
+    return {
+        require: '?ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            if (!ctrl) return;
+
+            ctrl.$formatters.unshift(function (a) {
+                return $filter(attrs.format)(ctrl.$modelValue)
+            });
+
+            elem.bind('blur', function(event) {
+                var plainNumber = elem.val().replace(/[^\d|\-+|\.+]/g, '');
+                elem.val($filter(attrs.format)(plainNumber));
+            });
+        }
+    };
+}]);
+
 // Table ID form
 app.controller('tableForm', function($scope, customerData) {
   $scope.t_id = '';
@@ -918,8 +937,7 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:');
-    console.log(item_to_discount);
+    console.log('item_to_discount:' + item_to_discount);
     item_to_discount.price = disc_amt;
   }
 });
@@ -995,6 +1013,11 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.pts_earned = 0;
   $scope.managerOnly = '1';
   $scope.couponMsg = "";
+  $scope.payment_type = "";
+  $scope.card_owner = "";
+  $scope.card_cvv = "";
+  $scope.card_number = "";
+
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -1044,8 +1067,8 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
             $scope.couponMsg = "Coupon code does not exist!";
           }
           else {
-            $scope.couponMsg = "Coupon code is valid! 10% off order has been applied.";
             $scope.bill -= ($scope.bill * .10);
+            $scope.couponMsg = "Coupon code is valid! 10% off order has been applied. New total: " + $scope.bill;
             customerData.setUsedCoupon(true);
             // Delete code from coupon database since it has been redeemed, always keep SPAHGET01 for testing purposes
             if(code != "SPAGHET01") {
@@ -1058,14 +1081,33 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
   // Submit payment and validate information
   $scope.sendOffToEverything = function(comment, tip_amt) {
-    if($scope.bill_info.length == 0) {
+    if($scope.bill_info.length != 0) {
       alert("You have not placed any orders.")
     }
     else {
+      var paymentInfoGood = true;
+      // Validate credit card input if user is paying w/ card
+      if($scope.payment_type == 'card') {
+        if($scope.card_owner.length == 0) {
+          alert("Card owner name cannot be left empty.");
+          paymentInfoGood = false;
+        }
+        else if($scope.card_cvv.length == 0) {
+          alert("Card CVV cannot be left empty.");
+          paymentInfoGood = false;
+        }
+        else if($scope.card_number.length != 19) {
+          alert("Invalid card number entry.");
+          paymentInfoGood = false;
+        }
+      }
+
+      // Validate tip input
       if(parseFloat(tip_amt) < 0.0) {
         alert("Tip cannot be negative, please enter a new value and try again.");
       }
-      else {
+
+      else if(paymentInfoGood){
         if(typeof comment != "undefined") {
           feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
         }
@@ -1101,7 +1143,8 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
           console.log("No coupon code generated =[")
         }
 
-        alert("Payment received! Thanks for eating at Spaghetti Empire!");
+        var chargeAmount = amt + tip_amt;
+        alert("Payment of " + chargeAmount + " received! Thanks for eating at Spaghetti Empire!");
         window.location.href = "/spaghetti/public_html/";
 
       }
