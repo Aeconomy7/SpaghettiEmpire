@@ -935,6 +935,9 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
     if(customerData.getPts() < parseInt(pts_req)){
       alert('Not enough loyalty points...Buy some more spaghetti!!!');
       return;
+    } else if (customerData.getUsedLoyalty()){
+      alert('You have already redeemed a Loyalty reward for this order!');
+      return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
     if(typeof item_to_discount === 'undefined'){
@@ -946,6 +949,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
       customerData.setPts(customerData.getPts()-pts_req);
       loyaltyDatabase.update_points(item_to_discount.phone_no, customerData.getPts());
+      customerData.setUsedLoyalty(true);
       alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
       $route.reload();
     }

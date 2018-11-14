@@ -14,6 +14,7 @@ app.service('customerData', function(orderDatabase) {
   var needHelp = false;//stores whether a table has called for help or not
   var my_tab = []; //push tab items here. Don't know how to create dynamically
   var usedCoupon = false;
+  var usedLoyalty = false; //stores if they have redeemed a loyalty reward yet
 
 
   return {
@@ -37,7 +38,9 @@ app.service('customerData', function(orderDatabase) {
     getHelpRequests: getHelpRequests,
     getHighestItemofType: getHighestItemofType,
     setUsedCoupon: setUsedCoupon,
-    getUsedCoupon: getUsedCoupon
+    getUsedCoupon: getUsedCoupon,
+    setUsedLoyalty: setUsedLoyalty,
+    getUsedLoyalty: getUsedLoyalty
   };
 
   function setTableId(id) {
@@ -209,6 +212,14 @@ app.service('customerData', function(orderDatabase) {
 
  function getUsedCoupon() {
    return usedCoupon;
+ }
+
+ function setUsedLoyalty(used) {
+   usedLoyalty = used;
+ }
+
+ function getUsedLoyalty() {
+   return usedLoyalty;
  }
 
 })
