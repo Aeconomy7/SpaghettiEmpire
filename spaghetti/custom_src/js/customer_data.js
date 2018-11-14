@@ -53,7 +53,7 @@ app.service('customerData', function(orderDatabase) {
         order_overall[i].phone_no = phone_no;
       }
     }
-
+    orderDatabase.update_phone("0000000000", phone_no, tableId);
   }
 
   function getPhoneNo() {
@@ -90,7 +90,8 @@ app.service('customerData', function(orderDatabase) {
   // Submits items from cart to their total bill and clears cart
   function addToBill() {
     orderDatabase.push_order(order_cart);
-
+    order_overall = order_overall.concat(order_cart);
+    final_bill += order_cost;
     order_cart = [];
     order_cost = 0.0;
   }
@@ -173,9 +174,11 @@ app.service('customerData', function(orderDatabase) {
      if(order_overall[i].type == type_f && order_overall[i].price >= highestsum){
        console.log('found more expensive item to discount!');
        highestPricedItem = order_overall[i];
+       highestsum = order_overall[i].price;
      }
    }
-   console.log('highestPricedItem: ' + highestPricedItem.item_name);
+
+   console.log('highestPricedItem: ' + highestPricedItem.price);
 
    return highestPricedItem;
  }

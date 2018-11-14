@@ -1,7 +1,11 @@
-Team Meatball Mob:
-Alex1
-Alex[0]
-mesin
-prestonboi
-philemup
-Nicole "sorry i couldnt come up with a joke"
+{"results":[{
+  "team_name":"The Meatball Mob",
+  "team_members":[{
+    "Mason Hobbs",
+    "Alexander Economy",
+    "Alexander Alfonso",
+    "Nicole Russo",
+    "Preston Mitchells",
+    "Fil Belay"
+  }]
+}]}

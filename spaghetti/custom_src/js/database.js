@@ -147,7 +147,18 @@ app.service('orderDatabase', ['$http', function($http) {
     .then(function(response) {
       console.log("phone numbers updated");
       console.log(response);
+    });
+  }
+
+  var update_active_orders = function(table) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/ordered_items_set_active_off.php",
+    {
+      'sid': table
     })
+    .then(function(response) {
+        console.log(response);
+    });
   }
 
   var insert_into_history = function(phone, amt) {
@@ -178,13 +189,11 @@ app.service('orderDatabase', ['$http', function($http) {
 
   /* returns only order history of certain loyalty customer */
   var get_order_history_loyalty = function(phone_no) {
-    console.log("finding orders from phone_no: " + phone_no);
     var $promise = $http.get("/spaghetti/custom_src/php/order_hist_select.php")
     .then(function (response) {
       result = response.data;
       orders = [];
       for(var i = 0; i < result.records.length; i++) {
-          console.log("found order for phone_no: " + result.records[i].phone_no);
           if(result.records[i].phone_no == phone_no) {
             orders.push(result.records[i]);
           }
@@ -200,6 +209,7 @@ app.service('orderDatabase', ['$http', function($http) {
     get_active_orders: get_active_orders,
     update_price: update_price,
     update_phone: update_phone,
+    update_active_orders: update_active_orders,
     insert_into_history: insert_into_history,
     get_order_history: get_order_history,
     get_order_history_loyalty: get_order_history_loyalty

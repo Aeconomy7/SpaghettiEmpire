@@ -11,9 +11,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="order in order_history" class="d-flex">
-              <td>{{order.amt}}</td>
+            <tr ng-repeat="order in order_history">
               <td>{{order.date}}</td>
+              <td>{{order.amt | currency:'$'}}</td>
             </tr>
           </tbody>
         </table>

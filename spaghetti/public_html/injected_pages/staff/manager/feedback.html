@@ -1,66 +1,27 @@
 <html lang="en-US">
-
-<!-- sorry incomplete fellas but heres my idea for the template -->
- <body style="background-color:#52688c">
-   <!-- <h1 class="text-center">{{pageName}}</h1> -->
-   <h1 class="text-center">Customer Feedback</h1>
-
-   <div style="border: solid" class="container mt-2">
+ <body>
+   <h1 class="text-center pageTitle">{{pageName}}</h1>
+   <div class="container mt-2 overflow-scroll">
      <div class="justify-content-center text-left col-md-12 mt-2 animated fadeIn">
 
-
-     <div class="accordion" id="accordionExample">
-       <div class="card m-2 animated fadeIn">
-         <div class="card-header" id="headingOne">
-           <h2 class="mb-0">
-             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-               1 Day(s) Ago
-             </button>
-           </h2>
-         </div>
-
-         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-           <div class="card-body">
-             BEST SPAGHETTI POG - comments blahb lah blah
-           </div>
-
-
-         <div class="card-footer">
-           <div class="d-flex">
-             <div class="col-md-6 text-left">
-               <button class="btn btn-page" data-toggle="collapse" aria-expanded="false">
-                   View Order
-               </button>
+         <div ng-repeat="submission in feedback">
+           <div class="card m-1">
+             <div class="card-header">
+                   <h3>{{submission.date}}</h3>
              </div>
+             <div class="card-body">
+              <div class="d-flex">
+                <h4 class="text-left col-md-6">
+                  Comment: {{submission.comment}}
+                </h4>
+                <h4 class="text-right col-md-6">
+                  From Table #{{submission.sid}}
+                </h4>
+              </div>
+            </div>
            </div>
-          </div>
-         </div>
-       </div>
-       <div class="card m-2 animated fadeIn">
-         <div class="card-header" id="headingOne">
-           <h2 class="mb-0">
-             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-               2 Day(s) Ago
-             </button>
-           </h2>
          </div>
 
-         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-           <div class="card-body">
-             something about comments here
-           </div>
-         <div class="card-footer">
-           <div class="d-flex">
-             <div class="col-md-6 text-left">
-               <button class="btn btn-page" data-toggle="collapse" aria-expanded="false">
-                   View Order
-               </button>
-             </div>
-           </div>
-          </div>
-         </div>
-       </div>
-     </div>
     </div>
    </div>
  </body>

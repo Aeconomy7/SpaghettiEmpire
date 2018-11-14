@@ -536,12 +536,88 @@ app.controller('managerLoyaltyDeleteController', function($scope, discountDataba
 
 });
 
-app.controller('managerFeedController', function($scope) {
+app.controller('managerFeedController', function($scope, feedbackDatabase) {
   $scope.pageName = "Customer Feedback";
+  $scope.feedback = [];
+
+  feedbackDatabase.get_feedback().then(function(response) {
+    $scope.feedback = response;
+  });
+
 });
 
-app.controller('managerFinancialController', function($scope) {
+app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
+  $scope.orders = [];
+  $scope.all_orders = [];
+  $scope.profits = 0.0;
+  $scope.losses = 0.0;
+  $scope.currentDate = new Date().getDate();
+  console.log($scope.currentDate);
+  $scope.currentMonth = new Date().getMonth()+1;
+  console.log($scope.currentMonth);
+
+  // Date stuff
+  var weekLower = $scope.currentDate - 3;
+  var weekHigher = $scope.currentDate + 3;
+
+  // Initialization
+  orderDatabase.get_order_history().then(function(response) {
+    $scope.all_orders = response;
+  });
+
+  $scope.loadTab = "daily";
+  for(var i = 0; i < $scope.all_orders.length; i++) {
+    // CURRENT DAY; check for day after as well since orders are like 5
+      if($scope.currentDate == new Date($scope.all_orders[i].date).getDate() || $scope.currentDate+1 == new Date($scope.all_orders[i].date).getDate()) {
+        $scope.orders.push($scope.all_orders[i]);
+        $scope.profits += parseFloat($scope.all_orders[i].amt);
+      }
+  }
+
+
+  $scope.changeTab = function(tabName) {
+    $scope.loadTab = tabName;
+
+    $scope.orders = [];
+    $scope.profits = 0.0;
+    for(var i = 0; i < $scope.all_orders.length; i++) {
+      // CURRENT DAY
+      if($scope.loadTab == "daily") {
+        if($scope.currentDate == new Date($scope.all_orders[i].date).getDate() || $scope.currentDate+1 == new Date($scope.all_orders[i].date).getDate()) {
+          $scope.orders.push($scope.all_orders[i]);
+          $scope.profits += parseFloat($scope.all_orders[i].amt);
+
+        }
+      }
+      // CURRENT WEEK: hacky because it will only look 3 behind and 3 ahead o well
+      if($scope.loadTab == "weekly") {
+          if(new Date($scope.all_orders[i].date).getDate() >= weekLower && new Date($scope.all_orders[i].date).getDate() <= weekHigher) {
+            $scope.orders.push($scope.all_orders[i]);
+            $scope.profits += parseFloat($scope.all_orders[i].amt);
+
+          }
+      }
+      // CURRENT MONTH
+      if($scope.loadTab == "monthly") {
+        if(new Date($scope.all_orders[i].date).getMonth()+1 == $scope.currentMonth) {
+          $scope.orders.push($scope.all_orders[i]);
+          $scope.profits += parseFloat($scope.all_orders[i].amt);
+
+        }
+      }
+
+      // ALL
+      if($scope.loadTab == "all") {
+        $scope.orders.push($scope.all_orders[i]);
+        $scope.profits += parseFloat($scope.all_orders[i].amt);
+        
+      }
+
+    }
+  }
+
+
 });
 
 /* Kitchen */
@@ -555,6 +631,12 @@ app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) 
 
   feedbackDatabase.get_feedback().then(function(response) {
     $scope.feedback = response;
+    $scope.allowedFeedback = [];
+    for(var i = 0; i < $scope.feedback.length; i++) {
+      if($scope.feedback[i].manageronly == '0') {
+        $scope.allowedFeedback.push($scope.feedback[i]);
+      }
+    }
   });
 
 });
@@ -911,32 +993,31 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
   $scope.sendOffToEverything = function(comment) {
     // FEEDBACK: insert feedback
-    if(comment.length != 0)
+    if(typeof comment != "undefined")
       feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
 
-    // ORDER: mark items off as inactive
-      /*  $data = json_decode(file_get_contents('php://input'));
-        $sid = $data->sid; */
-
-        // send to order history
-        /*   $phone_no = $data->phone_no;
-          $amt = $data->amt; */
-      var phone = customerData.getPhoneNo();
-      var amt = $scope.bill;
-      console.log("Inserting into order history");
-      console.log(phone, amt);
-      orderDatabase.insert_into_history(phone, amt);
+    // mark items off as inactive
+    orderDatabase.update_active_orders(customerData.getTableId());
+    // send to order history
+    var phone = customerData.getPhoneNo();
+    var amt = $scope.bill;
+    console.log("Inserting into order history");
+    console.log(phone, amt);
+    orderDatabase.insert_into_history(phone, amt);
 
 
     // LOYALTY: assign points
-      var phone = customerData.getPhoneNo();
-        if(phone != "0000000000") {
+    var phone = customerData.getPhoneNo();
+      if(phone != "0000000000") {
         var current_pts = customerData.getPts();
         var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
         console.log("Assigning new info for loyalty:");
         console.log(phone, new_pts);
         loyaltyDatabase.update_points(phone, new_pts);
-      }
+    }
+
+    alert("Payment received! Thanks for eating at Spaghetti Empire!");
+    window.location.href = "/spaghetti/public_html/";
 
   }
 
