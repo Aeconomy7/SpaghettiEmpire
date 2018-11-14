@@ -2,6 +2,12 @@ var app = angular.module('switchApp', ['ngRoute', 'customerModule', 'dbApp']);
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
     $routeProvider
+
+    .when('/', {
+      templateUrl:
+      '/spaghetti/public_html/injected_pages/features.html',
+      controller: 'featuresController'
+    })
     // Staff routing and its subpages
     .when('/staff', {
       templateUrl: '/spaghetti/public_html/injected_pages/staff/staff_login.html',
@@ -201,6 +207,10 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'templateController'
       })
 
+});
+
+app.controller('featuresController', function($scope) {
+  $scope.pageName = "Features";
 });
 
 // Back button directive
