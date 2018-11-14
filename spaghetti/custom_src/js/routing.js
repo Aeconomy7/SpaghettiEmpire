@@ -910,7 +910,7 @@ app.controller('loyaltyProfileController', function($scope, customerData, loyalt
 
 });
 
-app.controller('loyaltyRedeemController', function($scope, customerData, discountDatabase, loyaltyDatabase) {
+app.controller('loyaltyRedeemController', function($scope, $route, customerData, orderDatabase, discountDatabase) {
   $scope.pageName = "Redeem Loyalty Points";
 
   discountDatabase.getRewards("appetizer").then(function(response) {
@@ -939,6 +939,10 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
     var item_to_discount = customerData.getHighestItemofType(type_f);
     console.log('item_to_discount:' + item_to_discount);
     item_to_discount.price = disc_amt;
+    orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+    customerData.setPts(customerData.getPts()-pts_req);
+    alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
+    $route.reload();
   }
 });
 

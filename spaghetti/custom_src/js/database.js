@@ -161,6 +161,19 @@ app.service('orderDatabase', ['$http', function($http) {
     });
   }
 
+  var update_ordered_item_price = function(name_f, phone_no_f, price_f) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/ordered_items_update_price.php",
+    {
+      'name': name_f,
+      'phone_no': phone_no_f,
+      'price': price_f
+    })
+    .then(function(response) {
+      console.log(response);
+    });
+  }
+
   var insert_into_history = function(phone, amt) {
     var request;
     request = $http.post("/spaghetti/custom_src/php/order_hist_insert.php",
@@ -210,6 +223,7 @@ app.service('orderDatabase', ['$http', function($http) {
     update_price: update_price,
     update_phone: update_phone,
     update_active_orders: update_active_orders,
+    update_ordered_item_price: update_ordered_item_price,
     insert_into_history: insert_into_history,
     get_order_history: get_order_history,
     get_order_history_loyalty: get_order_history_loyalty
