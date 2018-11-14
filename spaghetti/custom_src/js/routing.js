@@ -611,7 +611,7 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
       if($scope.loadTab == "all") {
         $scope.orders.push($scope.all_orders[i]);
         $scope.profits += parseFloat($scope.all_orders[i].amt);
-        
+
       }
 
     }
@@ -899,8 +899,8 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount);
-    item_to_discount.price = disc_amt;
+    console.log('item_to_discount:' + item_to_discount.item_name);
+    item_to_discount.price = parseFloat(disc_amt);
   }
 });
 
