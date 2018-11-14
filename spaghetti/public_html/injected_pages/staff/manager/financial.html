@@ -31,6 +31,7 @@
         <tr ng-repeat="record in orders">
             <td>
               <p class="text-center">{{$index+1}}</p>
+              <p ng-show="wasComp(record.amt)"> (Comped Item)</p>
             </td>
             <td>
               <p class="text-center">{{record.amt | currency:'$'}}</p>

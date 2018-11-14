@@ -684,6 +684,11 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
     }
   }
 
+  $scope.wasComp = function(price) {
+    if(parseFloat(price) < 0)
+      return true;
+    return false;
+  }
 
 });
 
