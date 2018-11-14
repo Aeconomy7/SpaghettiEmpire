@@ -438,7 +438,7 @@ app.controller('managerMenuDeleteController', function($scope, menuDatabase) {
   }
 });
 
-app.controller('managerCompController', function($scope, orderDatabase) {
+app.controller('managerCompController', function($scope, $route, orderDatabase) {
   $scope.pageName = "Comp Order";
   $scope.tables = 24;
   $scope.orders = [];
