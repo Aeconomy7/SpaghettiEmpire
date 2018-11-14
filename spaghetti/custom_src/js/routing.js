@@ -932,17 +932,23 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
   /* this is a function that expects the type of the discount and disc_amt
      this assumes that discounts are ONLY type based, which is fine for now */
   $scope.loyalty_redeem = function(pts_req, type_f, disc_amt) {
-    if(customerData.getPts() < pts_req){
+    if(customerData.getPts() < parseInt(pts_req)){
       alert('Not enough loyalty points...Buy some more spaghetti!!!');
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount);
-    item_to_discount.price = disc_amt;
-    orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
-    customerData.setPts(customerData.getPts()-pts_req);
-    alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
-    $route.reload();
+    if(typeof item_to_discount === 'undefined'){
+      alert('Unable to find an item to apply reward to! Please check \'Your Bill\'.');
+      return;
+    } else {
+      console.log('item_to_discount:' + item_to_discount);
+      item_to_discount.price = disc_amt;
+      orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+      customerData.setPts(customerData.getPts()-pts_req);
+      loyaltyDatabase.update_points(item_to_discount.phone_no, customerData.getPts());
+      alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
+      $route.reload();
+    }
   }
 });
 
