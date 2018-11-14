@@ -889,10 +889,11 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
           }
           else {
             alert("No account exists for phone number " + $scope.phone_id);
-            $scope.phone_id = "";
           }
       });
     }
+    $scope.phone_id = "";
+    $scope.counter = 0;
   }
 
   $scope.loyalty_signup = function() {
@@ -901,9 +902,18 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
       alert("Please enter a valid phone number (10 digits), and then press the Sign Up button.");
     }
     else {
-      loyaltyDatabase.signup_profile($scope.phone_id);
-      alert("Sign-Up successful! You can now login using that phone number.");
+      loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
+          if(response.records.length == 1) {
+            alert("An account already exists for that number.");
+          }
+          else {
+            alert("Sign-Up successful! You can now login using that phone number.");
+            loyaltyDatabase.signup_profile($scope.phone_id);
+          }
+      });
     }
+    $scope.phone_id = "";
+    $scope.counter = 0;
   }
 
 });
