@@ -1076,7 +1076,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
           }
           else {
             $scope.bill -= ($scope.bill * .10);
-            $scope.couponMsg = "Coupon code is valid! 10% off order has been applied. New total: " + $scope.bill;
+            $scope.couponMsg = "Coupon code is valid! 10% off order has been applied. New total: $" + $scope.bill.toFixed(2);
             customerData.setUsedCoupon(true);
             // Delete code from coupon database since it has been redeemed, always keep SPAHGET01 for testing purposes
             if(code != "SPAGHET01") {
@@ -1151,8 +1151,8 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
           console.log("No coupon code generated =[")
         }
 
-        var chargeAmount = amt + tip_amt;
-        alert("Payment of " + chargeAmount + " received! Thanks for eating at Spaghetti Empire!");
+        var chargeAmount = (amt + tip_amt).toFixed(2);
+        alert("Payment of $" + chargeAmount + " received! Thanks for eating at Spaghetti Empire!");
         window.location.href = "/spaghetti/public_html/";
 
       }
