@@ -39,10 +39,11 @@ app.service('customerData', function(orderDatabase) {
   };
 
   function setTableId(id) {
-    if(id < 1 || id > 24) {
+    console.log(parseInt(id));
+    if(parseInt(id) < 1 || parseInt(id) > 24) {
       alert("Table ID must be between 1-24, please try again.")
     }
-    else if(!Number.isInteger(id)) {
+    else if(!Number.isInteger(parseFloat(id))) {
       alert("Table ID must be a number, please try again.");
     }
     else {
