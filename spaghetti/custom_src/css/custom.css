@@ -290,9 +290,10 @@ button.black {
   opacity: 1;
 }
 
-.carousel-item img{
+.welcome{
   width: 100%;
-  height: 100%;
+  height: auto;
+  margin-bottom: 2%;
 }
 
 @media (max-width: 460px) {
