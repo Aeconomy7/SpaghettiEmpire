@@ -975,10 +975,7 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
-  $scope.bill = 20.0;
-  $scope.tip_15 = $scope.bill * 0.15;
-  $scope.tip_20 = $scope.bill * 0.20;
-  $scope.tip_25 = $scope.bill * 0.25;
+  $scope.bill = 0.0;
   $scope.pts_earned = 0;
   $scope.managerOnly = '1';
   orderDatabase.get_active_orders().then(function(response) {
