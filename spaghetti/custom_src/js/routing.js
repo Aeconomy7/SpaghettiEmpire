@@ -939,10 +939,14 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
     var item_to_discount = customerData.getHighestItemofType(type_f);
     console.log('item_to_discount:' + item_to_discount);
     item_to_discount.price = disc_amt;
-    orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
-    customerData.setPts(customerData.getPts()-pts_req);
-    alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
-    $route.reload();
+    var db_response = orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+    if(db_response.status == 200){
+      customerData.setPts(customerData.getPts()-pts_req);
+      alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
+      $route.reload();
+    } else {
+      alert('Unable to find item to apply discount to...');
+    }
   }
 });
 
