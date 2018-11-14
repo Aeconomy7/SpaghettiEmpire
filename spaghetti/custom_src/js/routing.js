@@ -921,6 +921,8 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
     console.log('item_to_discount:');
     console.log(item_to_discount);
     item_to_discount.price = parseFloat(disc_amt);
+    console.log('after discount:');
+    console.log(item_to_discount);
   }
 });
 
