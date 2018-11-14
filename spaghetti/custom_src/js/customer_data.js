@@ -184,7 +184,7 @@ app.service('customerData', function(orderDatabase) {
      }
    }
 
-   console.log('highestPricedItem: ' + highestPricedItem.price);
+   console.log('highestPricedItem: ' + highestPricedItem);
 
    return highestPricedItem;
  }
