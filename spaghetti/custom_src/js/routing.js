@@ -918,7 +918,7 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount.item_name);
+    console.log('item_to_discount:' + item_to_discount);
     item_to_discount.price = disc_amt;
   }
 });
@@ -987,12 +987,13 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 });
 
 
-app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase) {
+app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase, couponDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
   $scope.bill = 0.0;
   $scope.pts_earned = 0;
   $scope.managerOnly = '1';
+  $scope.couponMsg = "";
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -1001,12 +1002,19 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
         $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
+    // Check if they have redeemed a coupon or not before so it is maintained if they accidentally left the page
+    if(customerData.getUsedCoupon()) {
+        $scope.bill -= ($scope.bill * .10);
+    }
+
+    // Calculate tip percentages and points earned
     $scope.tip_15 = $scope.bill * 0.15;
     $scope.tip_20 = $scope.bill * 0.20;
     $scope.tip_25 = $scope.bill * 0.25;
     $scope.pts_earned = parseInt(10 * $scope.bill);
   });
 
+  // Toggle box for sending feedback to kitchen in addition to manager
   $scope.feedbackKitchen = function() {
     if($scope.managerOnly == '1')
       $scope.managerOnly = '0';
@@ -1015,51 +1023,87 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     console.log($scope.managerOnly);
   }
 
+  // Display different information if they are logged in to their loyalty account or not
+  $scope.loggedInLoyalty = function() {
+    if(customerData.getPhoneNo() == "0000000000")
+      return false;
+    return true;
+  }
+
+  // Redeem a coupon code
+  $scope.redeemCoupon = function(code) {
+    // Make sure they haven't redeemed a 10% already
+    if(customerData.getUsedCoupon()) {
+      $scope.couponMsg = "You have already applied a coupon to this order.";
+    }
+    // Check if coupon code is valid, apply if it is and delete it from the database. Otherwise inform them coupon is not valid
+    else {
+      couponDatabase.get_coupons(code).then(function(response) {
+          if(typeof response == "undefined") {
+            $scope.couponMsg = "Coupon code does not exist!";
+          }
+          else {
+            $scope.couponMsg = "Coupon code is valid! 10% off order has been applied.";
+            $scope.bill -= ($scope.bill * .10);
+            customerData.setUsedCoupon(true);
+            // Delete code from coupon database since it has been redeemed, always keep SPAHGET01 for testing purposes
+            if(code != "SPAGHET01") {
+              couponDatabase.delete_coupon(code);
+            }
+          }
+      });
+    }
+  }
+
+  // Submit payment and validate information
   $scope.sendOffToEverything = function(comment, tip_amt) {
-    if(parseFloat(tip_amt) < 0.0) {
-      alert("Tip cannot be negative, please enter a new value and try again.");
+    if($scope.bill == 0.0) {
+      alert("You have not placed any orders.")
     }
     else {
-      if(typeof comment != "undefined") {
-        feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
-      }
-
-      // mark items off as inactive
-      orderDatabase.update_active_orders(customerData.getTableId());
-      // send to order history
-      var phone = customerData.getPhoneNo();
-      var amt = $scope.bill;
-      console.log("Inserting into order history");
-      console.log(phone, amt);
-      orderDatabase.insert_into_history(phone, amt);
-
-
-      // LOYALTY: assign points
-      var phone = customerData.getPhoneNo();
-        if(phone != "0000000000") {
-          var current_pts = customerData.getPts();
-          var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
-          console.log("Assigning new info for loyalty:");
-          console.log(phone, new_pts);
-          loyaltyDatabase.update_points(phone, new_pts);
-      }
-
-      // 1 in 5 chance to give a coupon code for 10% off their next order
-      var giveCode = Math.random();
-      if(giveCode < 0.2) {
-        // Generate a random string for coupon code
-        var codeGenerated = Math.random().toString(36).substr(2, 9);
-        console.log("Coupon code won");
-        console.log(codeGenerated);
+      if(parseFloat(tip_amt) < 0.0) {
+        alert("Tip cannot be negative, please enter a new value and try again.");
       }
       else {
-        console.log("No coupon code generated =[")
+        if(typeof comment != "undefined") {
+          feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
+        }
+
+        // mark items off as inactive
+        orderDatabase.update_active_orders(customerData.getTableId());
+        // send to order history
+        var phone = customerData.getPhoneNo();
+        var amt = $scope.bill;
+        console.log("Inserting into order history");
+        console.log(phone, amt);
+        orderDatabase.insert_into_history(phone, amt);
+
+        // LOYALTY: assign points
+        var phone = customerData.getPhoneNo();
+          if(phone != "0000000000") {
+            var current_pts = customerData.getPts();
+            var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
+            console.log("Assigning new info for loyalty:");
+            console.log(phone, new_pts);
+            loyaltyDatabase.update_points(phone, new_pts);
+        }
+
+        // 1 in 5 chance to give a coupon code for 10% off their next order
+        var giveCode = Math.random();
+        if(giveCode < 0.2) {
+          // Generate a random string for coupon code
+          var codeGenerated = Math.random().toString(36).substr(2, 9);
+          confirm("Congratulations! You won a coupon. Redeem this at your next visit for 10% off your order. Write it down somewhere! Code: " + codeGenerated);
+          couponDatabase.insert_coupon(codeGenerated);
+        }
+        else {
+          console.log("No coupon code generated =[")
+        }
+
+        alert("Payment received! Thanks for eating at Spaghetti Empire!");
+        window.location.href = "/spaghetti/public_html/";
+
       }
-
-
-      alert("Payment received! Thanks for eating at Spaghetti Empire!");
-      window.location.href = "/spaghetti/public_html/";
-
     }
   }
 

@@ -380,3 +380,57 @@ app.service('discountDatabase', ['$http', function($http) {
       removeReward: removeReward
     };
 }]);
+
+
+app.service('couponDatabase', ['$http', function($http) {
+
+  var result;
+  var items = [];
+
+  // Returns a check to see if the coupon code is valid
+  var get_coupons = function(code) {
+    var $promise = $http.get("/spaghetti/custom_src/php/coupons_select.php")
+      .then(function (response) {
+        result = response.data;
+        items = [];
+        for(var i = 0; i < result.records.length; i++) {
+          if(result.records[i].name == code) {
+            items.push(result.records[i].name);
+            break;
+          }
+        }
+        return items;
+      });
+      return $promise;
+  }
+
+  var insert_coupon = function(code) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/coupons_insert.php",
+    {
+      'name': code
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
+
+  var delete_coupon = function(code) {
+    var request;
+    console.log(managerOnly);
+    request = $http.post("/spaghetti/custom_src/php/coupons_delete.php",
+    {
+      'name': code
+    })
+    .then(function(response) {
+      console.log(response.data);
+    });
+  }
+
+  return {
+    get_coupons: get_coupons,
+    insert_coupon: insert_coupon,
+    delete_coupon: delete_coupon
+  };
+
+}]);

@@ -8,12 +8,12 @@ app.service('customerData', function(orderDatabase) {
   var order_cart = []; // Stores items added but not placed yet
   var order_cost = 0.0; // Stores hypothetical cost if they placed the order so they can see how much its at
   var order_overall = []; // Stores the items of all orders placed
-
   var final_bill = 0; // Stores the final bill of all orders placed
   var refills = [];//stores refills needed by customer
   var help_requests = [];//stores pairs of tables and help requests needed
   var needHelp = false;//stores whether a table has called for help or not
   var my_tab = []; //push tab items here. Don't know how to create dynamically
+  var usedCoupon = false;
 
 
   return {
@@ -35,7 +35,9 @@ app.service('customerData', function(orderDatabase) {
     removeFromYourOrder: removeFromYourOrder,
     customerHelp: customerHelp,
     getHelpRequests: getHelpRequests,
-    getHighestItemofType: getHighestItemofType
+    getHighestItemofType: getHighestItemofType,
+    setUsedCoupon: setUsedCoupon,
+    getUsedCoupon: getUsedCoupon
   };
 
   function setTableId(id) {
@@ -199,4 +201,14 @@ app.service('customerData', function(orderDatabase) {
 
    return highestPricedItem;
  }
+
+ // For seeing if they've used a coupon or not so 10% off is maintained if they leave page && they cannot use more than 1 coupon at a time
+ function setUsedCoupon(used) {
+   usedCoupon = used;
+ }
+
+ function getUsedCoupon() {
+   return usedCoupon;
+ }
+
 })
