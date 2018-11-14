@@ -227,21 +227,13 @@ app.controller('tableForm', function($scope, customerData) {
 
 // Customer refills view
 app.controller('your_refills', function($scope, customerData) {
-  var refill = [];
-  var tID = customerData.getTableId();
-  $scope.refillsNeeded = function() {
-    for(var i = 0; i < $scope.orders.length; i++) {
-      if($scope.orders[i].sid == tID && $scope.orders[i].type == 'drink') {
-        refill.push($scope.orders[i].item_name);
-      }
-    }
-    return refill;
-  }
+  $scope.refills = customerData.getRefills();
 });
 
 //customer help Requests
 app.controller('help_requests', function($scope, customerData) {
   $scope.addRequest = function() {
+    console.log("adding request");
     customerData.customerHelp(customerData.getTableId());
   }
 });
@@ -557,45 +549,60 @@ app.controller('managerFeedController', function($scope, feedbackDatabase) {
 app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
 
+  // Initialization
   orderDatabase.get_order_history().then(function(response) {
-    $scope.orders = response;
+    $scope.all_orders = response;
+    $scope.currentDate = new Date().getDate();
+    $scope.currentMonth = new Date().getMonth()+1;
+    $scope.orders = [];
+
+    // Date stuff
+    var weekLower = $scope.currentDate - 3;
+    var weekHigher = $scope.currentDate + 3;
+    $scope.loadTab = "daily";
+    console.log($scope.loadTab);
+    for(var i = 0; i < $scope.all_orders.length; i++) {
+      // CURRENT DAY
+        if($scope.currentDate == new Date($scope.all_orders[i].date).getDate()) {
+          $scope.orders.push($scope.all_orders[i]);
+        }
+    }
   });
 
-  $scope.dateRanges = {
-    all: {from: 0, to: Number.MAX_VALUE},
-    day: getCurrentDayRange(),
-    week: getCurrentWeekRange(),
-    month: getCurrentMonthRange()
-  };
 
-  $scope.currentDateRange = $scope.dateRanges.daily;
-  $scope.eventDateFilter = function(event) {
-    return $scope.currentDateRange.from <= event.eventDate
-      && event.eventDate <= $scope.currentDateRange.to;
-  };
 
-  function getCurrentDayRange() {
-    return {
-      from: new Date().setHours(0,0,0,0),
-      to: new Date().setHours(23,59,59,999)
-    };
+  $scope.changeTab = function(tabName) {
+    $scope.loadTab = tabName;
+    console.log($scope.loadTab);
+    $scope.orders = [];
+    for(var i = 0; i < $scope.all_orders.length; i++) {
+      // CURRENT DAY
+      if($scope.loadTab == "daily") {
+        if($scope.currentDate == new Date($scope.all_orders[i].date).getDate()) {
+          $scope.orders.push($scope.all_orders[i]);
+        }
+      }
+      // CURRENT WEEK: hacky because it will only look 3 behind and 3 ahead o well
+      if($scope.loadTab == "weekly") {
+          if(new Date($scope.all_orders[i].date).getDate() >= weekLower && new Date($scope.all_orders[i].date).getDate() <= weekHigher) {
+            $scope.orders.push($scope.all_orders[i]);
+          }
+      }
+      // CURRENT MONTH
+      if($scope.loadTab == "monthly") {
+        if(new Date($scope.all_orders[i].date).getMonth()+1 == $scope.currentMonth) {
+          $scope.orders.push($scope.all_orders[i]);
+        }
+      }
+
+      // ALL
+      if($scope.loadTab == "all") {
+        $scope.orders.push($scope.all_orders[i]);
+      }
+
+    }
   }
 
-  function getCurrentWeekRange() {
-    var curr = new Date;
-    return {
-      from: new Date(curr.setDate(curr.getDate() - curr.getDay())),
-      to: new Date(curr.setDate(curr.getDate() - curr.getDay()+6))
-    };
-  }
-
-  function getCurrentMonthRange() {
-    var curr = new Date;
-    return {
-      from: new Date(curr.getFullYear(), curr.getMonth(), 1),
-      to: new Date(curr.getFullYear(), curr.getMonth() + 1, 0)
-    };
-  }
 
 });
 
@@ -676,8 +683,11 @@ app.controller('waitStaffController', function($scope, orderDatabase, customerDa
   // Returns all help requests matching the table number of ng-repeat inside waitstaff.html
   $scope.getHelpByTable = function(tableNum) {
     var help = customerData.getHelpRequests();
+    console.log(tableNum);
     for(var i = 0; i < help.length; i++) {
+      console.log("id= " + help[i].ID + " and needsHelp = " + help[i].needsHelp);
       if(help[i].ID == tableNum && help[i].needsHelp == true) {
+        console.log("table needs help");
         return true;
       }
     }

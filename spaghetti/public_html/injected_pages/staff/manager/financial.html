@@ -3,28 +3,40 @@
    <h1 class="text-center pageTitle">{{pageName}}</h1>
 
    <div class="container mt-2">
-     <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
+     <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn overflow-scroll">
 
      <ul class="nav nav-tabs nav-justified">
       <li class="active">
-        <a class="nav-link btn active" data-toggle="tab" ng-click="currentDateRange = dateRanges.day">Daily</a>
+        <a class="nav-link btn active" data-toggle="tab" ng-click="changeTab('daily')">Daily</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn" data-toggle="tab" ng-click="currentDateRange = dateRanges.week">Weekly</a>
+        <a class="nav-link btn" data-toggle="tab" ng-click="changeTab('weekly')">Weekly</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn" data-toggle="tab" ng-click="currentDateRange = dateRanges.month">Monthly</a>
+        <a class="nav-link btn" data-toggle="tab" ng-click="changeTab('monthly')">Monthly</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link btn" data-toggle="tab" ng-click="currentDateRange = dateRanges.all">All-Time</a>
+        <a class="nav-link btn" data-toggle="tab" ng-click="changeTab('all')">All-Time</a>
       </li>
     </ul>
 
-    <table>
-      <tr ng-repeat="record in orders | filter:eventDateFilter">
-        <td>{{$index}}</td>
-        <td>{{record.amt}}</td>
-      </tr>
+    <table class="col-md-12 table-striped table-hover table-sm">
+      <thead class="thead-dark">
+       <tr>
+         <th scope="col">Order #</th>
+         <th scope="col">Profit</th>
+       </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="record in orders">
+            <td>
+              <p class="text-center">{{$index+1}}</p>
+            </td>
+            <td>
+              <p class="text-center">{{record.amt | currency:'$'}}</p>
+            </td>
+        </tr>
+      </tbody>
     <table>
     </div>
    </div>
