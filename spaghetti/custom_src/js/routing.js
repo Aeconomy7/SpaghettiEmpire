@@ -559,6 +559,8 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
   // Initialization
   orderDatabase.get_order_history().then(function(response) {
     $scope.all_orders = response;
+    console.log(response);
+    console.log(response.data);
     console.log("got response");
   });
 
