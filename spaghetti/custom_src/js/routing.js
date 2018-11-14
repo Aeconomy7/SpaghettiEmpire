@@ -879,7 +879,9 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
 
   $scope.loyalty_login = function() {
     if($scope.counter != 10) {
-      alert("Invalid input; please enter a full phone number (10 digits)")
+      alert("Invalid input; please enter a full phone number (10 digits)");
+      $scope.phone_id = "";
+      $scope.counter = 0;
     }
     else {
       loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
@@ -889,11 +891,11 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
           }
           else {
             alert("No account exists for phone number " + $scope.phone_id);
+            $scope.phone_id = "";
+            $scope.counter = 0;
           }
       });
     }
-    $scope.phone_id = "";
-    $scope.counter = 0;
   }
 
   $scope.loyalty_signup = function() {
@@ -905,6 +907,8 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
       loyaltyDatabase.get_profile($scope.phone_id).then(function(response) {
           if(response.records.length == 1) {
             alert("An account already exists for that number.");
+            $scope.phone_id = "";
+            $scope.counter = 0;
           }
           else {
             alert("Sign-Up successful! You can now login using that phone number.");
@@ -912,8 +916,6 @@ app.controller('loyaltyController', function($scope, $window, customerData, loya
           }
       });
     }
-    $scope.phone_id = "";
-    $scope.counter = 0;
   }
 
 });
