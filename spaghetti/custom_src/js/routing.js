@@ -551,9 +551,9 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.orders = [];
   $scope.all_orders = [];
   $scope.currentDate = new Date().getDate();
-  console.log(currentDate);
+  console.log($scope.currentDate);
   $scope.currentMonth = new Date().getMonth()+1;
-  console.log(currentMonth);
+  console.log($scope.currentMonth);
 
   // Date stuff
   var weekLower = $scope.currentDate - 3;
