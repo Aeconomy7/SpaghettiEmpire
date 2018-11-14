@@ -575,7 +575,6 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
       }
   }
 
-
   $scope.changeTab = function(tabName) {
     $scope.loadTab = tabName;
 
@@ -611,7 +610,7 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
       if($scope.loadTab == "all") {
         $scope.orders.push($scope.all_orders[i]);
         $scope.profits += parseFloat($scope.all_orders[i].amt);
-        
+
       }
 
     }
@@ -966,7 +965,10 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
-  $scope.bill = 0.0;
+  $scope.bill = 20.0;
+  $scope.tip_15 = $scope.bill * 0.15;
+  $scope.tip_20 = $scope.bill * 0.20;
+  $scope.tip_25 = $scope.bill * 0.25;
   $scope.pts_earned = 0;
   $scope.managerOnly = '1';
   orderDatabase.get_active_orders().then(function(response) {
@@ -991,34 +993,38 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     console.log($scope.managerOnly);
   }
 
-  $scope.sendOffToEverything = function(comment) {
-    // FEEDBACK: insert feedback
-    if(typeof comment != "undefined")
-      feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
-
-    // mark items off as inactive
-    orderDatabase.update_active_orders(customerData.getTableId());
-    // send to order history
-    var phone = customerData.getPhoneNo();
-    var amt = $scope.bill;
-    console.log("Inserting into order history");
-    console.log(phone, amt);
-    orderDatabase.insert_into_history(phone, amt);
-
-
-    // LOYALTY: assign points
-    var phone = customerData.getPhoneNo();
-      if(phone != "0000000000") {
-        var current_pts = customerData.getPts();
-        var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
-        console.log("Assigning new info for loyalty:");
-        console.log(phone, new_pts);
-        loyaltyDatabase.update_points(phone, new_pts);
+  $scope.sendOffToEverything = function(comment, tip_amt) {
+    if(parseFloat(tip_amt) < 0.0) {
+      alert("Tip cannot be negative, please enter a new value and try again.");
     }
+    else {
+      if(typeof comment != "undefined")
+        feedbackDatabase.insert_feedback(comment, customerData.getTableId(), $scope.managerOnly);
 
-    alert("Payment received! Thanks for eating at Spaghetti Empire!");
-    window.location.href = "/spaghetti/public_html/";
+      // mark items off as inactive
+      orderDatabase.update_active_orders(customerData.getTableId());
+      // send to order history
+      var phone = customerData.getPhoneNo();
+      var amt = $scope.bill;
+      console.log("Inserting into order history");
+      console.log(phone, amt);
+      orderDatabase.insert_into_history(phone, amt);
 
+
+      // LOYALTY: assign points
+      var phone = customerData.getPhoneNo();
+        if(phone != "0000000000") {
+          var current_pts = customerData.getPts();
+          var new_pts = parseInt(current_pts) + parseInt($scope.pts_earned);
+          console.log("Assigning new info for loyalty:");
+          console.log(phone, new_pts);
+          loyaltyDatabase.update_points(phone, new_pts);
+      }
+
+      alert("Payment received! Thanks for eating at Spaghetti Empire!");
+      window.location.href = "/spaghetti/public_html/";
+
+    }
   }
 
 });

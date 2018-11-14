@@ -19,9 +19,9 @@
              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                <div class="card-body">
                  <p> Tip Percentages </p>
-                 <p> 15%: {{tip_15 | currency:'$'}}</p>
-                 <p> 20%: {{tip_20 | currency:'$'}}</p>
-                 <p> 25%: {{tip_25 | currency:'$'}}</p>
+                 <p class="btn btn-page" ng-click="tip_amt = tip_15"> 15%: {{tip_15 | currency:'$'}}</p>
+                 <p class="btn btn-page" ng-click="tip_amt = tip_20"> 20%: {{tip_20 | currency:'$'}}</p>
+                 <p class="btn btn-page" ng-click="tip_amt = tip_25"> 25%: {{tip_25 | currency:'$'}}</p>
                 <div class="row justify-content-center align-items-center">
                   <div class="col-md-2">
                     <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt" type="text" placeholder="Tip" id="tipBar">
@@ -71,10 +71,6 @@
                                        <option value="21"> 2021</option>
                                    </select>
                                </div>
-
-                               <div class="form-group" id="pay-now">
-                                   <button type="submit" class="btn btn-default" id="confirm-purchase">Validate Card</button>
-                               </div>
                            </form>
                        </div>
                    </div>
@@ -88,7 +84,7 @@
                      </div>
 
                  <div class="row justify-content-center colalign-items-center">
-                    <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{parseFloat(bill) + parseFloat(tip_amt) | currency:'$'}}</h4></button>
+                    <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box, tip_amt)"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}} + {{tip_amt | currency:'$'}} tip</h4></button>
                  </div>
                  <p>You will earn {{pts_earned}} points for this purchase!</p>
              </div>
@@ -107,12 +103,12 @@
            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
              <div class="card-body">
               <p> Tip Percentages </p>
-              <p> 15%: {{tip_15 | currency:'$'}}</p>
-              <p> 20%: {{tip_20 | currency:'$'}}</p>
-              <p> 25%: {{tip_25 | currency:'$'}}</p>
+              <p class="btn btn-page" ng-click="tip_amt = tip_15"> 15%: {{tip_15 | currency:'$'}}</p>
+              <p class="btn btn-page" ng-click="tip_amt = tip_20"> 20%: {{tip_20 | currency:'$'}}</p>
+              <p class="btn btn-page" ng-click="tip_amt = tip_25"> 25%: {{tip_25 | currency:'$'}}</p>
              <div class="row justify-content-center align-items-center">
                <div class="col-md-2">
-                 <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt_cash" type="text" placeholder="Tip" id="tipBar">
+                 <input class="form-control form-control-lg mt-2" data-ng-model="tip_amt" type="text" placeholder="Tip" id="tipBar">
                </div>
              </div>
              <textarea data-ng-model="comment_box" class="form-control m-2" rows="3" placeholder="Comments (optional)"></textarea>
@@ -123,7 +119,7 @@
                  </label>
                </div>
              <div class="row justify-content-center colalign-items-center">
-               <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box)"><h4 class="text-center">Submit Payment of {{parseFloat(bill) + parseFloat(tip_amt) | currency:'$'}}</h4></button>
+               <button type="button" class="btn btn-select btn-block col-md-8" ng-click="sendOffToEverything(comment_box, tip_amt)"><h4 class="text-center">Submit Payment of {{bill | currency:'$'}} + {{tip_amt_cash | currency:'$'}} tip</h4></button>
              </div>
              <p>You will earn {{pts_earned}} points for this purchase!</p>
 
