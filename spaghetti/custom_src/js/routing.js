@@ -934,9 +934,14 @@ app.controller('your_orderController', function($scope, $route, $window, custome
 
   // Submits their order to their bill and clears their order
   $scope.orderPlaced = function() {
-    customerData.addToBill();
-    $route.reload();
-    $window.alert("Order Successfully Placed!");
+    if(customerData.getTableId() == 0) {
+      alert("Please set a Table ID in the top left and press 'Submit' before placing your order.");
+    }
+    else {
+      customerData.addToBill();
+      $route.reload();
+      $window.alert("Order Successfully Placed!");
+    }
   }
 });
 
