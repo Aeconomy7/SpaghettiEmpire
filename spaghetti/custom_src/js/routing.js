@@ -551,7 +551,10 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.orders = [];
   $scope.all_orders = [];
   $scope.currentDate = new Date().getDate();
+  console.log(currentDate);
   $scope.currentMonth = new Date().getMonth()+1;
+  console.log(currentMonth);
+
   // Date stuff
   var weekLower = $scope.currentDate - 3;
   var weekHigher = $scope.currentDate + 3;
@@ -569,7 +572,6 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
       }
   }
 
-  console.log($scope.orders);
 
   $scope.changeTab = function(tabName) {
     $scope.loadTab = tabName;
