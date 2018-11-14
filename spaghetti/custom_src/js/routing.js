@@ -918,7 +918,8 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount);
+    console.log('item_to_discount:');
+    console.log(item_to_discount);
     item_to_discount.price = disc_amt;
   }
 });
