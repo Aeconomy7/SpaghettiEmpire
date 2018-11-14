@@ -145,8 +145,10 @@ app.service('customerData', function(orderDatabase) {
         break;
       }
     }
-    if(index > -1)
+    if(index > -1) {
+      order_cost -= order_cart[i].price;
       order_cart.splice(index, 1);
+    }
   }
 
  function removeFromBill(selected_orders_cost) {
