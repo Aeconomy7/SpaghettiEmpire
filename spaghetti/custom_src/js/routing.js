@@ -549,6 +549,7 @@ app.controller('managerFeedController', function($scope, feedbackDatabase) {
 app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
   $scope.orders = [];
+  $scope.all_orders = [];
   $scope.currentDate = new Date().getDate();
   $scope.currentMonth = new Date().getMonth()+1;
   // Date stuff
