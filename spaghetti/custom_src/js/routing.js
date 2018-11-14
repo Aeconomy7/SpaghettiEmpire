@@ -548,17 +548,10 @@ app.controller('managerFeedController', function($scope, feedbackDatabase) {
 
 app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
-
+  $scope.orders = [];
   // Initialization
   orderDatabase.get_order_history().then(function(response) {
     $scope.all_orders = response;
-    $scope.currentDate = new Date().getDate();
-    $scope.currentMonth = new Date().getMonth()+1;
-    $scope.orders = [];
-
-    // Date stuff
-    var weekLower = $scope.currentDate - 3;
-    var weekHigher = $scope.currentDate + 3;
     $scope.loadTab = "daily";
     console.log($scope.loadTab);
     for(var i = 0; i < $scope.all_orders.length; i++) {
@@ -569,6 +562,13 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
     }
   });
 
+  $scope.currentDate = new Date().getDate();
+  $scope.currentMonth = new Date().getMonth()+1;
+  $scope.orders = [];
+
+  // Date stuff
+  var weekLower = $scope.currentDate - 3;
+  var weekHigher = $scope.currentDate + 3;
 
 
   $scope.changeTab = function(tabName) {
@@ -885,7 +885,7 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount.item_name);
+    console.log('item_to_discount:' + item_to_discount);
     item_to_discount.price = disc_amt;
   }
 });
