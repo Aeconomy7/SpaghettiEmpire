@@ -438,8 +438,35 @@ app.controller('managerMenuDeleteController', function($scope, menuDatabase) {
   }
 });
 
-app.controller('managerCompController', function($scope) {
+app.controller('managerCompController', function($scope, orderDatabase) {
   $scope.pageName = "Comp Order";
+  $scope.tables = 24;
+  $scope.orders = [];
+
+  // Specifies size of table for ng-repeat, only accepts arrays
+  $scope.getTableAmount = function () {
+    return new Array($scope.tables);
+  }
+
+  orderDatabase.get_active_orders().then(function(response) {
+    $scope.orders = response;
+  });
+
+  // Returns all items matching the table number (that are active) of ng-repeat inside comp.html
+  $scope.getOrderByTable = function(tableNum) {
+    var order = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum) {
+        order.push($scope.orders[i]);
+      }
+    }
+    return order;
+  }
+
+  $scope.compThisItem = function(name, phone_no, new_price) {
+    orderDatabase.update_price(name, phone_no, new_price);
+  }
+
 });
 
 app.controller('managerLoyaltyController', function($scope) {
