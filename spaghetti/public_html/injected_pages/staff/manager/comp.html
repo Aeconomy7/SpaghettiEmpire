@@ -7,7 +7,7 @@
          <div class="card-title"><h3>Table {{$index+1}}</h3></div>
          <div class="comp-div" ng-repeat="item in getOrderByTable($index+1) track by $index">
            <p>{{item.item_name}} - {{item.price | currency:'$'}}</p>
-           <button class="btn btn-comp mb-2" ng-click="compThisItem(item.item_name, item.phone_no, '0')">Comp Item</button>
+           <button class="btn btn-comp mb-2" ng-click="compThisItem(item.item_name, item.phone_no, item.price, '0')">Comp Item</button>
          </div>
       </div>
      </div>
