@@ -209,8 +209,18 @@ app.config(function($routeProvider, $locationProvider) {
 
 });
 
-app.controller('featuresController', function($scope) {
+app.controller('featuresController', function($scope, customerData) {
   $scope.pageName = "Features";
+  var d = new Date();
+  var hour = d.getHours();
+  if(hour == 17) {
+    customerData.setSpaghettiHour(true);
+    console.log(customerData.getSpaghettiHour());
+  }
+  else {
+    customerData.setSpaghettiHour(false);
+    console.log(customerData.getSpaghettiHour());
+  }
 });
 
 // Back button directive
@@ -1222,7 +1232,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
         else {
           console.log("No coupon code generated =[")
         }
-    
+
         alert("Payment received! Thanks for eating at Spaghetti Empire!");
         window.location.href = "/spaghetti/public_html/";
 

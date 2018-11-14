@@ -15,7 +15,7 @@ app.service('customerData', function(orderDatabase) {
   var my_tab = []; //push tab items here. Don't know how to create dynamically
   var usedCoupon = false;
   var usedLoyalty = false; //stores if they have redeemed a loyalty reward yet
-
+  var spaghettiHour = false;
 
   return {
     setTableId: setTableId,
@@ -40,7 +40,9 @@ app.service('customerData', function(orderDatabase) {
     setUsedCoupon: setUsedCoupon,
     getUsedCoupon: getUsedCoupon,
     setUsedLoyalty: setUsedLoyalty,
-    getUsedLoyalty: getUsedLoyalty
+    getUsedLoyalty: getUsedLoyalty,
+    setSpaghettiHour: setSpaghettiHour,
+    getSpaghettiHour: getSpaghettiHour
   };
 
   function setTableId(id) {
@@ -89,12 +91,11 @@ app.service('customerData', function(orderDatabase) {
   }
   // Adding an item to their order cart, not yet placed
   function addToCart(phone, id, name, floatPrice, type) {
+    if(getSpaghettiHour) {
+      floatPrice -= (floatPrice * .10);
+    }
     order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
-    console.log("order cost curr:");
-    console.log(order_cost);
-    console.log(floatPrice);
     order_cost += floatPrice;
-    console.log(order_cost);
   }
 
   // Returns items added to order
@@ -222,4 +223,11 @@ app.service('customerData', function(orderDatabase) {
    return usedLoyalty;
  }
 
+ function setSpaghettiHour(status) {
+   spaghettiHour = status;
+ }
+
+ function getSpaghettiHour(status) {
+   return spaghettiHour;
+ }
 })
