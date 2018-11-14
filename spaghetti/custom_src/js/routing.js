@@ -898,8 +898,8 @@ app.controller('loyaltyRedeemController', function($scope, customerData, discoun
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    console.log('item_to_discount:' + item_to_discount);
-    item_to_discount.price = disc_amt;
+    console.log('item_to_discount:' + item_to_discount.item_name);
+    item_to_discount.price = parseFloat(disc_amt);
   }
 });
 
@@ -1032,7 +1032,15 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 app.controller('your_billSplitController', function($scope, customerData, orderDatabase) {
   $scope.pageName = "Split Bill";
   $scope.bill_info = [];
+
+        /* uncomment and insert into bill_info above to test. hard code value for bill also. */
+      // {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 1", 'price': 12.50, 'type': "appetizer", 'active': "1"},
+      // {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 2", 'price': 8.50, 'type': "entree", 'active': "1"},
+      // {'phone_no': "0000000000", 'sid': 1, 'item_name': "Test Item 3", 'price': 9.50, 'type': "dessert", 'active': "1"}
+
   $scope.bill = 0.0;
+  $scope.my_tab = [];
+
   orderDatabase.get_active_orders().then(function(response) {
     $scope.tmp = response;
     for(var i = 0; i < $scope.tmp.length; i++) {
@@ -1043,6 +1051,7 @@ app.controller('your_billSplitController', function($scope, customerData, orderD
     }
   });
 
+
   $scope.hasSectionBill = function(section) {
     for(var i = 0; i < $scope.bill_info.length; i++) {
       if($scope.bill_info[i].type == section)
@@ -1051,11 +1060,17 @@ app.controller('your_billSplitController', function($scope, customerData, orderD
     return false;
   }
 
-
   $scope.RemoveItemFromBill = function(name) {
     console.log(name);
-    var index = $scope.bill_info.indexOf(name);
-    // $scope.bill_info.RemoveFromBill(""); TODO
-    customerData.removeFromCart(index);
+    var tb_item_cost = $scope.bill_info.find(x => x.item_name === name).price;
+    var remove_idx = $scope.bill_info.map(function(x) {return x.item_name; }).indexOf(name);
+    $scope.bill -= tb_item_cost;
+    $scope.my_tab = $scope.bill_info.splice(remove_idx, 1);
+
+    // customerData.RemoveFromBill(remove_idx);
+    // customerData.removeFromCart(tb_item_cost);
   }
+
+  //TODO: sending my_tab to payController.
+
 });

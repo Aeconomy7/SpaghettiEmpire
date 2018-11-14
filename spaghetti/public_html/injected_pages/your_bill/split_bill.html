@@ -15,9 +15,7 @@
              <div class="col-md-6">
                <!-- Add to order button unique to this item, ng-click removes it to the customer's cart on click.
                     Also have a separate onClick event to indicate the item was added. -->
-                    <h4 class="text-left col-md-6">
-                      {{item.name}}
-                    </h4>
+
                <button id='{{$index}}'class="btn btn-block btn-select"  ng-click="RemoveItemFromBill(x.item_name)">
                  Add to Tab
                </button>
@@ -35,9 +33,7 @@
              <div class="col-md-6">
                <!-- Add to order button unique to this item, ng-click removes it to the customer's cart on click.
                     Also have a separate onClick event to indicate the item was added. -->
-                    <h4 class="text-left col-md-6">
-                      {{item.name}}
-                    </h4>
+
                <button id='{{$index}}'class="btn btn-block btn-select" ng-click="RemoveItemFromBill(x.item_name)">
                  Add to Tab
                </button>
@@ -55,9 +51,7 @@
              <div class="col-md-6">
                <!-- Add to order button unique to this item, ng-click removes it to the customer's cart on click.
                     Also have a separate onClick event to indicatee item was added. -->
-                    <h4 class="text-left col-md-6">
-                      {{item.name}}
-                    </h4>
+
                <button id='{{$index}}'class="btn btn-block btn-select" ng-click="RemoveItemFromBill(x.item_name)">
                  Add to Tab
                </button>
@@ -75,9 +69,7 @@
              <div class="col-md-6">
                <!-- Add to order button unique to this item, ng-click adds it to the customer's cart on click.
                     Also have a separate onClick event to indicate the item was added. -->
-                    <h4 class="text-left col-md-6">
-                      {{item.name}}
-                    </h4>
+
                <button id='{{$index}}'class="btn btn-block btn-select" ng-click="RemoveItemFromBill(x.item_name)">
                  Add to Tab
                </button>
@@ -95,9 +87,7 @@
              <div class="col-md-6">
                <!-- Add to order button unique to this item, ng-click adds it to the customer's cart on click.
                     Also have a separate onClick event to indicate the item was added. -->
-                    <h4 class="text-left col-md-6">
-                      {{item.name}}
-                    </h4>
+                 
                <button id='{{$index}}'class="btn btn-block btn-select"  ng-click="RemoveItemFromBill(x.item_name)">
                  Add to Tab
                </button>
@@ -115,7 +105,7 @@
 
    <!-- JQuery script that indicates some success when item is added to order -->
    <script>
-    function removeItem(id) {
+    function RemoveItemFromBill(id) {
       $('#' + id).toggleClass("btn-added");
       setTimeout(function() {
         $('#' + id).toggleClass("btn-added");
