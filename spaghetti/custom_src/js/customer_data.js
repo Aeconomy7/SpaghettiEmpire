@@ -32,6 +32,7 @@ app.service('customerData', function(orderDatabase) {
     getRefills: getRefills,
     removeFromCart: removeFromCart,
     removeFromBill: removeFromBill,
+    removeFromYourOrder: removeFromYourOrder,
     customerHelp: customerHelp,
     getHelpRequests: getHelpRequests,
     getHighestItemofType: getHighestItemofType
@@ -134,6 +135,13 @@ app.service('customerData', function(orderDatabase) {
     var idx = order_cart.indexOf(index);
     orde_cart.delete(idx, 1);
 
+  }
+
+  function removeFromYourOrder(name) {
+    var index = order_cart.indexOf(name);
+    if(index > -1)
+      order_cart.splice(index, 1);
+    console.log(order_cart);
   }
 
  function removeFromBill(selected_orders_cost) {
