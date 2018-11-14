@@ -464,11 +464,16 @@ app.controller('managerCompController', function($scope, orderDatabase) {
   }
 
   $scope.compThisItem = function(name, phone_no, old_price, new_price) {
-    orderDatabase.update_price(name, phone_no, new_price);
-    var negative_price = parseFloat(old_price) * -1;
-    orderDatabase.insert_into_history("0000000000", negativePrice);
-    alert("Item comped.");
-    $route.reload();
+    if(parseFloat(old_price) == 0.0) {
+      alert("Item price is already $0.00.");
+    }
+    else {
+      orderDatabase.update_price(name, phone_no, new_price);
+      var negative_price = parseFloat(old_price) * -1;
+      orderDatabase.insert_into_history("0000000000", negative_price);
+      alert("Item comped.");
+      $route.reload();
+    }
   }
 
 });
