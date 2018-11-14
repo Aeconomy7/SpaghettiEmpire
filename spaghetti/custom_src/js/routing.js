@@ -1222,9 +1222,8 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
         else {
           console.log("No coupon code generated =[")
         }
-
-        var chargeAmount = (amt + tip_amt).toFixed(2);
-        alert("Payment of $" + chargeAmount + " received! Thanks for eating at Spaghetti Empire!");
+    
+        alert("Payment received! Thanks for eating at Spaghetti Empire!");
         window.location.href = "/spaghetti/public_html/";
 
       }
