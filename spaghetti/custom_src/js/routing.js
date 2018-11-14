@@ -549,6 +549,12 @@ app.controller('managerFeedController', function($scope, feedbackDatabase) {
 app.controller('managerFinancialController', function($scope, orderDatabase) {
   $scope.pageName = "Financial Data";
   $scope.orders = [];
+  $scope.currentDate = new Date().getDate();
+  $scope.currentMonth = new Date().getMonth()+1;
+  // Date stuff
+  var weekLower = $scope.currentDate - 3;
+  var weekHigher = $scope.currentDate + 3;
+
   // Initialization
   orderDatabase.get_order_history().then(function(response) {
     $scope.all_orders = response;
@@ -561,15 +567,6 @@ app.controller('managerFinancialController', function($scope, orderDatabase) {
         }
     }
   });
-
-  $scope.currentDate = new Date().getDate();
-  $scope.currentMonth = new Date().getMonth()+1;
-  $scope.orders = [];
-
-  // Date stuff
-  var weekLower = $scope.currentDate - 3;
-  var weekHigher = $scope.currentDate + 3;
-
 
   $scope.changeTab = function(tabName) {
     $scope.loadTab = tabName;
