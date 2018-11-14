@@ -1003,16 +1003,16 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
         $scope.bill += parseFloat($scope.tmp[i].price);
       }
     }
-    // Check if they have redeemed a coupon or not before so it is maintained if they accidentally left the page
-    if(customerData.getUsedCoupon()) {
-        $scope.bill -= ($scope.bill * .10);
-    }
-
-    // Calculate tip percentages and points earned
+    // Calculate tip percentages and points earned, before discounts
+    $scope.pts_earned = parseInt(10 * $scope.bill);
     $scope.tip_15 = $scope.bill * 0.15;
     $scope.tip_20 = $scope.bill * 0.20;
     $scope.tip_25 = $scope.bill * 0.25;
-    $scope.pts_earned = parseInt(10 * $scope.bill);
+
+    // Check if they have redeemed a coupon or not before so it is maintained if they accidentally left the page or added more items to their bill
+    if(customerData.getUsedCoupon()) {
+        $scope.bill -= ($scope.bill * .10);
+    }
   });
 
   // Toggle box for sending feedback to kitchen in addition to manager
@@ -1058,7 +1058,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
 
   // Submit payment and validate information
   $scope.sendOffToEverything = function(comment, tip_amt) {
-    if($scope.bill == 0.0) {
+    if($scope.bill_info.length == 0) {
       alert("You have not placed any orders.")
     }
     else {

@@ -417,7 +417,6 @@ app.service('couponDatabase', ['$http', function($http) {
 
   var delete_coupon = function(code) {
     var request;
-    console.log(managerOnly);
     request = $http.post("/spaghetti/custom_src/php/coupons_delete.php",
     {
       'name': code
