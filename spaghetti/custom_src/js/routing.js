@@ -937,17 +937,12 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       return;
     }
     var item_to_discount = customerData.getHighestItemofType(type_f);
-    if(typeof item_to_discount === 'undefined'){
-      alert('Unable to find an item to apply reward to! Please check \'Your Bill\'.');
-      return;
-    } else {
-      console.log('item_to_discount:' + item_to_discount);
-      item_to_discount.price = disc_amt;
-      orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
-      customerData.setPts(customerData.getPts()-pts_req);
-      alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
-      $route.reload();
-    }
+    console.log('item_to_discount:' + item_to_discount);
+    item_to_discount.price = disc_amt;
+    orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+    customerData.setPts(customerData.getPts()-pts_req);
+    alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
+    $route.reload();
   }
 });
 
@@ -1105,7 +1100,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
           alert("Card CVV cannot be left empty.");
           paymentInfoGood = false;
         }
-        else if($scope.card_number.length != 19) {
+        else if($scope.card_number.length < 16) {
           alert("Invalid card number entry.");
           paymentInfoGood = false;
         }
