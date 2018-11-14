@@ -947,8 +947,6 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
       $route.reload();
     }
-
-
   }
 });
 
