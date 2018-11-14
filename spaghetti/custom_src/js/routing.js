@@ -4,7 +4,7 @@ app.config(function($routeProvider, $locationProvider) {
     $routeProvider
 
     .when('/', {
-      templateUtl:
+      templateUrl:
       '/spaghetti/public_html/injected_pages/features.html',
       controller: 'featuresController'
     })

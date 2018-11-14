@@ -3,6 +3,7 @@ body{
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
+  height: 100%;
 }
 
 .tag-line {
@@ -29,7 +30,8 @@ body{
   border-color: #B01E16;
   font-size: 20px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 2%;
+  height: 18%;
   padding-top: 30px;
   padding-bottom: 30px;
 }
