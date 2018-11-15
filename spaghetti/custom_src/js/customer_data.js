@@ -91,7 +91,7 @@ app.service('customerData', function(orderDatabase) {
   }
   // Adding an item to their order cart, not yet placed
   function addToCart(phone, id, name, floatPrice, type) {
-    if(getSpaghettiHour) {
+    if(getSpaghettiHour()) {
       floatPrice -= (floatPrice * .10);
     }
     order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
