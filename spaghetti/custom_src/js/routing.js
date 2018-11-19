@@ -153,9 +153,9 @@ app.config(function($routeProvider, $locationProvider) {
                 controller: 'gamesTTTController'
               })
 
-              .when('/games/snake', {
-                templateUrl: '/spaghetti/public_html/injected_pages/games/snake.html',
-                controller: 'gamesSnakeController'
+              .when('/games/tetris', {
+                templateUrl: '/spaghetti/public_html/injected_pages/games/tetris.html',
+                controller: 'gamesTetrisController'
               })
 
       // Loyalty routing and its subpages
@@ -902,8 +902,8 @@ app.controller('gamesTTTController', function($scope) {
   $scope.pageName = "Tic-Tac-Toe";
 });
 
-app.controller('gamesSnakeController', function($scope) {
-  $scope.pageName = "Snake";
+app.controller('gamesTetrisController', function($scope) {
+  $scope.pageName = "Tetris";
 });
 
 /* Loyalty */
