@@ -1186,6 +1186,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       console.log('item_to_discount:' + item_to_discount);
       var original_price = parseFloat(item_to_discount.price);
       item_to_discount.price = disc_amt;
+      var savings = original_price-disc_amt;
       if(customerData.getForTakeout()) {
         takeoutOrderDatabase.update_takeout_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
       }
@@ -1195,7 +1196,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       customerData.setPts(customerData.getPts()-pts_req);
       loyaltyDatabase.update_points(item_to_discount.phone_no, customerData.getPts());
       customerData.setUsedLoyalty(true);
-      alert('Redeemed reward for ' + pts_req + ' loyalty points!\nItem discounted: ' + item_to_discount.item_name + '\nYou save: $' + original_price-parseFloat(disc_amt));
+      alert('Redeemed reward for ' + pts_req + ' loyalty points!\nItem discounted: ' + item_to_discount.item_name + '\nYou save: $' + savings);
       $route.reload();
     }
   }
