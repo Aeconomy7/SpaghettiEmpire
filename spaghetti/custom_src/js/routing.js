@@ -491,8 +491,8 @@ app.controller('managerCompController', function($scope, $route, orderDatabase, 
   $scope.getOrderByTable = function(tableNum) {
     var order = [];
     for(var i = 0; i < $scope.orders.length; i++) {
-      if($scope.orders[i].sid == tableNum) {
-        order.push($scope.orders[i]);
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type != 'drink') {
+        order.push($scope.orders[i].item_name);
       }
     }
     return order;
@@ -502,8 +502,8 @@ app.controller('managerCompController', function($scope, $route, orderDatabase, 
   $scope.getOrderByName = function(name) {
     var order = [];
     for(var i = 0; i < $scope.takeout_orders.length; i++) {
-      if($scope.takeout_orders[i].takeout_name == name) {
-        order.push($scope.takeout_orders[i]);
+      if($scope.takeout_orders[i].takeout_name == name && $scope.takeout_orders[i].type != 'drink') {
+        order.push($scope.takeout_orders[i].item_name);
       }
     }
     return order;
@@ -1184,6 +1184,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       return;
     } else {
       console.log('item_to_discount:' + item_to_discount);
+      var original_price = parseFloat(item_to_discount.price);
       item_to_discount.price = disc_amt;
       if(customerData.getForTakeout()) {
         takeoutOrderDatabase.update_takeout_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
@@ -1194,7 +1195,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       customerData.setPts(customerData.getPts()-pts_req);
       loyaltyDatabase.update_points(item_to_discount.phone_no, customerData.getPts());
       customerData.setUsedLoyalty(true);
-      alert('Redeemed reward for ' + pts_req + ' loyalty points! Item discounted: ' + item_to_discount.item_name);
+      alert('Redeemed reward for ' + pts_req + ' loyalty points!\nItem discounted: ' + item_to_discount.item_name + '\nYou save: $' + original_price-parseFloat(disc_amt));
       $route.reload();
     }
   }
