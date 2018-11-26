@@ -1,7 +1,46 @@
 <html lang="en-US">
   <body>
     <h1 class="text-center pageTitle">{{pageName}}</h1>
-    <div class="container mt-2">
+
+    <!-- Prompts for either takeout or in-house if the customer has not chosen yet -->
+    <div ng-show="!hasChosenOrderType()" class="container mt-2">
+      <div class="text-center mt-2 d-flex animated fadeIn">
+
+        <div class="card col-md-6 m-1">
+          <div class="card-title">
+            <h3>Order for Here</h3>
+          </div>
+          <div class="card-body">
+            Ready to experience the full Spaghetti Empire atmosphere and experience? Enter your table number (found on your table) and press the button to below to begin your journey.
+          </div>
+          <div>
+            <input type="text" placeholder="Enter table number here." name="name" data-ng-model="t_id" class="form-control mb-3" required />
+          </div>
+          <div class="card-footer">
+            <a class="btn btn-block btn-page" ng-click="orderTypeChosen('for_here', t_id)">Begin Ordering</a>
+          </div>
+        </div>
+
+        <div class="card col-md-6 m-1">
+          <div class="card-title">
+            <h3>Order To-Go</h3>
+          </div>
+          <div class="card-body">
+            Want to take some of our delicious spaghetti home? Simply enter a name for the order and press the button below!
+          </div>
+          <div>
+            <input type="text" placeholder="Enter the name for the order here." name="name" data-ng-model="t_name" class="form-control mb-3" required />
+          </div>
+          <div class="card-footer">
+            <a class="btn btn-block btn-page" ng-click="orderTypeChosen('takeout', t_name)">Begin To-Go Order</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Shows the menu options if the customer has chosen either takeout or in-house order -->
+    <div ng-show="hasChosenOrderType()" class="container mt-2">
       <div class="text-center mt-2 animated fadeIn">
         <a class="btn btn-block btn-page" href="/spaghetti/public_html/#/menu/appetizers"><h3>Appetizers</h3></a>
         <a class="btn btn-block btn-page" href="/spaghetti/public_html/#/menu/drinks"><h3>Drinks</h3></a>
@@ -10,5 +49,6 @@
         <a class="btn btn-block btn-page" href="/spaghetti/public_html/#/menu/kids_menu"><h3>Kid's Menu</h3></a>
       </div>
     </div>
+
   </body>
 </html>

@@ -796,8 +796,25 @@ app.controller('waitStaffRefillController', function($scope) {
 });
 
 /* Menu */
-app.controller('menuController', function($scope) {
+app.controller('menuController', function($scope, customerData) {
   $scope.pageName = "Menu";
+  $scope.t_id = '';
+  $scope.t_name = '';
+
+  $scope.hasChosenOrderType = function() {
+    return customerData.getChosenOrderType();
+  }
+
+  $scope.orderTypeChosen = function(order_type, identifier) {
+    if(order_type == 'takeout') {
+      customerData.setTakeoutName(identifier)
+      console.log(customerData.getTakeoutName());
+    }
+    else {
+      customerData.setTableId(identifier);
+      console.log(customerData.getTableId());
+    }
+  }
 });
 
 app.controller('menuAppetizersController', function($scope, customerData, menuDatabase) {

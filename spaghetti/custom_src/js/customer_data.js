@@ -3,6 +3,7 @@ var app = angular.module('customerModule', ['dbApp']);
 // Stores all data about a customer
 app.service('customerData', function(orderDatabase) {
   var tableId = 0;  // Eventually will be linked with session
+  var takeoutName = ""; // stores the name for the takeout order
   var phone_no = "0000000000"; //customer phone/loyalty id
   var pts = 0; //loyalty points
   var order_cart = []; // Stores items added but not placed yet
@@ -16,6 +17,8 @@ app.service('customerData', function(orderDatabase) {
   var usedCoupon = false;
   var usedLoyalty = false; //stores if they have redeemed a loyalty reward yet
   var spaghettiHour = false;
+  var forTakeout = false; // determines where to send orders/what options to give the customer
+  var chosenOrderType = false; // determines whether or not to prompt them for choosing if the order is for takeout or in-house
 
   return {
     setTableId: setTableId,
@@ -42,7 +45,13 @@ app.service('customerData', function(orderDatabase) {
     setUsedLoyalty: setUsedLoyalty,
     getUsedLoyalty: getUsedLoyalty,
     setSpaghettiHour: setSpaghettiHour,
-    getSpaghettiHour: getSpaghettiHour
+    getSpaghettiHour: getSpaghettiHour,
+    setForTakeout: setForTakeout,
+    getForTakeout: getForTakeout,
+    setChosenOrderType: setChosenOrderType,
+    getChosenOrderType: getChosenOrderType,
+    setTakeoutName: setTakeoutName,
+    getTakeoutName: getTakeoutName
   };
 
   function setTableId(id) {
@@ -55,6 +64,7 @@ app.service('customerData', function(orderDatabase) {
     }
     else {
       tableId = id;
+      setChosenOrderType(true);
       alert("Table ID Set! Your Table is: " + tableId);
     }
   }
@@ -229,5 +239,37 @@ app.service('customerData', function(orderDatabase) {
 
  function getSpaghettiHour(status) {
    return spaghettiHour;
+ }
+
+ function setForTakeout(status) {
+   forTakeout = status;
+ }
+
+ function getForTakeout() {
+   return forTakeout;
+ }
+
+ function setChosenOrderType(status) {
+   chosenOrderType = status;
+ }
+
+ function getChosenOrderType() {
+   return chosenOrderType;
+ }
+
+ function setTakeoutName(name) {
+   if(name.length == 0) {
+     alert("Please enter a name for the To-Go order and try again.");
+   }
+   else {
+     takeoutName = name;
+     setChosenOrderType(true);
+     setForTakeout(true);
+     alert("To-Go order started! The name is: " + takeoutName);
+   }
+ }
+
+ function getTakeoutName() {
+   return takeoutName;
  }
 })
