@@ -40,7 +40,7 @@
           <div class="row">
               <div class="col-md-3 block-align" ng-repeat="cust_name in takeout_order_names">
                 <button type="button" class="btn btn-outline-dark" ng-class="{'selected': getHelpByTable($index+1)}" id="{{cust_name}}" onclick="viewTableModal(this.id)">
-                  <div class="circle">
+                  <div>
                       <p>{{cust_name}}</p>
                   </div>
                 </button>
@@ -50,7 +50,7 @@
                     <span id="span{{cust_name}}" class="close">&times;</span>
                     <div class="modal-content card" >
                       <div class="card-body">
-                        <h3 class="text-center">Takeout Order for {{cust_name}} Information</h3>
+                        <h3 class="text-center">Takeout Order for {{cust_name}}</h3>
                         <div class="row" ng-repeat="item in getOrderByName(cust_name) track by $index">
                             <p class="float-left col-md-6">{{$index+1}}. {{item}}</p>
                             <input class="float-right col-md-6" type="checkbox" name="valuey" value=1></input><br>
@@ -65,7 +65,7 @@
         </div>
      </div>
    </div>
-   
+
    <!-- Generates the modal for a table when its clicked -->
    <script>
       function viewTableModal(t_id) {
