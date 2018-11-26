@@ -153,12 +153,12 @@ display: table-cell;
 
 .overflow-scroll {
   overflow-y: scroll;
-  height: 450px;
+  height: 400px;
 }
 
 .overflow-scroll-order {
   overflow-y: scroll;
-  height: 350px;
+  height: 325px;
 }
 
 .pageTitle {

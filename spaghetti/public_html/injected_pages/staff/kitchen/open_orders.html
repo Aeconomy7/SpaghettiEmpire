@@ -2,10 +2,18 @@
  <body>
    <h1 class="text-center pageTitle">{{pageName}}</h1>
    <div class="container mt-2">
-     <div class="overflow-scroll mt-2 animated fadeIn">
+     <div ng-show="showForHere()" class="overflow-scroll mt-2 animated fadeIn">
+       <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View Takeout Orders</a>
        <div class="card m-2 animated fadeIn col-md-3 d-inline-flex" ng-repeat="table in [].constructor(tables) track by $index" id="{{$index}}" onclick="changeStatus(this.id)">
          <div class="card-title"><h3>Table {{$index+1}}</h3></div>
          <p ng-repeat="item in getOrderByTable($index+1) track by $index">{{$index+1}}. {{item}}</p>
+      </div>
+     </div>
+     <div ng-show="!showForHere()" class="overflow-scroll mt-2 animated fadeIn">
+       <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View For-Here Orders</a>
+       <div class="card m-2 animated fadeIn col-md-3 d-inline-flex" ng-repeat="cust_name in takeout_order_names" id="{{$index}}" onclick="changeStatus(this.id)">
+         <div class="card-title"><h3>{{cust_name}}</h3></div>
+         <p ng-repeat="item in getOrderByName(cust_name) track by $index">{{$index+1}}. {{item}}</p>
       </div>
      </div>
    </div>

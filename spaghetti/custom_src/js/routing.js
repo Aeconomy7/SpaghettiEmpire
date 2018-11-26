@@ -723,18 +723,43 @@ app.controller('kitchenStaffFeedController', function($scope, feedbackDatabase) 
 
 });
 
-app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
+app.controller('kitchenStaffOrdersController', function($scope, orderDatabase, takeoutOrderDatabase) {
   $scope.pageName = "Open Orders";
   $scope.tables = 24;
   $scope.orders = [];
+  $scope.takeout_orders = [];
+  $scope.takeout_order_names = [];
+  $scope.forHereView = true;
 
   // Specifies size of table for ng-repeat, only accepts arrays
   $scope.getTableAmount = function () {
     return new Array($scope.tables);
   }
 
+  $scope.showForHere = function() {
+    return $scope.forHereView;
+  }
+
+  $scope.toggleTakeout = function() {
+    if($scope.forHereView) {
+      $scope.forHereView = false;
+    }
+    else {
+      $scope.forHereView = true;
+    }
+  }
+
   orderDatabase.get_active_orders().then(function(response) {
     $scope.orders = response;
+  });
+
+  takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
+    $scope.takeout_orders = response;
+    for(var i = 0; i < $scope.takeout_orders.length; i++) {
+      if($.inArray($scope.takeout_orders[i].takeout_name, $scope.takeout_order_names) == -1) {
+        $scope.takeout_order_names.push($scope.takeout_orders[i].takeout_name);
+      }
+    }
   });
 
   // Returns all non-drinks matching the table number of ng-repeat inside open_orders.html
@@ -743,6 +768,17 @@ app.controller('kitchenStaffOrdersController', function($scope, orderDatabase) {
     for(var i = 0; i < $scope.orders.length; i++) {
       if($scope.orders[i].sid == tableNum && $scope.orders[i].type != 'drink') {
         order.push($scope.orders[i].item_name);
+      }
+    }
+    return order;
+  }
+
+  // Returns the order matching the given name for a takeout order
+  $scope.getOrderByName = function(name) {
+    var order = [];
+    for(var i = 0; i < $scope.takeout_orders.length; i++) {
+      if($scope.takeout_orders[i].takeout_name == name && $scope.takeout_orders[i].type != 'drink') {
+        order.push($scope.takeout_orders[i].item_name);
       }
     }
     return order;
@@ -813,11 +849,17 @@ app.controller('menuController', function($scope, customerData) {
 
   $scope.orderTypeChosen = function(order_type, identifier) {
     if(order_type == 'takeout') {
-      customerData.setTakeoutName(identifier)
+      customerData.setTakeoutName(identifier);
+      if(customerData.getTakeoutName().length > 0) {
+        $scope.pageName = "Menu";
+      }
       console.log(customerData.getTakeoutName());
     }
     else {
       customerData.setTableId(identifier);
+      if(customerData.getTableId() != 0) {
+        $scope.pageName = "Menu";
+      }
       console.log(customerData.getTableId());
     }
   }
