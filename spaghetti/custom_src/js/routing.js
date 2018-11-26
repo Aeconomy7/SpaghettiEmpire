@@ -1066,7 +1066,12 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
     } else {
       console.log('item_to_discount:' + item_to_discount);
       item_to_discount.price = disc_amt;
-      orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+      if(customerData.getForTakeout()) {
+        takeoutOrderDatabase.update_takeout_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+      }
+      else {
+        orderDatabase.update_ordered_item_price(item_to_discount.item_name, item_to_discount.phone_no, parseFloat(disc_amt));
+      }
       customerData.setPts(customerData.getPts()-pts_req);
       loyaltyDatabase.update_points(item_to_discount.phone_no, customerData.getPts());
       customerData.setUsedLoyalty(true);
@@ -1166,6 +1171,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.card_owner = "";
   $scope.card_cvv = "";
   $scope.card_number = "";
+  $scope.coupon_code = "";
 
   if(customerData.getForTakeout()) {
     takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
@@ -1228,19 +1234,18 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   }
 
   // Redeem a coupon code
-  $scope.redeemCoupon = function(code) {
-    // Make sure they haven't redeemed a 10% already
-    if(customerData.getUsedCoupon()) {
-      $scope.couponMsg = "You have already applied a coupon to this order.";
-    }
+  $scope.redeemCoupon = function() {
     // Check for empty coupon codes
-    else if(code.length == 0) {
+    if($scope.coupon_code.length == 0) {
       $scope.couponMsg = "Please enter a coupon code and try again.";
     }
-
+    // Make sure they haven't redeemed a 10% already
+    else if(customerData.getUsedCoupon()) {
+      $scope.couponMsg = "You have already applied a coupon to this order.";
+    }
     // Check if coupon code is valid, apply if it is and delete it from the database. Otherwise inform them coupon is not valid
     else {
-      couponDatabase.get_coupons(code).then(function(response) {
+      couponDatabase.get_coupons($scope.coupon_code).then(function(response) {
         if(typeof response == "undefined") {
           $scope.couponMsg = "Coupon code does not exist!";
         }
@@ -1250,7 +1255,7 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
           customerData.setUsedCoupon(true);
           // Delete code from coupon database since it has been redeemed, always keep SPAHGET01 for testing purposes
           if(code != "SPAGHET01") {
-            couponDatabase.delete_coupon(code);
+            couponDatabase.delete_coupon($scope.coupon_code);
           }
         }
       });
