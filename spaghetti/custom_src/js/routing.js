@@ -1196,7 +1196,7 @@ app.controller('loyaltyRedeemController', function($scope, $route, customerData,
       customerData.setPts(customerData.getPts()-pts_req);
       loyaltyDatabase.update_points(item_to_discount.phone_no, customerData.getPts());
       customerData.setUsedLoyalty(true);
-      alert('Redeemed reward for ' + pts_req + ' loyalty points!\nItem discounted: ' + item_to_discount.item_name + '\nYou save: $' + savings);
+      alert('Redeemed reward for ' + pts_req + ' loyalty points!\nItem discounted: ' + item_to_discount.item_name + '\nYou save: $' + savings.toFixed(2));
       $route.reload();
     }
   }
