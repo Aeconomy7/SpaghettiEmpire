@@ -2,10 +2,21 @@
  <body>
    <h1 class="text-center pageTitle">{{pageName}}</h1>
    <div class="container mt-2">
-     <div class="overflow-scroll mt-2 animated fadeIn">
+     <div ng-show="showForHere()" class="overflow-scroll mt-2 animated fadeIn">
+       <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View Takeout Orders</a>
        <div class="card m-2 animated fadeIn col-md-5 d-inline-flex" ng-repeat="table in [].constructor(tables) track by $index" id="{{$index}}">
          <div class="card-title"><h3>Table {{$index+1}}</h3></div>
          <div class="comp-div" ng-repeat="item in getOrderByTable($index+1) track by $index">
+           <p>{{item.item_name}} - {{item.price | currency:'$'}}</p>
+           <button class="btn btn-comp mb-2" ng-click="compThisItem(item.item_name, item.phone_no, item.price, '0')">Comp Item</button>
+         </div>
+      </div>
+     </div>
+     <div ng-show="!showForHere()" class="overflow-scroll mt-2 animated fadeIn">
+       <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View For-Here Orders</a>
+       <div class="card m-2 animated fadeIn col-md-3 d-inline-flex" ng-repeat="cust_name in takeout_order_names" id="{{cust_name}}">
+         <div class="card-title"><h3>{{cust_name}}</h3></div>
+         <div class="comp-div" ng-repeat="item in getOrderByName(cust_name) track by $index">
            <p>{{item.item_name}} - {{item.price | currency:'$'}}</p>
            <button class="btn btn-comp mb-2" ng-click="compThisItem(item.item_name, item.phone_no, item.price, '0')">Comp Item</button>
          </div>

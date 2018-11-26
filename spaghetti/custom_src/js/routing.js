@@ -448,26 +448,62 @@ app.controller('managerMenuDeleteController', function($scope, menuDatabase) {
   }
 });
 
-app.controller('managerCompController', function($scope, $route, orderDatabase) {
+app.controller('managerCompController', function($scope, $route, orderDatabase, takeoutOrderDatabase) {
   $scope.pageName = "Comp Order";
   $scope.tables = 24;
   $scope.orders = [];
+  $scope.takeout_orders = [];
+  $scope.takeout_order_names = [];
+  $scope.forHereView = true;
 
   // Specifies size of table for ng-repeat, only accepts arrays
   $scope.getTableAmount = function () {
     return new Array($scope.tables);
   }
 
+  $scope.showForHere = function() {
+    return $scope.forHereView;
+  }
+
+  $scope.toggleTakeout = function() {
+    if($scope.forHereView) {
+      $scope.forHereView = false;
+    }
+    else {
+      $scope.forHereView = true;
+    }
+  }
+
   orderDatabase.get_active_orders().then(function(response) {
     $scope.orders = response;
   });
 
-  // Returns all items matching the table number (that are active) of ng-repeat inside comp.html
+  takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
+    $scope.takeout_orders = response;
+    for(var i = 0; i < $scope.takeout_orders.length; i++) {
+      if($.inArray($scope.takeout_orders[i].takeout_name, $scope.takeout_order_names) == -1) {
+        $scope.takeout_order_names.push($scope.takeout_orders[i].takeout_name);
+      }
+    }
+  });
+
+  // Returns all non-drinks matching the table number of ng-repeat inside open_orders.html
   $scope.getOrderByTable = function(tableNum) {
     var order = [];
     for(var i = 0; i < $scope.orders.length; i++) {
-      if($scope.orders[i].sid == tableNum) {
-        order.push($scope.orders[i]);
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type != 'drink') {
+        order.push($scope.orders[i].item_name);
+      }
+    }
+    return order;
+  }
+
+  // Returns the order matching the given name for a takeout order
+  $scope.getOrderByName = function(name) {
+    var order = [];
+    for(var i = 0; i < $scope.takeout_orders.length; i++) {
+      if($scope.takeout_orders[i].takeout_name == name && $scope.takeout_orders[i].type != 'drink') {
+        order.push($scope.takeout_orders[i].item_name);
       }
     }
     return order;
@@ -478,7 +514,13 @@ app.controller('managerCompController', function($scope, $route, orderDatabase) 
       alert("Item price is already $0.00.");
     }
     else {
-      orderDatabase.update_price(name, phone_no, new_price);
+      if($scope.forHereView) {
+        orderDatabase.update_price(name, phone_no, new_price);
+      }
+      else {
+        takeoutOrderDatabase.update_takeout_price(name, phone_no, new_price);
+      }
+
       var negative_price = parseFloat(old_price) * -1;
       orderDatabase.insert_into_history("0000000000", negative_price);
       alert("Item comped.");
@@ -787,35 +829,70 @@ app.controller('kitchenStaffOrdersController', function($scope, orderDatabase, t
 });
 
 /* Waitstaff */
-app.controller('waitStaffController', function($scope, orderDatabase, customerData) {
+app.controller('waitStaffController', function($scope, orderDatabase, takeoutOrderDatabase, customerData) {
   $scope.pageName = "Wait Staff";
   $scope.tables = 24;
   $scope.orders = [];
+  $scope.takeout_orders = [];
+  $scope.takeout_order_names = [];
+  $scope.forHereView = true;
 
   // Specifies size of table for ng-repeat, only accepts arrays
   $scope.getTableAmount = function () {
     return new Array($scope.tables);
   }
 
+  $scope.showForHere = function() {
+    return $scope.forHereView;
+  }
+
+  $scope.toggleTakeout = function() {
+    if($scope.forHereView) {
+      $scope.forHereView = false;
+    }
+    else {
+      $scope.forHereView = true;
+    }
+  }
+
   orderDatabase.get_active_orders().then(function(response) {
     $scope.orders = response;
   });
 
-  // Returns all drinks matching the table number of ng-repeat inside waitstaff.html
-  $scope.getDrinksByTable = function(tableNum) {
-    var drinks = [];
-    for(var i = 0; i < $scope.orders.length; i++) {
-      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
-        drinks.push($scope.orders[i].item_name);
+  takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
+    $scope.takeout_orders = response;
+    for(var i = 0; i < $scope.takeout_orders.length; i++) {
+      if($.inArray($scope.takeout_orders[i].takeout_name, $scope.takeout_order_names) == -1) {
+        $scope.takeout_order_names.push($scope.takeout_orders[i].takeout_name);
       }
     }
-    return drinks;
+  });
+
+  // Returns all drinks matching a table number
+  $scope.getOrderByTable = function(tableNum) {
+    var order = [];
+    for(var i = 0; i < $scope.orders.length; i++) {
+      if($scope.orders[i].sid == tableNum && $scope.orders[i].type == 'drink') {
+        order.push($scope.orders[i].item_name);
+      }
+    }
+    return order;
+  }
+
+  // Returns the order matching the given name for a takeout order
+  $scope.getOrderByName = function(name) {
+    var order = [];
+    for(var i = 0; i < $scope.takeout_orders.length; i++) {
+      if($scope.takeout_orders[i].takeout_name == name && $scope.takeout_orders[i].type == 'drink') {
+        order.push($scope.takeout_orders[i].item_name);
+      }
+    }
+    return order;
   }
 
   // Returns all help requests matching the table number of ng-repeat inside waitstaff.html
   $scope.getHelpByTable = function(tableNum) {
     var help = customerData.getHelpRequests();
-    console.log(tableNum);
     for(var i = 0; i < help.length; i++) {
       console.log("id= " + help[i].ID + " and needsHelp = " + help[i].needsHelp);
       if(help[i].ID == tableNum && help[i].needsHelp == true) {

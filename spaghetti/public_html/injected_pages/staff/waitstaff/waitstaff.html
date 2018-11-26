@@ -2,20 +2,9 @@
  <body>
    <h1 class="text-center pageTitle">{{pageName}} Dashboard</h1>
    <div class="container mt-2">
-     <div class="justify-content-center text-center col-md-12 mt-2 animated fadeIn">
-
-       <!--This container is going to fit our refill and help request stuff
-       <div class="container">
-         <div class="row">
-           <div class="col">
-             <p align="center">Refill Request Help Request</p>
-           </div>
-         </div>
-       </div>-->
-
-    <button class="btn btn-page" id="myBtn">Refill Request</button>
-     <a class="btn btn-page" href="/spaghetti/public_html/#/staff/waitstaff/refills">Help Requests</a>
-
+     <!-- Orders for here -->
+     <div ng-show="showForHere()" class="justify-content-center text-center col-md-12 mt-2 animated fadeIn overflow-scroll">
+       <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View Takeout Orders</a>
        <!-- This container holds all 24 tables and whatnot -->
        <div class="container">
           <div class="row">
@@ -32,8 +21,38 @@
                     <div class="modal-content card" >
                       <div class="card-body">
                         <h3 class="text-center">Table {{$index+1}} Information</h3>
-                        <div class="row" ng-repeat="item in getDrinksByTable($index+1) track by $index">
+                        <div class="row" ng-repeat="item in getOrderByTable($index+1) track by $index">
                             <p class="float-left col-md-6">{{item}}</p>
+                            <input class="float-right col-md-6" type="checkbox" name="valuey" value=1></input><br>
+                            <div style="clear: both;"></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+     </div>
+     <!-- Orders for To-Go -->
+     <div ng-show="!showForHere()" class="justify-content-center text-center col-md-12 mt-2 animated fadeIn overflow-scroll">
+       <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View For-Here Orders</a>
+       <div class="container">
+          <div class="row">
+              <div class="col-md-3 block-align" ng-repeat="cust_name in takeout_order_names">
+                <button type="button" class="btn btn-outline-dark" ng-class="{'selected': getHelpByTable($index+1)}" id="{{cust_name}}" onclick="viewTableModal(this.id)">
+                  <div class="circle">
+                      <p>{{cust_name}}</p>
+                  </div>
+                </button>
+                <!-- The Modal for each table -->
+                <div id="myModal{{cust_name}}" class="modal row">
+                    <!-- Modal content -->
+                    <span id="span{{cust_name}}" class="close">&times;</span>
+                    <div class="modal-content card" >
+                      <div class="card-body">
+                        <h3 class="text-center">Takeout Order for {{cust_name}} Information</h3>
+                        <div class="row" ng-repeat="item in getOrderByName(cust_name) track by $index">
+                            <p class="float-left col-md-6">{{$index+1}}. {{item}}</p>
                             <input class="float-right col-md-6" type="checkbox" name="valuey" value=1></input><br>
                             <div style="clear: both;"></div>
                         </div>
@@ -44,9 +63,9 @@
 
           </div>
         </div>
-
      </div>
    </div>
+   
    <!-- Generates the modal for a table when its clicked -->
    <script>
       function viewTableModal(t_id) {

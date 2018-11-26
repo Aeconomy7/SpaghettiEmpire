@@ -11,7 +11,7 @@
      </div>
      <div ng-show="!showForHere()" class="overflow-scroll mt-2 animated fadeIn">
        <a class="btn col-md-10 btn-page" ng-click="toggleTakeout()">View For-Here Orders</a>
-       <div class="card m-2 animated fadeIn col-md-3 d-inline-flex" ng-repeat="cust_name in takeout_order_names" id="{{$index}}" onclick="changeStatus(this.id)">
+       <div class="card m-2 animated fadeIn col-md-3 d-inline-flex" ng-repeat="cust_name in takeout_order_names" id="{{cust_name}}" onclick="changeStatus(this.id)">
          <div class="card-title"><h3>{{cust_name}}</h3></div>
          <p ng-repeat="item in getOrderByName(cust_name) track by $index">{{$index+1}}. {{item}}</p>
       </div>
