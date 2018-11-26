@@ -18,7 +18,8 @@
     $outp .= '"price":"' . $rs["price"] . '",';
     $outp .= '"description":"' . $rs["description"] . '",';
     $outp .= '"ingredients":"' . $rs["ingredients"] . '",';
-    $outp .= '"img_path":"' . $rs["img_path"] . '"}';
+    $outp .= '"img_path":"' . $rs["img_path"] . '",';
+    $outp .= '"iotd":"' . $rs["iotd"] . '"}';
   }
 
   $outp = '{"records":['.$outp.']}';
