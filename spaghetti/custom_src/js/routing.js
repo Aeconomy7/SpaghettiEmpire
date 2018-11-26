@@ -492,7 +492,7 @@ app.controller('managerCompController', function($scope, $route, orderDatabase, 
     var order = [];
     for(var i = 0; i < $scope.orders.length; i++) {
       if($scope.orders[i].sid == tableNum) {
-        order.push($scope.orders[i].item_name);
+        order.push($scope.orders[i]);
       }
     }
     return order;
@@ -503,7 +503,7 @@ app.controller('managerCompController', function($scope, $route, orderDatabase, 
     var order = [];
     for(var i = 0; i < $scope.takeout_orders.length; i++) {
       if($scope.takeout_orders[i].takeout_name == name) {
-        order.push($scope.takeout_orders[i].item_name);
+        order.push($scope.takeout_orders[i]);
       }
     }
     return order;
