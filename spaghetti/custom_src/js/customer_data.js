@@ -1,7 +1,7 @@
 var app = angular.module('customerModule', ['dbApp']);
 
 // Stores all data about a customer
-app.service('customerData', function(orderDatabase) {
+app.service('customerData', function(orderDatabase, takeoutOrderDatabase) {
   var tableId = 0;  // Eventually will be linked with session
   var takeoutName = ""; // stores the name for the takeout order
   var phone_no = "0000000000"; //customer phone/loyalty id
@@ -85,7 +85,12 @@ app.service('customerData', function(orderDatabase) {
         order_overall[i].phone_no = phone_no;
       }
     }
-    orderDatabase.update_phone("0000000000", phone_no, tableId);
+    if(getForTakeout()) {
+      takeoutOrderDatabase.update_takeout_phone("0000000000", phone_no, getTakeoutName());
+    }
+    else {
+      orderDatabase.update_phone("0000000000", phone_no, tableId);
+    }
   }
 
   function getPhoneNo() {
@@ -104,7 +109,13 @@ app.service('customerData', function(orderDatabase) {
     if(getSpaghettiHour()) {
       floatPrice -= (floatPrice * .10);
     }
-    order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
+    // Add it with either takeout_name field or sid field depending on the type of order
+    if(getForTakeout()) {
+      order_cart.push({'phone_no': phone, 'takeout_name': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
+    }
+    else {
+      order_cart.push({'phone_no': phone, 'sid': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
+    }
     order_cost += floatPrice;
   }
 
@@ -120,7 +131,13 @@ app.service('customerData', function(orderDatabase) {
 
   // Submits items from cart to their total bill and clears cart
   function addToBill() {
-    orderDatabase.push_order(order_cart);
+    if(getForTakeout()) {
+      takeoutOrderDatabase.push_takeout_order(order_cart);
+    }
+    else {
+      orderDatabase.push_order(order_cart);
+    }
+
     order_overall = order_overall.concat(order_cart);
     final_bill += order_cost;
     order_cart = [];
@@ -131,16 +148,30 @@ app.service('customerData', function(orderDatabase) {
   function getOrderOverall() {
     order_overall = [];
     final_bill = 0.0;
-    var tmp = orderDatabase.get_active_orders().then(function(response) {
-      for(var i = 0; i < tmp.length; i++) {
-        if(tmp[i].sid == tableId && tmp[i].phone_no == phone_no) {
-          order_overall.concat(tmp[i]);
-          final_bill += tmp[i].price;
+    if(getForTakeout()) {
+      var tmp = takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
+        for(var i = 0; i < tmp.length; i++) {
+          if(tmp[i].takeout_name == takeoutName && tmp[i].phone_no == phone_no) {
+            order_overall.concat(tmp[i]);
+            final_bill += tmp[i].price;
+          }
         }
-      }
-      console.log(order_overall);
-      return order_overall;
-    });
+        console.log(order_overall);
+        return order_overall;
+      });
+    }
+    else {
+      var tmp = orderDatabase.get_active_orders().then(function(response) {
+        for(var i = 0; i < tmp.length; i++) {
+          if(tmp[i].sid == tableId && tmp[i].phone_no == phone_no) {
+            order_overall.concat(tmp[i]);
+            final_bill += tmp[i].price;
+          }
+        }
+        console.log(order_overall);
+        return order_overall;
+      });
+    }
   }
 
   // Returns payment amount due
@@ -237,7 +268,7 @@ app.service('customerData', function(orderDatabase) {
    spaghettiHour = status;
  }
 
- function getSpaghettiHour(status) {
+ function getSpaghettiHour() {
    return spaghettiHour;
  }
 

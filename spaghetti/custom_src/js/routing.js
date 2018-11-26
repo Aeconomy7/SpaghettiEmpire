@@ -797,7 +797,13 @@ app.controller('waitStaffRefillController', function($scope) {
 
 /* Menu */
 app.controller('menuController', function($scope, customerData) {
-  $scope.pageName = "Menu";
+  if(customerData.getChosenOrderType()) {
+    $scope.pageName = "Menu";
+  }
+  else {
+    $scope.pageName = "Select Order Type";
+  }
+
   $scope.t_id = '';
   $scope.t_name = '';
 
@@ -827,12 +833,17 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    if(customerData.getTableId() == 0) {
-      alert("Please set a Table ID in the top left and press 'Submit' before placing your order.");
+    // Add it to cart with either their takeout name or table number
+    // For takeout
+    if(customerData.getForTakeout()) {
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
     }
-    else
+    // For here
+    else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+    }
   }
+
 });
 
 app.controller('menuDrinksController', function($scope, customerData, menuDatabase) {
@@ -844,11 +855,15 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    if(customerData.getTableId() == 0) {
-      alert("Please set a Table ID in the top left and press 'Submit' before placing your order.");
+    // Add it to cart with either their takeout name or table number
+    // For takeout
+    if(customerData.getForTakeout()) {
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
     }
-    else
+    // For here
+    else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+    }
   }
 });
 
@@ -860,11 +875,15 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
   });
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    if(customerData.getTableId() == 0) {
-      alert("Please set a Table ID in the top left and press 'Submit' before placing your order.");
+    // Add it to cart with either their takeout name or table number
+    // For takeout
+    if(customerData.getForTakeout()) {
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
     }
-    else
+    // For here
+    else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+    }
   }
 });
 
@@ -877,11 +896,15 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    if(customerData.getTableId() == 0) {
-      alert("Please set a Table ID in the top left and press 'Submit' before placing your order.");
+    // Add it to cart with either their takeout name or table number
+    // For takeout
+    if(customerData.getForTakeout()) {
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
     }
-    else
+    // For here
+    else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+    }
   }
 });
 
@@ -894,11 +917,15 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
 
   $scope.add = function(name, price, type) {
     var floatPrice = parseFloat(price);
-    if(customerData.getTableId() == 0) {
-      alert("Please set a Table ID in the top left and press 'Submit' before placing your order.");
+    // Add it to cart with either their takeout name or table number
+    // For takeout
+    if(customerData.getForTakeout()) {
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
     }
-    else
+    // For here
+    else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+    }
   }
 });
 
@@ -1088,19 +1115,34 @@ app.controller('your_orderController', function($scope, $route, $window, custome
 
 
 /* Your Bill */
-app.controller('your_billController', function($scope, customerData, orderDatabase) {
+app.controller('your_billController', function($scope, customerData, orderDatabase, takeoutOrderDatabase) {
   $scope.pageName = "Your Bill";
   $scope.bill_info = [];
   $scope.bill = 0.0;
-  orderDatabase.get_active_orders().then(function(response) {
-    $scope.tmp = response;
-    for(var i = 0; i < $scope.tmp.length; i++) {
-      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
-        $scope.bill_info.push($scope.tmp[i]);
-        $scope.bill += parseFloat($scope.tmp[i].price);
+
+  if(customerData.getForTakeout()) {
+    takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
+      $scope.tmp = response;
+      for(var i = 0; i < $scope.tmp.length; i++) {
+        if($scope.tmp[i].takeout_name == customerData.getTakeoutName() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+          $scope.bill_info.push($scope.tmp[i]);
+          $scope.bill += parseFloat($scope.tmp[i].price);
+        }
       }
-    }
-  });
+    });
+  }
+
+  else {
+    orderDatabase.get_active_orders().then(function(response) {
+      $scope.tmp = response;
+      for(var i = 0; i < $scope.tmp.length; i++) {
+        if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+          $scope.bill_info.push($scope.tmp[i]);
+          $scope.bill += parseFloat($scope.tmp[i].price);
+        }
+      }
+    });
+  }
 
   // Only print section headers if they have items from that section (appetizers/drinks/etc)
   $scope.hasSectionBill = function(section) {
@@ -1113,7 +1155,7 @@ app.controller('your_billController', function($scope, customerData, orderDataba
 });
 
 
-app.controller('your_billPayController', function($scope, customerData, orderDatabase, feedbackDatabase, loyaltyDatabase, couponDatabase) {
+app.controller('your_billPayController', function($scope, customerData, orderDatabase, takeoutOrderDatabase, feedbackDatabase, loyaltyDatabase, couponDatabase) {
   $scope.pageName = "Pay";
   $scope.bill_info = [];
   $scope.bill = 0.0;
@@ -1125,25 +1167,49 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
   $scope.card_cvv = "";
   $scope.card_number = "";
 
-  orderDatabase.get_active_orders().then(function(response) {
-    $scope.tmp = response;
-    for(var i = 0; i < $scope.tmp.length; i++) {
-      if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
-        $scope.bill_info.push($scope.tmp[i]);
-        $scope.bill += parseFloat($scope.tmp[i].price);
+  if(customerData.getForTakeout()) {
+    takeoutOrderDatabase.get_active_takeout_orders().then(function(response) {
+      $scope.tmp = response;
+      for(var i = 0; i < $scope.tmp.length; i++) {
+        if($scope.tmp[i].takeout_name == customerData.getTakeoutName() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+          $scope.bill_info.push($scope.tmp[i]);
+          $scope.bill += parseFloat($scope.tmp[i].price);
+        }
       }
-    }
-    // Calculate tip percentages and points earned, before discounts
-    $scope.pts_earned = parseInt(10 * $scope.bill);
-    $scope.tip_15 = $scope.bill * 0.15;
-    $scope.tip_20 = $scope.bill * 0.20;
-    $scope.tip_25 = $scope.bill * 0.25;
+      // Calculate tip percentages and points earned, before discounts
+      $scope.pts_earned = parseInt(10 * $scope.bill);
+      $scope.tip_15 = $scope.bill * 0.15;
+      $scope.tip_20 = $scope.bill * 0.20;
+      $scope.tip_25 = $scope.bill * 0.25;
 
-    // Check if they have redeemed a coupon or not before so it is maintained if they accidentally left the page or added more items to their bill
-    if(customerData.getUsedCoupon()) {
+      // Check if they have redeemed a coupon or not before so it is maintained if they accidentally left the page or added more items to their bill
+      if(customerData.getUsedCoupon()) {
         $scope.bill -= ($scope.bill * .10);
-    }
-  });
+      }
+    });
+  }
+
+  else {
+    orderDatabase.get_active_orders().then(function(response) {
+      $scope.tmp = response;
+      for(var i = 0; i < $scope.tmp.length; i++) {
+        if($scope.tmp[i].sid == customerData.getTableId() && $scope.tmp[i].phone_no == customerData.getPhoneNo()) {
+          $scope.bill_info.push($scope.tmp[i]);
+          $scope.bill += parseFloat($scope.tmp[i].price);
+        }
+      }
+      // Calculate tip percentages and points earned, before discounts
+      $scope.pts_earned = parseInt(10 * $scope.bill);
+      $scope.tip_15 = $scope.bill * 0.15;
+      $scope.tip_20 = $scope.bill * 0.20;
+      $scope.tip_25 = $scope.bill * 0.25;
+
+      // Check if they have redeemed a coupon or not before so it is maintained if they accidentally left the page or added more items to their bill
+      if(customerData.getUsedCoupon()) {
+        $scope.bill -= ($scope.bill * .10);
+      }
+    });
+  }
 
   // Toggle box for sending feedback to kitchen in addition to manager
   $scope.feedbackKitchen = function() {
@@ -1167,21 +1233,26 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
     if(customerData.getUsedCoupon()) {
       $scope.couponMsg = "You have already applied a coupon to this order.";
     }
+    // Check for empty coupon codes
+    else if(code.length == 0) {
+      $scope.couponMsg = "Please enter a coupon code and try again.";
+    }
+
     // Check if coupon code is valid, apply if it is and delete it from the database. Otherwise inform them coupon is not valid
     else {
       couponDatabase.get_coupons(code).then(function(response) {
-          if(typeof response == "undefined") {
-            $scope.couponMsg = "Coupon code does not exist!";
+        if(typeof response == "undefined") {
+          $scope.couponMsg = "Coupon code does not exist!";
+        }
+        else {
+          $scope.bill -= ($scope.bill * .10);
+          $scope.couponMsg = "Coupon code is valid! 10% off order has been applied. New total: $" + $scope.bill.toFixed(2);
+          customerData.setUsedCoupon(true);
+          // Delete code from coupon database since it has been redeemed, always keep SPAHGET01 for testing purposes
+          if(code != "SPAGHET01") {
+            couponDatabase.delete_coupon(code);
           }
-          else {
-            $scope.bill -= ($scope.bill * .10);
-            $scope.couponMsg = "Coupon code is valid! 10% off order has been applied. New total: $" + $scope.bill.toFixed(2);
-            customerData.setUsedCoupon(true);
-            // Delete code from coupon database since it has been redeemed, always keep SPAHGET01 for testing purposes
-            if(code != "SPAGHET01") {
-              couponDatabase.delete_coupon(code);
-            }
-          }
+        }
       });
     }
   }
@@ -1220,7 +1291,12 @@ app.controller('your_billPayController', function($scope, customerData, orderDat
         }
 
         // mark items off as inactive
-        orderDatabase.update_active_orders(customerData.getTableId());
+        if(customerData.getForTakeout()) {
+          takeoutOrderDatabase.update_active_takeout_orders(customerData.getTakeoutName());
+        }
+        else {
+          orderDatabase.update_active_orders(customerData.getTableId());
+        }
         // send to order history
         var phone = customerData.getPhoneNo();
         var amt = $scope.bill;

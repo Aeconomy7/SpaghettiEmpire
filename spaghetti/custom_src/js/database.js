@@ -231,6 +231,114 @@ app.service('orderDatabase', ['$http', function($http) {
 
 }]);
 
+app.service('takeoutOrderDatabase', ['$http', function($http) {
+
+  var result;
+  var items = [];
+
+  // Adds a takeout order to the database
+  var push_takeout_order = function(cart) {
+    // (phone_no, sid, item_name, price, active)
+    console.log(cart);
+    var request;
+
+    for(var i = 0; i < cart.length; i++) {
+      request = $http.post("/spaghetti/custom_src/php/takeout_items_insert.php",
+        {
+          'phone_no': cart[i].phone_no,
+          'takeout_name': cart[i].takeout_name,
+          'item_name': cart[i].item_name,
+          'price': cart[i].price,
+          'type': cart[i].type,
+          'active': cart[i].active
+        })
+        .then(function(response) {
+            console.log(response.data);
+        });
+    }
+  }
+
+  // Returns gigantic list of all active takeout ordered items
+  var get_active_takeout_orders = function() {
+    var $promise = $http.get("/spaghetti/custom_src/php/takeout_items_select.php")
+      .then(function (response) {
+        result = response.data;
+        items = [];
+        for(var i = 0; i < result.records.length; i++) {
+          if(result.records[i].active == "1") {
+            items.push(result.records[i]);
+          }
+        }
+        return items;
+      });
+      return $promise;
+  }
+
+  var update_takeout_price = function(item_name, phone_no, new_price) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/takeout_items_update_price.php",
+      {
+        'name': item_name,
+        'phone_no': phone_no,
+        'price': new_price
+      })
+      .then(function(response) {
+          console.log(response);
+          console.log(response.data);
+      });
+  }
+
+  var update_takeout_phone = function(original_phone, new_phone, cust_name) {
+    console.log("Updating on");
+    console.log(original_phone, new_phone, cust_name);
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/takeout_items_update_phone_no.php",
+    {
+      'original_phone_no': original_phone,
+      'new_phone_no': new_phone,
+      'takeout_name': cust_name
+    })
+    .then(function(response) {
+      console.log("phone numbers updated");
+      console.log(response);
+    });
+  }
+
+  var update_active_takeout_orders = function(cust_name) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/takeout_items_set_active_off.php",
+    {
+      'takeout_name': cust_name
+    })
+    .then(function(response) {
+        console.log(response);
+    });
+  }
+
+  var update_takeout_item_price = function(name_f, phone_no_f, price_f) {
+    var request;
+    request = $http.post("/spaghetti/custom_src/php/takeout_items_update_price.php",
+    {
+      'name': name_f,
+      'phone_no': phone_no_f,
+      'price': price_f
+    })
+    .then(function(response) {
+      console.log(response);
+    });
+  }
+
+
+  return {
+    push_takeout_order: push_takeout_order,
+    get_active_takeout_orders: get_active_takeout_orders,
+    update_takeout_price: update_takeout_price,
+    update_takeout_phone: update_takeout_phone,
+    update_active_takeout_orders: update_active_takeout_orders,
+    update_takeout_item_price: update_takeout_item_price
+  };
+
+}]);
 
 app.service('feedbackDatabase', ['$http', function($http) {
 
