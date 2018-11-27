@@ -105,8 +105,11 @@ app.service('customerData', function(orderDatabase, takeoutOrderDatabase) {
     return pts;
   }
   // Adding an item to their order cart, not yet placed
-  function addToCart(phone, id, name, floatPrice, type) {
+  function addToCart(phone, id, name, floatPrice, type, iotd) {
     if(getSpaghettiHour()) {
+      floatPrice -= (floatPrice * .10);
+    }
+    if(iotd) {
       floatPrice -= (floatPrice * .10);
     }
     // Add it with either takeout_name field or sid field depending on the type of order

@@ -950,16 +950,16 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
       $scope.items = response;
   });
 
-  $scope.add = function(name, price, type) {
+  $scope.add = function(name, price, type, iotd) {
     var floatPrice = parseFloat(price);
     // Add it to cart with either their takeout name or table number
     // For takeout
     if(customerData.getForTakeout()) {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type, iotd);
     }
     // For here
     else {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
   }
 
@@ -972,16 +972,16 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
       $scope.items = response;
   });
 
-  $scope.add = function(name, price, type) {
+  $scope.add = function(name, price, type, iotd) {
     var floatPrice = parseFloat(price);
     // Add it to cart with either their takeout name or table number
     // For takeout
     if(customerData.getForTakeout()) {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type, iotd);
     }
     // For here
     else {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
   }
 });
@@ -992,16 +992,16 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
   menuDatabase.pullDb("entree").then(function(response) {
       $scope.items = response;
   });
-  $scope.add = function(name, price, type) {
+  $scope.add = function(name, price, type, iotd) {
     var floatPrice = parseFloat(price);
     // Add it to cart with either their takeout name or table number
     // For takeout
     if(customerData.getForTakeout()) {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type, iotd);
     }
     // For here
     else {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
   }
 });
@@ -1013,16 +1013,16 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
       $scope.items = response;
   });
 
-  $scope.add = function(name, price, type) {
+  $scope.add = function(name, price, type, iotd) {
     var floatPrice = parseFloat(price);
     // Add it to cart with either their takeout name or table number
     // For takeout
     if(customerData.getForTakeout()) {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type, iotd);
     }
     // For here
     else {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
   }
 });
@@ -1034,16 +1034,16 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
       $scope.items = response;
   });
 
-  $scope.add = function(name, price, type) {
+  $scope.add = function(name, price, type, iotd) {
     var floatPrice = parseFloat(price);
     // Add it to cart with either their takeout name or table number
     // For takeout
     if(customerData.getForTakeout()) {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTakeoutName(), name, floatPrice, type, iotd);
     }
     // For here
     else {
-      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type);
+      customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
   }
 });
