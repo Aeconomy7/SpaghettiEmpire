@@ -324,3 +324,20 @@ button.black {
     height: 30px;
   }
 }
+
+.spaghettiempire {
+  padding-top:10rem;
+  /*font-size: 14rem;*/
+  font-size: calc(8vw + 8vh);
+  font-family: New Century Schoolbook, serif;
+  font-weight: 100;
+  -webkit-text-stroke: 3px black;
+   color: white;
+   text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+  text-align: center;
+}
