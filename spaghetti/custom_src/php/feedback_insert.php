@@ -13,8 +13,6 @@
   $comment = $data->comment;
   $manageronly = $data->manageronly;
 
-  $_comment = mysql_real_escape_string($comment);
-
   $result = $conn->query('INSERT INTO feedback (sid, comment, manageronly) VALUES (' . $sid . ',\'' . $_comment . '\',' . $manageronly . ')');
 
   echo($result);
