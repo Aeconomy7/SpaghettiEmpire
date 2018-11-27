@@ -16,7 +16,7 @@
               </div>
               <div class="col-md-6">
                 {{x.description}}
-                
+
                 <p ng-show="{{x.iotd}}" class="menuItem">Item of the Day! It's 10% off from ${{old_price}}!</p>
               </div>
             </div>
@@ -46,10 +46,10 @@
        <script>
         function addedItem(id) {
           $('#' + id).toggleClass("btn-added");
-          $('#' + id).animate({height += '50px', width += '50px'},"fast","swing");
+          $('#' + id).animate({height: '+=50px', width: '+=50px'},600,"swing");
           setTimeout(function() {
             $('#' + id).toggleClass("btn-added");
-            $('#' + id).animate({height -= '50px', width -= '50px'},"fast","swing");
+            $('#' + id).animate({height: '-=50px', width: '-=50px'},600,"swing");
           }, 600);
         }
        </script>
