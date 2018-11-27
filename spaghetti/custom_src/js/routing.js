@@ -917,6 +917,7 @@ app.controller('menuController', function($scope, customerData) {
     $scope.pageName = "Select Order Type";
   }
 
+  $scope.cost = customerData.getCost();
   $scope.t_id = '';
   $scope.t_name = '';
 
@@ -946,6 +947,7 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
   $scope.pageName = "Appetizers";
   $scope.type = "appetizer";
   $scope.old_price = "";
+  $scope.cost = customerData.getCost();
 
   // Pull from DB, wait for it to finish
   menuDatabase.pullDb("appetizer").then(function(response) {
@@ -954,7 +956,7 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
         if($scope.items[i].iotd == "1") {
           var priceAsFloat = parseFloat($scope.items[i].price);
           $scope.old_price = $scope.items[i].price;
-          
+
           $scope.items[i].price = (priceAsFloat - (.10 * priceAsFloat)).toString();
         }
       }
@@ -979,6 +981,7 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
   $scope.pageName = "Drinks";
   $scope.type = "drink";
   $scope.old_price = "";
+  $scope.cost = customerData.getCost();
 
   menuDatabase.pullDb("drink").then(function(response) {
       $scope.items = response;
@@ -1010,6 +1013,8 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
   $scope.pageName = "Entrees";
   $scope.type = "entree";
   $scope.old_price = "";
+  $scope.cost = customerData.getCost();
+
   menuDatabase.pullDb("entree").then(function(response) {
       $scope.items = response;
       for(var i = 0; i < $scope.items.length; i++) {
@@ -1039,6 +1044,7 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
   $scope.pageName = "Desserts";
   $scope.type = "dessert";
   $scope.old_price = "";
+  $scope.cost = customerData.getCost();
 
   menuDatabase.pullDb("dessert").then(function(response) {
       $scope.items = response;
@@ -1070,6 +1076,7 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
   $scope.pageName = "Kid's Menu";
   $scope.type = "kidsmenu";
   $scope.old_price = "";
+  $scope.cost = customerData.getCost();
 
   menuDatabase.pullDb("kidsmenu").then(function(response) {
       $scope.items = response;
