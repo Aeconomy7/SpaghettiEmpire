@@ -51,10 +51,10 @@
        <script>
         function addedItem(id) {
           $('#' + id).toggleClass("btn-added");
-          $('#' + id).animate({height: '+=10px', width: '+=10px'},"fast","swing");
+          $('#' + id).animate({height: '+=10px'},"fast","swing");
           setTimeout(function() {
             $('#' + id).toggleClass("btn-added");
-            $('#' + id).animate({height: '-=10px', width: '-=10px'},"fast","swing");
+            $('#' + id).animate({height: '-=10px'},"fast","swing");
           }, 300);
         }
        </script>
