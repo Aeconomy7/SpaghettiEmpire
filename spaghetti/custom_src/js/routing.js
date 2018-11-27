@@ -948,6 +948,12 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
   // Pull from DB, wait for it to finish
   menuDatabase.pullDb("appetizer").then(function(response) {
       $scope.items = response;
+      for(var i = 0; i < $scope.items.length; i++) {
+        if($scope.items[i].iotd == "1") {
+          var priceAsFloat = parseFloat($scope.items[i].price);
+          $scope.items[i].price = (priceAsFloat - (.10 * priceAsFloat)).toString();
+        }
+      }
   });
 
   $scope.add = function(name, price, type, iotd) {
@@ -970,6 +976,12 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
   $scope.type = "drink";
   menuDatabase.pullDb("drink").then(function(response) {
       $scope.items = response;
+      for(var i = 0; i < $scope.items.length; i++) {
+        if($scope.items[i].iotd == "1") {
+          var priceAsFloat = parseFloat($scope.items[i].price);
+          $scope.items[i].price = (priceAsFloat - (.10 * priceAsFloat)).toString();
+        }
+      }
   });
 
   $scope.add = function(name, price, type, iotd) {
@@ -991,6 +1003,12 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
   $scope.type = "entree";
   menuDatabase.pullDb("entree").then(function(response) {
       $scope.items = response;
+      for(var i = 0; i < $scope.items.length; i++) {
+        if($scope.items[i].iotd == "1") {
+          var priceAsFloat = parseFloat($scope.items[i].price);
+          $scope.items[i].price = (priceAsFloat - (.10 * priceAsFloat)).toString();
+        }
+      }
   });
   $scope.add = function(name, price, type, iotd) {
     var floatPrice = parseFloat(price);
@@ -1011,6 +1029,12 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
   $scope.type = "dessert";
   menuDatabase.pullDb("dessert").then(function(response) {
       $scope.items = response;
+      for(var i = 0; i < $scope.items.length; i++) {
+        if($scope.items[i].iotd == "1") {
+          var priceAsFloat = parseFloat($scope.items[i].price);
+          $scope.items[i].price = (priceAsFloat - (.10 * priceAsFloat)).toString();
+        }
+      }
   });
 
   $scope.add = function(name, price, type, iotd) {
@@ -1032,6 +1056,12 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
   $scope.type = "kidsmenu";
   menuDatabase.pullDb("kidsmenu").then(function(response) {
       $scope.items = response;
+      for(var i = 0; i < $scope.items.length; i++) {
+        if($scope.items[i].iotd == "1") {
+          var priceAsFloat = parseFloat($scope.items[i].price);
+          $scope.items[i].price = (priceAsFloat - (.10 * priceAsFloat)).toString();
+        }
+      }
   });
 
   $scope.add = function(name, price, type, iotd) {
