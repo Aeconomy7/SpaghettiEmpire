@@ -46,10 +46,10 @@
        <script>
         function addedItem(id) {
           $('#' + id).toggleClass("btn-added");
-          $('#' + id).animate({height: '+=50px', width: '+=50px'},600,"swing");
+          $('#' + id).animate({height: '+=30px'},"fast","swing");
           setTimeout(function() {
             $('#' + id).toggleClass("btn-added");
-            $('#' + id).animate({height: '-=50px', width: '-=50px'},600,"swing");
+            $('#' + id).animate({height: '-=30px'},"fast","swing");
           }, 600);
         }
        </script>
