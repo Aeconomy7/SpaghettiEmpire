@@ -225,7 +225,7 @@ app.controller('featuresController', function($scope, customerData, menuDatabase
   $scope.iotd_name = "";
   $scope.iotd_found = false;
 
-  if($scope.iotd_found) {
+  if(!$scope.iotd_found) {
     menuDatabase.pullDb("entree").then(function(response) {
         $scope.entrees = response;
         for(var i = 0; i < $scope.entrees.length; i++) {
@@ -236,7 +236,7 @@ app.controller('featuresController', function($scope, customerData, menuDatabase
         }
     });
   }
-  if($scope.iotd_found) {
+  if(!$scope.iotd_found) {
     menuDatabase.pullDb("dessert").then(function(response) {
         $scope.desserts = response;
         for(var i = 0; i < $scope.desserts.length; i++) {
