@@ -973,6 +973,8 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
     else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
+    $scope.cost = customerData.getCost();
+    
   }
 
 });
@@ -1006,6 +1008,8 @@ app.controller('menuDrinksController', function($scope, customerData, menuDataba
     else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
+    $scope.cost = customerData.getCost();
+
   }
 });
 
@@ -1037,6 +1041,8 @@ app.controller('menuEntreesController', function($scope, customerData, menuDatab
     else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
+    $scope.cost = customerData.getCost();
+
   }
 });
 
@@ -1069,6 +1075,8 @@ app.controller('menuDessertsController', function($scope, customerData, menuData
     else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
+    $scope.cost = customerData.getCost();
+
   }
 });
 
@@ -1100,6 +1108,8 @@ app.controller('menuKidsController', function($scope, customerData, menuDatabase
     else {
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
+    $scope.cost = customerData.getCost();
+
   }
 });
 
