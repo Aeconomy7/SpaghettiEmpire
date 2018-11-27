@@ -109,9 +109,7 @@ app.service('customerData', function(orderDatabase, takeoutOrderDatabase) {
     if(getSpaghettiHour()) {
       floatPrice -= (floatPrice * .10);
     }
-    if(iotd) {
-      floatPrice -= (floatPrice * .10);
-    }
+
     // Add it with either takeout_name field or sid field depending on the type of order
     if(getForTakeout()) {
       order_cart.push({'phone_no': phone, 'takeout_name': id, 'item_name': name, 'price': floatPrice, 'type': type, 'active': "1"});
