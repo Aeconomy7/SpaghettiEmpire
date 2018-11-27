@@ -209,7 +209,7 @@ app.config(function($routeProvider, $locationProvider) {
 
 });
 
-app.controller('featuresController', function($scope, customerData) {
+app.controller('featuresController', function($scope, customerData, menuDatabase) {
   $scope.pageName = "Features";
   var d = new Date();
   var hour = d.getHours();
@@ -221,6 +221,34 @@ app.controller('featuresController', function($scope, customerData) {
     customerData.setSpaghettiHour(false);
     console.log(customerData.getSpaghettiHour());
   }
+  // Display IOTD by first pulling all entrees/desserts from the DB, then search them for IOTD
+  $scope.iotd_name = "";
+  $scope.iotd_found = false;
+
+  if($scope.iotd_found) {
+    menuDatabase.pullDb("entree").then(function(response) {
+        $scope.entrees = response;
+        for(var i = 0; i < $scope.entrees.length; i++) {
+          if($scope.entrees[i].iotd == "1") {
+            $scope.iotd_found = true;
+            $scope.iotd_name = $scope.entrees[i].item_name;
+          }
+        }
+    });
+  }
+  if($scope.iotd_found) {
+    menuDatabase.pullDb("dessert").then(function(response) {
+        $scope.desserts = response;
+        for(var i = 0; i < $scope.desserts.length; i++) {
+          if($scope.desserts[i].iotd == "1") {
+            $scope.iotd_found = true;
+            $scope.iotd_name = $scope.desserts[i].item_name;
+          }
+        }
+    });
+  }
+
+
 });
 
 // Back button directive
@@ -974,7 +1002,7 @@ app.controller('menuAppetizersController', function($scope, customerData, menuDa
       customerData.addToCart(customerData.getPhoneNo(), customerData.getTableId(), name, floatPrice, type, iotd);
     }
     $scope.cost = customerData.getCost();
-    
+
   }
 
 });
