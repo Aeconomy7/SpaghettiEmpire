@@ -6,8 +6,20 @@ body{
   height: 100%;
 }
 
+@font-face { font-family: Bloxhall; src: url('BloxhallSample.otf'); }
+.spaghettiempire {
+  font-family: Bloxhall;
+  font-size: 2rem;
+  text-shadow: 1px 1px #f0ebd7;
+}
+
+@font-face { font-family: CheerScript; src: url('CHEESEB_.TTF'); }
 .tag-line {
-  font-size: 14px;
+  font-family: CheerScript;
+  font-size: 1.75rem;
+  text-shadow: none;
+  margin-left: 40px;
+  text-align: center;
 }
 /*top menu and side menu*/
 .fixed-menu {
@@ -16,11 +28,11 @@ body{
 }
 
 .side-menu {
-  min-height: calc(100vh - 86px);
+  min-height: calc(100vh - 74px);
 }
 
 .full-card {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 120px);
 }
 
 /*left side menu buttons (i.e. menu, games, loyalty, your order, your bill)*/
@@ -31,7 +43,7 @@ body{
   font-size: 20px;
   font-weight: bold;
   margin-top: 2%;
-  height: 18%;
+  min-height: 18%;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -46,15 +58,21 @@ body{
   color: black;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
+  border-style: groove;
+  border-width: thin;
+  border-color: black;
+  margin: .5%;
+  border-radius: 10%;
+  white-space: nowrap;
 }
 
 .btn {
   font-size:20px;
 }
 
-.btn-top {
-  background-color: #7b7b7b;
-  border: none;
+.btn-special {
+  color: yellow;
 }
 
 .selected {
@@ -305,7 +323,7 @@ button.black {
 
 .welcome{
   width: 70%;
-  height: 60%;
+  height: 50%;
   margin-bottom: 2%;
 }
 
@@ -323,21 +341,4 @@ button.black {
     width: 30px;
     height: 30px;
   }
-}
-
-.spaghettiempire {
-  padding-top:10rem;
-  /*font-size: 14rem;*/
-  font-size: calc(8vw + 8vh);
-  font-family: New Century Schoolbook, serif;
-  font-weight: 100;
-  -webkit-text-stroke: 3px black;
-   color: white;
-   text-shadow:
-       3px 3px 0 #000,
-     -1px -1px 0 #000,
-      1px -1px 0 #000,
-      -1px 1px 0 #000,
-       1px 1px 0 #000;
-  text-align: center;
 }
